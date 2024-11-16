@@ -2,23 +2,65 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import { Route, Routes } from "react-router-dom";
-import AuthPage from "./pages/AuthPage";
 import SignUpPage from "./pages/Auth/SignUpPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import PageNotFound from "./pages/pageNotFound/PageNotFound";
-import ForgetPassword from "./components/forget-password/forgetPassword";
+import ForgetPassword from "./components/forget-password/ForgetPassword";
 import { ToastContainer } from "react-toastify";
+import RouteGuard from "./components/Route-Guard/RouteGuard";
+import InstructorPage from "./pages/Instructor/InstructorPage";
+import HomePage from "./pages/home/HomePage";
+import InstructorCoursePage from "./pages/Instructor/InstructorCoursePage";
+import InstructorDashboardPage from "./pages/Instructor/InstructorDashboardPage";
+import InstructorQuizesPage from "./pages/Instructor/InstructorQuizesPage";
+import ResetPassword from "./components/forget-password/ResetPassword";
 
 function App() {
   return (
     <>
       <Routes>
-        {/* public Route */}
-        <Route path="/auth" element={<AuthPage />} />
+        {/* public Routes */}
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+
         <Route path="/*" element={<PageNotFound />} />
+        <Route path="/home" element={<HomePage />} />
+
+        {/* ptivate Routes */}
+        <Route
+          path="/instructor"
+          element={
+            <RouteGuard>
+              <InstructorPage />
+            </RouteGuard>
+          }
+        />
+        {/* <Route
+          path="/instructor/create-new-course"
+          element={
+            <RouteGuard>
+              <InstructorCoursePage />
+            </RouteGuard>
+          }
+        /> */}
+        <Route
+          path="/instructor/dashboard"
+          element={
+            <RouteGuard>
+              <InstructorDashboardPage />
+            </RouteGuard>
+          }
+        />
+        <Route
+          path="/instructor/quizes"
+          element={
+            <RouteGuard>
+              <InstructorQuizesPage />
+            </RouteGuard>
+          }
+        />
       </Routes>
       <ToastContainer position="top-center" autoClose={3000} />
     </>

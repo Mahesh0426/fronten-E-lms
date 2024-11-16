@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import useForm from "@/hooks/useForm";
 import { initialSignUpFormData, signUpFormControls } from "@/config/formConfig";
 import useLoading from "@/hooks/useLoading";
@@ -7,6 +7,9 @@ import FormControl from "../common-Input/FormControl";
 import LoadingSpinner from "../loading-spinner/LoadingSpinner";
 import { toast } from "react-toastify";
 import { createUser } from "@/axios/userAxios";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Eye, EyeOff } from "lucide-react";
 
 //password validation
 const formValidation = (formData) => {
@@ -21,6 +24,8 @@ const SignUpForm = () => {
   );
   const { userName, userEmail, password } = formData;
   const { isLoading, startLoading, stopLoading } = useLoading();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -62,19 +67,66 @@ const SignUpForm = () => {
       <div className="mt-8 w-full max-w-sm mx-auto">
         <form onSubmit={handleOnSubmit} className="space-y-4">
           {signUpFormControls.map((field, index) => (
-            <FormControl
-              key={index}
-              label={field.label}
-              handleOnChange={handleOnChange}
-              inputAttributes={{
-                type: field.type,
-                name: field.name,
-                value: formData[field.name],
-                placeholder: field.placeholder,
-                required: true,
-                id: field.name,
-              }}
-            />
+            <div key={index}>
+              {field.name === "password" || field.name === "confirmPassword" ? (
+                <div className="relative">
+                  <Label htmlFor={field.name}>{field.label}</Label>
+                  <div className="relative">
+                    <Input
+                      type={
+                        field.name === "password"
+                          ? showPassword
+                            ? "text"
+                            : "password"
+                          : showConfirmPassword
+                          ? "text"
+                          : "password"
+                      }
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleOnChange}
+                      placeholder={field.placeholder}
+                      required
+                      id={field.name}
+                      className="pr-10"
+                    />
+                    <div
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 bg-transparent cursor-pointer "
+                      onClick={() =>
+                        field.name === "password"
+                          ? setShowPassword(!showPassword)
+                          : setShowConfirmPassword(!showConfirmPassword)
+                      }
+                    >
+                      {field.name === "password" ? (
+                        showPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-500" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-500" />
+                        )
+                      ) : showConfirmPassword ? (
+                        <EyeOff className="h-4 w-4 text-gray-500" />
+                      ) : (
+                        <Eye className="h-4 w-4 text-gray-500" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <FormControl
+                  label={field.label}
+                  handleOnChange={handleOnChange}
+                  inputAttributes={{
+                    type: field.type,
+                    name: field.name,
+                    value: formData[field.name],
+                    placeholder: field.placeholder,
+                    required: true,
+                    id: field.name,
+                  }}
+                />
+              )}
+            </div>
           ))}
 
           <div className="mt-6">
