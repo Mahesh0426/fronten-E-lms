@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { autoLoginAction, getUserAction } from "@/redux/user/userAction";
 import LoadingSpinner from "../loading-spinner/LoadingSpinner";
 import { Eye, EyeOff } from "lucide-react";
-import { Label } from "../ui/label"; // Ensure you import Label
-import { Input } from "../ui/input"; // Ensure you import Input
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {

@@ -10,10 +10,10 @@ import { ToastContainer } from "react-toastify";
 import RouteGuard from "./components/Route-Guard/RouteGuard";
 import InstructorPage from "./pages/Instructor/InstructorPage";
 import HomePage from "./pages/home/HomePage";
-import InstructorCoursePage from "./pages/Instructor/InstructorCoursePage";
 import InstructorDashboardPage from "./pages/Instructor/InstructorDashboardPage";
 import InstructorQuizesPage from "./pages/Instructor/InstructorQuizesPage";
 import ResetPassword from "./components/forget-password/ResetPassword";
+import CreateNewCoursePage from "./pages/Instructor/CreateNewCoursePage";
 
 function App() {
   return (
@@ -37,14 +37,14 @@ function App() {
             </RouteGuard>
           }
         />
-        {/* <Route
+        <Route
           path="/instructor/create-new-course"
           element={
             <RouteGuard>
-              <InstructorCoursePage />
+              <CreateNewCoursePage />
             </RouteGuard>
           }
-        /> */}
+        />
         <Route
           path="/instructor/dashboard"
           element={

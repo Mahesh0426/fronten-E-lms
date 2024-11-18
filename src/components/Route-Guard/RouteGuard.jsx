@@ -1,4 +1,6 @@
-import { useSelector } from "react-redux";
+import { autoLoginAction } from "@/redux/user/userAction";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
 const RouteGuard = (props) => {

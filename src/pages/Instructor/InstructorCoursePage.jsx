@@ -10,22 +10,29 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Edit, Trash2 } from "lucide-react";
+import { BookOpen, Edit, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const InstructorCoursePage = () => {
+  const navigate = useNavigate();
+
   return (
     <Card>
       <CardHeader className="flex justify-between flex-row items-center">
-        <CardTitle className="text-3xl font-extrabold"> All courses</CardTitle>
+        <CardTitle className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+          {" "}
+          All courses
+        </CardTitle>
         <Button
-          // onClick={() => {
-          //   setCurrentEditedCourseId(null);
-          //   setCourseLandingFormData(courseLandingInitialFormData);
-          //   setCourseCurriculumFormData(courseCurriculumInitialFormData);
-          //   navigate("/instructor/create-new-course");
-          // }}
-          className="flex p-6 justify-center rounded-md bg-indigo-600   text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          onClick={() => {
+            // setCurrentEditedCourseId(null);
+            // setCourseLandingFormData(courseLandingInitialFormData);
+            // setCourseCurriculumFormData(courseCurriculumInitialFormData);
+            navigate("/instructor/create-new-course");
+          }}
+          className="flex p-6 justify-center rounded-md bg-indigo-600   text-sm font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
+          <BookOpen />
           Create new course
         </Button>
       </CardHeader>

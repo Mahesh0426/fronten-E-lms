@@ -14,6 +14,7 @@ import {
   BrainCircuit,
   NotebookTabs,
   Flag,
+  GraduationCap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -82,15 +83,13 @@ const InstructorPage = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className=" flex min-h-screen bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-100 via-white to-purple-100 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-900">
       <aside className="w-64 bg-blue-100 shadow-md">
         <div className="p-4">
           {/* header */}
-          <header className="mb-3">
-            <h1 className="text-2xl font-bold">Bindu Ghimire</h1>
-            <p className=" text-sm text-gray-600 ">
-              Welcome to GyanX Instuctor Panel
-            </p>
+          <header className="mb-3 flex flext-start">
+            <GraduationCap className="mr-2 h-6 w-6" />
+            <span className="font-bold">gyanX Admin</span>
           </header>
         </div>
 
@@ -116,13 +115,13 @@ const InstructorPage = () => {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="w-full p-4 flex items-center space-x-2 justify-start"
+                className="w-64 p-4 flex items-center space-x-2 justify-start"
               >
                 <div className="h-10 w-10 rounded-full font-bold bg-yellow-500 text-white text-2xl flex justify-center items-center">
                   {userName.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex flex-col items-start">
-                  <span className="text-sm text-gray-500">Instructor</span>
+                  <span className="text-sm text-gray-500">{userName}</span>
                 </div>
               </Button>
             </DropdownMenuTrigger>

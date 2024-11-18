@@ -61,112 +61,141 @@ export const initialSignUpFormData = {
 };
 
 //language options
-
 export const languageOptions = [
-  { id: "english", label: "English" },
-  { id: "spanish", label: "Spanish" },
-  { id: "french", label: "French" },
-  { id: "german", label: "German" },
-  { id: "chinese", label: "Chinese" },
-  { id: "japanese", label: "Japanese" },
-  { id: "korean", label: "Korean" },
-  { id: "portuguese", label: "Portuguese" },
-  { id: "arabic", label: "Arabic" },
-  { id: "russian", label: "Russian" },
+  { id: "english", label: "English", value: "english" },
+  { id: "hindi", label: "Hindi", value: "hindi" },
+  { id: "nepali", label: "Nepali", value: "nepali" },
+  { id: "bengali", label: "Bengali", value: "Bengali" },
+  { id: "urdu", label: "Urdu", value: "urdu" },
+  { id: "french", label: "French", value: "french" },
 ];
 
 //course level options for students
 export const courseLevelOptions = [
-  { id: "beginner", label: "Beginner" },
-  { id: "intermediate", label: "Intermediate" },
-  { id: "advanced", label: "Advanced" },
+  { id: "beginner", label: "Beginner", value: "beginner" },
+  { id: "intermediate", label: "Intermediate", value: "intermediate" },
+  { id: "advanced", label: "Advanced", value: "advanced" },
 ];
 
 //course categories
 export const courseCategories = [
-  { id: "web-development", label: "Web Development" },
-  { id: "backend-development", label: "Backend Development" },
-  { id: "data-science", label: "Data Science" },
-  { id: "machine-learning", label: "Machine Learning" },
-  { id: "artificial-intelligence", label: "Artificial Intelligence" },
-  { id: "cloud-computing", label: "Cloud Computing" },
-  { id: "cyber-security", label: "Cyber Security" },
-  { id: "mobile-development", label: "Mobile Development" },
-  { id: "game-development", label: "Game Development" },
-  { id: "software-engineering", label: "Software Engineering" },
+  {
+    id: "web-development",
+    label: " Full Stack Web Development",
+    value: "web-development",
+  },
+  {
+    id: "backend-development",
+    label: "Backend Development",
+    value: "backend-development",
+  },
+  {
+    id: "fronten-development",
+    label: "Fronten Development",
+    value: "fronten-development",
+  },
+  { id: "data-science", label: "Data Science", value: "data-science" },
+  {
+    id: "machine-learning",
+    label: "Machine Learning",
+    value: "machine-learning",
+  },
+
+  {
+    id: "artificial-intelligence",
+    label: "Artificial Intelligence",
+    value: "artificial-intelligence",
+  },
+  { id: "cloud-computing", label: "Cloud Computing", value: "cloud-computing" },
+  { id: "cyber-security", label: "Cyber Security", value: "cyber-security" },
+  {
+    id: "mobile-development",
+    label: "Mobile Development",
+    value: "mobile-development",
+  },
+  {
+    id: "game-development",
+    label: "Game Development",
+    value: "game-development",
+  },
+  {
+    id: "software-engineering",
+    label: "Software Engineering",
+    value: "software-engineering",
+  },
 ];
 
-//course landing page form controls
-export const courseLandingPageFormControls = [
+//course courseDetails form controls
+export const courseDetailsFormControls = [
   {
     name: "title",
     label: "Title",
-    componentType: "input",
+
     type: "text",
     placeholder: "Enter course title",
   },
   {
     name: "category",
     label: "Category",
-    componentType: "select",
-    type: "text",
+
+    type: "select",
     placeholder: "",
     options: courseCategories,
   },
   {
     name: "level",
     label: "Level",
-    componentType: "select",
-    type: "text",
+
+    type: "select",
     placeholder: "",
     options: courseLevelOptions,
   },
   {
     name: "primaryLanguage",
     label: "Primary Language",
-    componentType: "select",
-    type: "text",
+
+    type: "select",
     placeholder: "",
     options: languageOptions,
   },
   {
     name: "subtitle",
     label: "Subtitle",
-    componentType: "input",
+
     type: "text",
     placeholder: "Enter course subtitle",
   },
   {
     name: "description",
     label: "Description",
-    componentType: "textarea",
-    type: "text",
+
+    type: "textarea",
     placeholder: "Enter course description",
   },
   {
     name: "pricing",
     label: "Pricing",
-    componentType: "input",
+
     type: "number",
     placeholder: "Enter course pricing",
   },
   {
     name: "objectives",
     label: "Objectives",
-    componentType: "textarea",
-    type: "text",
+
+    type: "textarea",
     placeholder: "Enter course objectives",
   },
   {
     name: "welcomeMessage",
     label: "Welcome Message",
-    componentType: "textarea",
+    type: "textarea",
     placeholder: "Welcome message for students",
   },
 ];
 
-//course landing page initial form data
-export const courseLandingInitialFormData = {
+//course ourseDetails initial form data
+export const initialCourseDetailsFormData = {
   title: "",
   category: "",
   level: "",
@@ -176,11 +205,10 @@ export const courseLandingInitialFormData = {
   pricing: "",
   objectives: "",
   welcomeMessage: "",
-  image: "",
 };
 
 // course curriculum initial form data
-export const courseCurriculumInitialFormData = [
+export const courseContentInitialFormData = [
   {
     title: "",
     videoUrl: "",

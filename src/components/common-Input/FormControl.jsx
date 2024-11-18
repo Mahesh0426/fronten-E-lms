@@ -131,7 +131,7 @@ const FormControl = (props) => {
           }
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder={inputAttributes.placeholder} />
+            <SelectValue placeholder={inputAttributes.name} />
           </SelectTrigger>
           <SelectContent>
             {options.map((option, index) => (
