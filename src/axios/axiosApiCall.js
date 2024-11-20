@@ -8,6 +8,7 @@ export const axiosApiCall = async (axiosParams) => {
     data,
     isPrivate = false,
     useRefreshToken = false,
+    onUploadProgress,
   } = axiosParams;
 
   const token = useRefreshToken
@@ -23,6 +24,7 @@ export const axiosApiCall = async (axiosParams) => {
       url,
       data,
       headers,
+      onUploadProgress,
     });
 
     // response.data | error message here
@@ -36,10 +38,10 @@ export const axiosApiCall = async (axiosParams) => {
     // If access token is expired, try to get new access token using the refresh token
     // and use that new access token to call api
     if (error.message === "jwt expired") {
-      const result = await getNewAccessJwt();
+      const response = await getNewAccessJwt();
 
-      if (result?.status === "success") {
-        sessionStorage.setItem("accessJWT", result.data);
+      if (response?.status === "success") {
+        sessionStorage.setItem("accessJWT", response.data);
 
         return axiosApiCall(axiosParams);
       }

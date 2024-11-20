@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { loginUser } from "@/axios/userAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { autoLoginAction, getUserAction } from "@/redux/user/userAction";
-import LoadingSpinner from "../loading-spinner/LoadingSpinner";
+import LoadingSpinner from "../helper/loading-spinner/LoadingSpinner";
 import { Eye, EyeOff } from "lucide-react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -29,22 +29,22 @@ const LoginForm = () => {
     startLoading();
 
     // Call API to login the user
-    const result = await loginUser(formData);
+    const response = await loginUser(formData);
 
     stopLoading();
-    if (result?.status === "error") {
-      return toast.error(result.message);
+    if (response?.status === "error") {
+      return toast.error(response.message);
     }
 
     // Store JWTs in session and local storage
-    sessionStorage.setItem("accessJWT", result.data.accessJWT);
-    localStorage.setItem("refreshJWT", result.data.refreshJWT);
+    sessionStorage.setItem("accessJWT", response.data.accessJWT);
+    localStorage.setItem("refreshJWT", response.data.refreshJWT);
 
     // Dispatch action to get the user
     dispatch(getUserAction());
 
     //Show success message and Clear the form
-    toast.success(result.message);
+    toast.success(response.message);
     setFormData(initialLoginFormData);
   };
   // Logic to handle what should happen if a user is logged in

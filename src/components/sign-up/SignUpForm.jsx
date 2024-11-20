@@ -4,7 +4,7 @@ import { initialSignUpFormData, signUpFormControls } from "@/config/formConfig";
 import useLoading from "@/hooks/useLoading";
 import { Button } from "../ui/button";
 import FormControl from "../common-Input/FormControl";
-import LoadingSpinner from "../loading-spinner/LoadingSpinner";
+import LoadingSpinner from "../helper/loading-spinner/LoadingSpinner";
 import { toast } from "react-toastify";
 import { createUser } from "@/axios/userAxios";
 import { Label } from "../ui/label";
@@ -36,19 +36,19 @@ const SignUpForm = () => {
     startLoading();
 
     //call api to create user in Db
-    const result = await createUser({
+    const response = await createUser({
       userName,
       userEmail,
       password,
     });
     stopLoading();
 
-    if (result?.status === "error") {
-      return toast.error(result.message || "cannot create user");
+    if (response?.status === "error") {
+      return toast.error(response.message || "cannot create user");
     }
 
     setFormData(initialSignUpFormData);
-    toast.success(result.message);
+    toast.success(response.message);
   };
 
   return (

@@ -208,7 +208,7 @@ export const initialCourseDetailsFormData = {
 };
 
 // course curriculum initial form data
-export const courseContentInitialFormData = [
+export const initialCourseContentFormData = [
   {
     title: "",
     videoUrl: "",

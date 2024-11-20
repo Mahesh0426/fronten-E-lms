@@ -8,12 +8,12 @@ import PageNotFound from "./pages/pageNotFound/PageNotFound";
 import ForgetPassword from "./components/forget-password/ForgetPassword";
 import { ToastContainer } from "react-toastify";
 import RouteGuard from "./components/Route-Guard/RouteGuard";
-import InstructorPage from "./pages/Instructor/InstructorPage";
+import InstructorHomePage from "./pages/Instructor/InstructorHomePage";
 import HomePage from "./pages/home/HomePage";
 import InstructorDashboardPage from "./pages/Instructor/InstructorDashboardPage";
 import InstructorQuizesPage from "./pages/Instructor/InstructorQuizesPage";
 import ResetPassword from "./components/forget-password/ResetPassword";
-import CreateNewCoursePage from "./pages/Instructor/CreateNewCoursePage";
+import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
 
 function App() {
   return (
@@ -33,17 +33,13 @@ function App() {
           path="/instructor"
           element={
             <RouteGuard>
-              <InstructorPage />
+              <InstructorHomePage />
             </RouteGuard>
           }
         />
         <Route
           path="/instructor/create-new-course"
-          element={
-            <RouteGuard>
-              <CreateNewCoursePage />
-            </RouteGuard>
-          }
+          element={<CreateNewCoursePage />}
         />
         <Route
           path="/instructor/dashboard"

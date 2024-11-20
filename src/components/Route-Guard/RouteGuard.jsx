@@ -17,9 +17,8 @@ const RouteGuard = (props) => {
 
   // Check if User is Authenticated but Not Instructor
   if (
-    user.role !== "instructor" &&
-    (location.pathname.includes("instructor") ||
-      location.pathname.includes("/login"))
+    (user.role !== "instructor" && location.pathname.includes("instructor")) ||
+    location.pathname.includes("/login")
   ) {
     return <Navigate to="/home" />;
   }
