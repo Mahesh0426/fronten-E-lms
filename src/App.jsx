@@ -39,7 +39,11 @@ function App() {
         />
         <Route
           path="/instructor/create-new-course"
-          element={<CreateNewCoursePage />}
+          element={
+            <RouteGuard>
+              <CreateNewCoursePage />
+            </RouteGuard>
+          }
         />
         <Route
           path="/instructor/dashboard"
