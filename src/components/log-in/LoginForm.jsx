@@ -7,12 +7,13 @@ import FormControl from "../common-Input/FormControl";
 import { toast } from "react-toastify";
 import { loginUser } from "@/axios/userAxios";
 import { useDispatch, useSelector } from "react-redux";
-import { autoLoginAction, getUserAction } from "@/redux/user/userAction";
 import LoadingSpinner from "../helper/loading-spinner/LoadingSpinner";
 import { Eye, EyeOff } from "lucide-react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useNavigate } from "react-router-dom";
+import { setUser } from "@/redux/user/userSlice";
+import { getUserAction } from "@/redux/user/userAction";
 
 const LoginForm = () => {
   const { formData, handleOnChange, setFormData } =
@@ -24,50 +25,84 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   //function to handle login submit
+  // const handleOnSubmit = async (e) => {
+  //   e.preventDefault();
+  //   startLoading();
+
+  //   // Call API to login the user
+  //   const response = await loginUser(formData);
+
+  //   stopLoading();
+  //   if (response?.status === "error") {
+  //     return toast.error(response.message);
+  //   }
+
+  //   // Store JWTs in session and local storage
+  //   sessionStorage.setItem("accessJWT", response.data.accessJWT);
+  //   localStorage.setItem("refreshJWT", response.data.refreshJWT);
+
+  //   // Dispatch action to get the user
+  //   dispatch(getUserAction());
+
+  //   //Show success message and Clear the form
+  //   toast.success(response.message);
+  //   setFormData(initialLoginFormData);
+  // };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     startLoading();
 
-    // Call API to login the user
-    const response = await loginUser(formData);
+    try {
+      const response = await loginUser(formData);
 
-    stopLoading();
-    if (response?.status === "error") {
-      return toast.error(response.message);
+      if (response?.status === "error") {
+        toast.error(response.message);
+        return;
+      }
+
+      sessionStorage.setItem("accessJWT", response.data.accessJWT);
+      localStorage.setItem("refreshJWT", response.data.refreshJWT);
+
+      // Dispatch action to get the user
+      dispatch(getUserAction());
+
+      toast.success(response.message);
+      setFormData(initialLoginFormData);
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast.error("Login failed. Please try again.");
+    } finally {
+      stopLoading();
     }
-
-    // Store JWTs in session and local storage
-    sessionStorage.setItem("accessJWT", response.data.accessJWT);
-    localStorage.setItem("refreshJWT", response.data.refreshJWT);
-
-    // Dispatch action to get the user
-    dispatch(getUserAction());
-
-    //Show success message and Clear the form
-    toast.success(response.message);
-    setFormData(initialLoginFormData);
   };
+
   // Logic to handle what should happen if a user is logged in
   const { user } = useSelector((state) => state.user);
 
-  // If user is logged in, redirect to the instructor dashboard
   useEffect(() => {
-    // if user exists [logged in], navigate to instructor homepage
     if (user?._id) {
       navigate("/instructor");
     }
-    // if no tokens, keep them in login page
-    if (
-      !sessionStorage.getItem("accessJWT") &&
-      !localStorage.getItem("refreshJWT")
-    ) {
-      return;
-    }
-    // if not try auto login
-    if (!user?._id) {
-      dispatch(autoLoginAction());
-    }
-  }, [user?._id, navigate, dispatch]);
+  }, [user?._id, navigate]);
+
+  // // If user is logged in, redirect to the instructor dashboard
+  // useEffect(() => {
+  //   // if user exists [logged in], navigate to instructor homepage
+  //   if (user?._id) {
+  //     navigate("/instructor");
+  //   }
+  //   // if no tokens, keep them in login page
+  //   if (
+  //     !sessionStorage.getItem("accessJWT") &&
+  //     !localStorage.getItem("refreshJWT")
+  //   ) {
+  //     return;
+  //   }
+  //   // if not try auto login
+  //   if (!user?._id) {
+  //     dispatch(autoLoginAction());
+  //   }
+  // }, [user?._id, navigate, dispatch]);
 
   return (
     <div className="min-h-screen w-full p-4 md:px-6 md:py-12 lg:px-8">
@@ -83,7 +118,7 @@ const LoginForm = () => {
       </div>
 
       <div className="mt-12 w-full max-w-sm mx-auto">
-        <form onSubmit={handleOnSubmit} className="space-y-4">
+        <form onSubmit={handleOnSubmit} className="space-y-4" autoComplete="on">
           {LogInFormControls.map((field, index) => (
             <div key={index}>
               {field.name === "password" ? (
@@ -99,6 +134,7 @@ const LoginForm = () => {
                       required
                       id={field.name}
                       className="pr-10"
+                      autoComplete="current-password"
                     />
                     <div
                       className="absolute inset-y-0 right-0 flex items-center pr-3 bg-transparent cursor-pointer"
@@ -121,6 +157,7 @@ const LoginForm = () => {
                     name: field.name,
                     value: formData[field.name],
                     placeholder: field.placeholder,
+                    autoComplete: field.autoComplete,
                     required: true,
                     id: field.name,
                   }}

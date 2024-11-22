@@ -18,14 +18,14 @@ export const signUpFormControls = [
     label: "Password",
     type: "password",
     placeholder: "Enter  your password",
-    autoComplete: "password",
+    autoComplete: "current-password",
   },
   {
     name: "confirmPassword",
     label: "Confirm Password",
     type: "password",
     placeholder: " Enter confirm password",
-    autoComplete: "password",
+    autoComplete: "current-password",
   },
 ];
 
@@ -42,7 +42,7 @@ export const LogInFormControls = [
     label: "Password",
     type: "password",
     placeholder: "Enter  your password",
-    autoComplete: "current-password",
+    autComplete: "current-password",
   },
 ];
 
@@ -205,6 +205,7 @@ export const initialCourseDetailsFormData = {
   pricing: "",
   objectives: "",
   welcomeMessage: "",
+  image: "",
 };
 
 // course curriculum initial form data
