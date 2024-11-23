@@ -27,7 +27,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {},
   users: [],
-  isLoading: true, // Add this line
+  isLoading: true,
 };
 
 const userSlice = createSlice({
@@ -36,7 +36,7 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
-      state.isLoading = false; // Set loading to false when user is set
+      state.isLoading = false;
     },
     setUsers: (state, action) => {
       state.users = action.payload;
