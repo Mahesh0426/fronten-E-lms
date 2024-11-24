@@ -14,7 +14,8 @@ import InstructorDashboardPage from "./pages/Instructor/InstructorDashboardPage"
 import InstructorQuizesPage from "./pages/Instructor/InstructorQuizeAndAssignmentPage";
 import ResetPassword from "./components/forget-password/ResetPassword";
 import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
-// import AppInitializer from "./config/appInitiliazer";
+import StudentLayout from "./components/student-view/StudentLayout";
+import StudentAllCoursepage from "./pages/student/StudentCourseDetailspage";
 
 function App() {
   return (
@@ -26,7 +27,6 @@ function App() {
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/*" element={<PageNotFound />} />
-        <Route path="/home" element={<HomePage />} />
 
         {/* ptivate Routes */}
 
@@ -55,6 +55,11 @@ function App() {
             </RouteGuard>
           }
         />
+        <Route path="/" element={<StudentLayout />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="" element={<HomePage />} />
+          <Route path="/courses" element={<StudentAllCoursepage />} />
+        </Route>
       </Routes>
 
       <ToastContainer position="top-center" autoClose={2000} />
