@@ -15,7 +15,8 @@ import InstructorQuizesPage from "./pages/Instructor/InstructorQuizeAndAssignmen
 import ResetPassword from "./components/forget-password/ResetPassword";
 import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
 import StudentLayout from "./components/student-view/StudentLayout";
-import StudentAllCoursepage from "./pages/student/StudentCourseDetailspage";
+import StudentAllCoursepage from "./pages/student/StudentAllCoursespage";
+import StudentCourseDetailspage from "./pages/student/StudentCourseDetailspage";
 
 function App() {
   return (
@@ -58,7 +59,11 @@ function App() {
         <Route path="/" element={<StudentLayout />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="" element={<HomePage />} />
-          <Route path="/courses" element={<StudentAllCoursepage />} />
+          <Route path="courses" element={<StudentAllCoursepage />} />
+          <Route
+            path="course/details/:id"
+            element={<StudentCourseDetailspage />}
+          />
         </Route>
       </Routes>
 

@@ -81,7 +81,7 @@ export const courseLevelOptions = [
 export const courseCategories = [
   {
     id: "web-development",
-    label: " Full Stack Web Development",
+    label: "Web Development",
     value: "web-development",
   },
   {

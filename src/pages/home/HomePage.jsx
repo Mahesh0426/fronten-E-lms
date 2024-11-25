@@ -133,16 +133,18 @@ const HomePage = () => {
                 whileHover="hover"
                 className="inline-block"
               >
-                <Button className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-indigo-500/25 transition-all duration-200">
-                  Get Started
-                  <motion.span
-                    initial={{ x: 0 }}
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </motion.span>
-                </Button>
+                <Link to="/courses">
+                  <Button className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-6 py-3 rounded-lg shadow-lg hover:shadow-indigo-500/25 transition-all duration-200">
+                    Get Started
+                    <motion.span
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </motion.span>
+                  </Button>
+                </Link>
               </motion.div>
             </Link>
           </motion.div>
@@ -164,7 +166,7 @@ const HomePage = () => {
                   alt="thumbnail"
                   width={300}
                   height={150}
-                  className="w-full h-40 object-cover"
+                  className="w-full h-40 object-cover "
                 />
                 <div className="p-4">
                   <h3 className="font-bold mb-2">{courseItem?.title}</h3>
