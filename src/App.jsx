@@ -17,6 +17,8 @@ import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewC
 import StudentLayout from "./components/student-view/StudentLayout";
 import StudentAllCoursepage from "./pages/student/StudentAllCoursespage";
 import StudentCourseDetailspage from "./pages/student/StudentCourseDetailspage";
+import MyCoursePage from "./pages/student/MyCoursePage";
+import PaypalPaymentReturnPage from "./pages/student/PaymentReturnPage";
 
 function App() {
   return (
@@ -64,6 +66,8 @@ function App() {
             path="course/details/:id"
             element={<StudentCourseDetailspage />}
           />
+          <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
+          <Route path="student-courses" element={<MyCoursePage />} />
         </Route>
       </Routes>
 
