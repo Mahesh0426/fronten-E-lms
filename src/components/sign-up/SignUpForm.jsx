@@ -10,6 +10,7 @@ import { createUser } from "@/axios/userAxios";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 //password validation
 const formValidation = (formData) => {
@@ -26,6 +27,7 @@ const SignUpForm = () => {
   const { isLoading, startLoading, stopLoading } = useLoading();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +50,9 @@ const SignUpForm = () => {
     }
 
     setFormData(initialSignUpFormData);
+
     toast.success(response.message);
+    navigate("/login");
   };
 
   return (

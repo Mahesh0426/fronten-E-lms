@@ -1,14 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllStudentCoursesAction } from "@/redux/student-course/studentCourseAction";
 import { useEffect } from "react";
 
 const HomePage = () => {
   const { studentCourses } = useSelector((state) => state.studentCourse);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -158,6 +158,7 @@ const HomePage = () => {
           {studentCourses && studentCourses.length > 0 ? (
             studentCourses.map((courseItem) => (
               <div
+                onClick={() => navigate(`/course/details/${courseItem?._id}`)}
                 key={courseItem?._id}
                 className="border rounded-lg overflow-hidden shadow cursor-pointer transition-all duration-300 ease-in hover:shadow-lg hover:scale-105"
               >
