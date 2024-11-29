@@ -11,7 +11,7 @@ import RouteGuard from "./components/Route-Guard/RouteGuard";
 import InstructorLayout from "./components/instructor-view/Instructor-layout/InstructorLayout";
 import HomePage from "./pages/home/HomePage";
 import InstructorDashboardPage from "./pages/Instructor/InstructorDashboardPage";
-import InstructorQuizesPage from "./pages/Instructor/InstructorQuizeAndAssignmentPage";
+import InstructorQuizesPage from "./pages/Instructor/quiz-assignment/Quize&AssignmentPage";
 import ResetPassword from "./components/forget-password/ResetPassword";
 import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
 import StudentLayout from "./components/student-view/StudentLayout";

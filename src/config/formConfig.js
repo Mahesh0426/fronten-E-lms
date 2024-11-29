@@ -46,6 +46,37 @@ export const LogInFormControls = [
   },
 ];
 
+export const assignmentFormControls = [
+  {
+    name: "title",
+    label: "Title",
+    type: "text",
+    placeholder: "Enter title",
+    required: true,
+  },
+  {
+    name: "description",
+    label: "Description",
+    type: "textarea",
+    placeholder: "Enter description",
+    required: true,
+  },
+  {
+    name: "dueDate",
+    label: "Due Date",
+    type: "date",
+    placeholder: "Enter due date",
+    required: true,
+  },
+  {
+    name: "maxScore",
+    label: "maxScore",
+    type: "number",
+    placeholder: "Enter Max Score",
+    required: true,
+  },
+];
+
 //initial login form
 export const initialLoginFormData = {
   userEmail: "",
@@ -58,6 +89,14 @@ export const initialSignUpFormData = {
   userEmail: "",
   password: "",
   confirmPassword: "",
+};
+
+//initial assifnment formData
+export const initialAssignmentFormData = {
+  title: "",
+  description: "",
+  dueDate: "",
+  maxScore: "",
 };
 
 //language options
