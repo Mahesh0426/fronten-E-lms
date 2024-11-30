@@ -1,0 +1,194 @@
+import React, { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import {
+  BookOpen,
+  BookX,
+  Edit,
+  PlusCircle,
+  Search,
+  Trash2,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllCoursesAction } from "@/redux/instructor-course/courseAction";
+
+import {
+  setCourseContentFormData,
+  setCourseDetailsFormData,
+  setCurrentEditedCourseId,
+} from "@/redux/instructor-course/courseSlice";
+import {
+  initialCourseContentFormData,
+  initialCourseDetailsFormData,
+} from "@/config/formConfig";
+import { Input } from "@/components/ui/input";
+
+const InstructorAllCoursePage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { courses } = useSelector((state) => state.course);
+
+  // State to manage the search input
+  const [searchProduct, setSearchProduct] = useState("");
+
+  useEffect(() => {
+    // Dispatch action to get all courses
+    dispatch(fetchAllCoursesAction());
+  }, [dispatch]);
+
+  // Filter courses based on search input
+  const filteredCourses = courses.filter((course) =>
+    course.title.toLowerCase().includes(searchProduct.toLowerCase())
+  );
+
+  return (
+    <Card className="min-h-[600px]">
+      <CardHeader>
+        <CardTitle className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+          All courses
+        </CardTitle>
+      </CardHeader>
+
+      <div className="px-6 pb-4">
+        <div className="flex flex-col sm:flex-row gap-4 w-full">
+          <div className="flex-grow">
+            <Input
+              placeholder="Search courses..."
+              className="w-full"
+              prefix={<Search className="h-4 w-4 mr-2" />}
+              value={searchProduct}
+              onChange={(e) => setSearchProduct(e.target.value)}
+            />
+          </div>
+
+          <Button
+            onClick={() => {
+              dispatch(setCurrentEditedCourseId(null));
+              dispatch(setCourseContentFormData(initialCourseContentFormData));
+              dispatch(setCourseDetailsFormData(initialCourseDetailsFormData));
+              navigate("/instructor/create-new-course");
+            }}
+            className="w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+          >
+            <BookOpen className="mr-2 h-5 w-5" />
+            Create new course
+          </Button>
+        </div>
+      </div>
+
+      <CardContent>
+        {courses && courses.length > 0 ? (
+          <div>
+            {filteredCourses.length > 0 ? (
+              <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-300px)]">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[50px]">SN</TableHead>
+                      <TableHead className="w-[150px]">Thumbnail</TableHead>
+                      <TableHead>Course</TableHead>
+                      <TableHead>Students</TableHead>
+                      <TableHead>Revenue</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+
+                  <TableBody>
+                    {filteredCourses.map((course, index) => (
+                      <TableRow key={course?._id || index}>
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>
+                          <img
+                            src={course?.image}
+                            alt="courseImage"
+                            className="h-20 w-25 rounded"
+                          />
+                        </TableCell>
+                        <TableCell className="font-medium">
+                          {course?.title}
+                        </TableCell>
+                        <TableCell>{course?.students?.length}</TableCell>
+                        <TableCell>{course?.pricing}</TableCell>
+                        <TableCell className="text-right ">
+                          <Button
+                            onClick={() =>
+                              navigate(`/instructor/edit-course/${course?._id}`)
+                            }
+                            variant="ghost"
+                            size="sm"
+                            className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                          >
+                            <Edit className="h-6 w-6" />
+                          </Button>
+
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                          >
+                            <Trash2 className="h-6 w-6" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            ) : (
+              <div className="flex justify-center items-center h-32 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                No courses found matching your search
+              </div>
+            )}
+          </div>
+        ) : (
+          // for the first time if no course available
+          <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100 flex items-center justify-center p-4">
+            <Card className="max-w-2xl w-full p-8 text-center space-y-6">
+              <div className="flex justify-center">
+                <div className="relative">
+                  <BookX
+                    className="w-24 h-24 text-neutral-300"
+                    strokeWidth={1.4}
+                  />
+                  <div className="absolute -bottom-2 -right-2 bg-background rounded-full p-1">
+                    <PlusCircle
+                      className="w-8 h-8 text-primary"
+                      strokeWidth={1.4}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <h1 className="font-extrabold text-4xl bg-gradient-to-r from-neutral-900 to-neutral-700 bg-clip-text text-transparent">
+                  No courses available at the moment
+                </h1>
+                <p className="text-neutral-500 text-lg">
+                  Get started by creating your first course or check back later
+                </p>
+              </div>
+
+              <div className="flex justify-center gap-3">
+                <Button size="lg" className="font-medium">
+                  Create Course
+                </Button>
+              </div>
+            </Card>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
+export default InstructorAllCoursePage;
