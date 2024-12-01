@@ -27,7 +27,7 @@ export const createCourse = (courseData) => {
   });
 };
 
-//update  course details by id  | PATCH | private Route
+//update  course details by id  | PUT | private Route
 export const updateCourseById = (courseId, courseData) => {
   return axiosApiCall({
     method: "put",

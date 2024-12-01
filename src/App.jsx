@@ -16,10 +16,12 @@ import ResetPassword from "./components/forget-password/ResetPassword";
 import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
 import StudentLayout from "./components/student-view/StudentLayout";
 import StudentAllCoursepage from "./pages/student/StudentAllCoursespage";
-import StudentCourseDetailspage from "./pages/student/StudentCourseDetailspage";
+import StudentCourseDetailspage from "./pages/student/StudentCourseDetailsPage";
 import MyCoursePage from "./pages/student/MyCoursePage";
 import PaypalPaymentReturnPage from "./pages/student/PaymentReturnPage";
 import CourseProgressPage from "./pages/student/CourseProgressPage";
+import QuizAttemptPage from "./pages/student/quiz and assignment/QuizAttemptPage";
+import AssignmentSubmissionPage from "./pages/student/quiz and assignment/AssignmentSubmissionPage";
 
 function App() {
   return (
@@ -70,6 +72,11 @@ function App() {
           <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
           <Route path="student-courses" element={<MyCoursePage />} />
           <Route path="course-progress/:id" element={<CourseProgressPage />} />
+          <Route path="student-quiz/:quizId" element={<QuizAttemptPage />} />
+          <Route
+            path="student-assignment/:assignmentId"
+            element={<AssignmentSubmissionPage />}
+          />
         </Route>
       </Routes>
 

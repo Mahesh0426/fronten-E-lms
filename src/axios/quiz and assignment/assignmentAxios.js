@@ -35,3 +35,30 @@ export const updateAssignmentStatus = (assignmentId, status) => {
     data: { status },
   });
 };
+
+//ASSIGNMENT SUBMITSSION
+
+//   create a  new assignment Submission | POST | | private Route
+export const createAssignmentSubmission = (submissionData) => {
+  return axiosApiCall({
+    method: "post",
+    url: `${USER_API_URL}/create-submission`,
+    data: submissionData,
+  });
+};
+
+// get  all assignments Submission list | GET | Public Route
+export const fetchAllAssignmentsSubmissionList = () => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/get-allSubmissions`,
+  });
+};
+
+// get   submitted  assignment by id  | GET | public Route
+export const fetchSubmittedAssignmentById = (assignmentId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/get-submission/${assignmentId}`,
+  });
+};

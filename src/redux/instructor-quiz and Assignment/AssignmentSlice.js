@@ -4,6 +4,8 @@ const initialState = {
   assignment: [],
   assignments: [],
   assignmentStatus: "Draft",
+  submittedAssignment: {},
+  submittedAssignmentsList: [],
 };
 const assignmentSlice = createSlice({
   name: "assignment",
@@ -18,8 +20,20 @@ const assignmentSlice = createSlice({
     setAssignmentStatus: (state, action) => {
       state.assignmentStatus = action.payload;
     },
+    setSubmittedAssignment: (state, action) => {
+      state.submittedAssignment = action.payload;
+    },
+    setSubmittedAssignmentsList: (state, action) => {
+      state.submittedAssignmentsList = action.payload;
+    },
   },
 });
 const { reducer: assignmentReducer, actions } = assignmentSlice;
-export const { setAssignment, setAssignments, setAssignmentStatus } = actions;
+export const {
+  setAssignment,
+  setAssignments,
+  setAssignmentStatus,
+  setSubmittedAssignment,
+  setSubmittedAssignmentsList,
+} = actions;
 export default assignmentReducer;

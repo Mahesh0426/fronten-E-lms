@@ -79,7 +79,7 @@ const Header = () => {
               <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
             </div>
 
-            {!isAuthenticated && (
+            {/* {!isAuthenticated && (
               <Link
                 to="/login"
                 className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
@@ -87,8 +87,8 @@ const Header = () => {
                 <Tv className="h-4 w-4 mr-1" />
                 My Courses
               </Link>
-            )}
-            {isAuthenticated && (
+            )} */}
+            {isAuthenticated ? (
               <Link
                 to="/student-courses"
                 className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
@@ -96,11 +96,11 @@ const Header = () => {
                 <Tv className="h-4 w-4 mr-1" />
                 My Courses
               </Link>
-            )}
+            ) : null}
 
             {/* User Profile or Sign In dropdown */}
 
-            {_id ? (
+            {isAuthenticated ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button

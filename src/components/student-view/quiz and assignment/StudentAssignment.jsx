@@ -1,21 +1,28 @@
 import { fetchAssignmentByIdAction } from "@/redux/instructor-quiz and Assignment/AssignmentAction";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const StudentAssignment = () => {
   const { user } = useSelector((state) => state.user);
+  const { assignment } = useSelector((state) => state.assignment);
 
   const { id: courseId } = useParams();
   const dispatch = useDispatch();
-
-  const { assignment } = useSelector((state) => state.assignment);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (courseId) {
       dispatch(fetchAssignmentByIdAction(courseId));
     }
   }, [dispatch, courseId]);
+
+  //function to handle assignment  submission
+  const handleSubmitAssignment = (assignmentData) => {
+    navigate(`/student-assignment/${assignmentData._id}`, {
+      state: { assignment: assignmentData },
+    });
+  };
 
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -39,8 +46,11 @@ const StudentAssignment = () => {
                       {new Date(item.dueDate).toLocaleDateString()} Due Date
                     </p>
                   </div>
-                  <button className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                    Submit Assignment
+                  <button
+                    onClick={() => handleSubmitAssignment(item)}
+                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                  >
+                    Submission Link
                   </button>
                 </div>
               </li>
