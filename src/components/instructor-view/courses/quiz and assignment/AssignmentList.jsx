@@ -22,11 +22,13 @@ import {
   updateAssignmentStatusAction,
 } from "@/redux/instructor-quiz and Assignment/AssignmentAction";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AssignmentList = () => {
   const { assignments } = useSelector((state) => state.assignment);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //handle status toggle
   const handleStatusToggle = (assignmentId, currentStatus) => {
@@ -85,9 +87,12 @@ const AssignmentList = () => {
                 {new Date(assignment.dueDate).toLocaleDateString()}
               </TableCell>
               <TableCell>{assignment.maxScore}</TableCell>
-              <TableCell>
+              <TableCell className="w-[100px]">
                 <span
-                  className={`px-2 py-1 rounded-full text-xs ${
+                  onClick={() =>
+                    handleStatusToggle(assignment?._id, assignment.status)
+                  }
+                  className={`px-2 py-1 rounded-full cursor-pointer text-xs ${
                     assignment.status === "Published"
                       ? "bg-green-100 text-green-800"
                       : "bg-yellow-100 text-yellow-800"
@@ -99,15 +104,21 @@ const AssignmentList = () => {
               <TableCell>
                 <div className="flex space-x-2">
                   <Button
+                    onClick={() =>
+                      navigate(
+                        `/instructor/submitted-assignment/${assignment._id}`
+                      )
+                    }
                     variant="ghost"
                     size="icon"
-                    onClick={() =>
-                      handleStatusToggle(assignment?._id, assignment.status)
-                    }
                   >
                     <Eye className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="icon">
+                  <Button
+                    className="cursor-pointer"
+                    variant="ghost"
+                    size="icon"
+                  >
                     <Edit className="h-4 w-4" />
                   </Button>
                   <Button variant="ghost" size="icon">

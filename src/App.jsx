@@ -22,6 +22,7 @@ import PaypalPaymentReturnPage from "./pages/student/PaymentReturnPage";
 import CourseProgressPage from "./pages/student/CourseProgressPage";
 import QuizAttemptPage from "./pages/student/quiz and assignment/QuizAttemptPage";
 import AssignmentSubmissionPage from "./pages/student/quiz and assignment/AssignmentSubmissionPage";
+import ViewSubmittedAssignmentsPage from "./pages/Instructor/quiz-assignment/SubmittedAssignmentPage";
 
 function App() {
   return (
@@ -55,12 +56,13 @@ function App() {
         />
         <Route
           path="/instructor/quizes"
-          element={
-            <RouteGuard>
-              <InstructorQuizesPage />
-            </RouteGuard>
-          }
+          element={<RouteGuard element={<InstructorQuizesPage />} />}
         />
+        <Route
+          path="/instructor/submitted-assignment/:assignmentId"
+          element={<RouteGuard element={<ViewSubmittedAssignmentsPage />} />}
+        />
+
         <Route path="/" element={<StudentLayout />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="" element={<HomePage />} />

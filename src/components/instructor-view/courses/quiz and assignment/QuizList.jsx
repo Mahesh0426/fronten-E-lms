@@ -86,7 +86,8 @@ const QuizList = () => {
 
               <TableCell>
                 <span
-                  className={`px-2 py-1 rounded-full text-xs ${
+                  onClick={() => handleStatusToggle(quiz?._id, quiz.status)}
+                  className={`px-2 py-1 rounded-full cursor-pointer text-xs ${
                     quiz.status === "Published"
                       ? "bg-green-100 text-green-800"
                       : "bg-yellow-100 text-yellow-800"
@@ -97,11 +98,7 @@ const QuizList = () => {
               </TableCell>
               <TableCell>
                 <div className="flex space-x-2">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => handleStatusToggle(quiz?._id, quiz.status)}
-                  >
+                  <Button variant="ghost" size="icon">
                     <Eye className="h-4 w-4" />
                   </Button>
                   <Button variant="ghost" size="icon">

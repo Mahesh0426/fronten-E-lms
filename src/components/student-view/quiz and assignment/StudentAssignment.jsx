@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 const StudentAssignment = () => {
-  const { user } = useSelector((state) => state.user);
   const { assignment } = useSelector((state) => state.assignment);
 
   const { id: courseId } = useParams();

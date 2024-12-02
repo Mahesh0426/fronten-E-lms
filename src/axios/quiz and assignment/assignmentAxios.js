@@ -36,6 +36,14 @@ export const updateAssignmentStatus = (assignmentId, status) => {
   });
 };
 
+//  grade a submission | PATCH | private Route
+export const gradeAssignmentSubmission = (assignmentId, studentId) => {
+  return axiosApiCall({
+    method: "patch",
+    url: `${USER_API_URL}/grade-submission/${assignmentId}/${studentId}`,
+  });
+};
+
 //ASSIGNMENT SUBMITSSION
 
 //   create a  new assignment Submission | POST | | private Route
@@ -48,17 +56,17 @@ export const createAssignmentSubmission = (submissionData) => {
 };
 
 // get  all assignments Submission list | GET | Public Route
-export const fetchAllAssignmentsSubmissionList = () => {
+export const fetchAllAssignmentsSubmissionList = (assignmentId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get-allSubmissions`,
+    url: `${USER_API_URL}/get-allSubmissions/${assignmentId}`,
   });
 };
 
 // get   submitted  assignment by id  | GET | public Route
-export const fetchSubmittedAssignmentById = (assignmentId) => {
+export const fetchSubmittedAssignmentById = (studentId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get-submission/${assignmentId}`,
+    url: `${USER_API_URL}/get-submission/${studentId}`,
   });
 };

@@ -61,13 +61,13 @@ export const updateAssignmentStatusAction =
     dispatch(fetchAllAssignmentListAction());
   };
 
-//ASSIGNMENT SUBMITSSION ACTION
+//ASSIGNMENT SUBMITSSION ACTION / USER
 
 // get all submitted assignments list
 export const fetchAllSubmittedAssignmentsListAction =
-  () => async (dispatch) => {
+  (assignmentId) => async (dispatch) => {
     //call API
-    const response = await fetchAllAssignmentsSubmissionList();
+    const response = await fetchAllAssignmentsSubmissionList(assignmentId);
 
     if (response?.status === "error") {
       return toast.error(response.message);
@@ -89,8 +89,10 @@ export const createAssignmentSubmissionAction =
 
 //get a submitted assignment by  submission  id
 export const fetchSubmittedAssignmentByIdAction =
-  (assignmentId) => async (dispatch) => {
-    const response = await fetchSubmittedAssignmentById(assignmentId);
+  (studentId) => async (dispatch) => {
+    console.log("Fetching submission for student ID:", studentId);
+    const response = await fetchSubmittedAssignmentById(studentId);
+    console.log("Submitted assignment", response);
 
     if (response?.status === "error") {
       return toast.error(response.message);
