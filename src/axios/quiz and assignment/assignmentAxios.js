@@ -55,7 +55,7 @@ export const createAssignmentSubmission = (submissionData) => {
   });
 };
 
-// get  all assignments Submission list | GET | Public Route
+// get  all assignments Submission list | GET | Public Route | for  tutor
 export const fetchAllAssignmentsSubmissionList = (assignmentId) => {
   return axiosApiCall({
     method: "get",
@@ -63,7 +63,7 @@ export const fetchAllAssignmentsSubmissionList = (assignmentId) => {
   });
 };
 
-// get   submitted  assignment by id  | GET | public Route
+// get   submitted  assignment by id  | GET | public Route | for student
 export const fetchSubmittedAssignmentById = (studentId) => {
   return axiosApiCall({
     method: "get",

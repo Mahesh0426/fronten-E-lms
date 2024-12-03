@@ -48,7 +48,7 @@ export const fetchAssignmentByIdAction = (courseId) => async (dispatch) => {
   dispatch(setAssignment(response.data));
 };
 
-// update a quiz status
+// update a Assignment status
 export const updateAssignmentStatusAction =
   (assignmentId, status) => async (dispatch) => {
     const response = await updateAssignmentStatus(assignmentId, status);
@@ -63,7 +63,18 @@ export const updateAssignmentStatusAction =
 
 //ASSIGNMENT SUBMITSSION ACTION / USER
 
-// get all submitted assignments list
+//get a submitted assignment by  submission  id
+export const fetchSubmittedAssignmentByIdAction =
+  (studentId) => async (dispatch) => {
+    const response = await fetchSubmittedAssignmentById(studentId);
+
+    if (response?.status === "error") {
+      return toast.error(response.message);
+    }
+    dispatch(setSubmittedAssignment(response.data));
+  };
+
+// get all submitted assignments list by assignment ID
 export const fetchAllSubmittedAssignmentsListAction =
   (assignmentId) => async (dispatch) => {
     //call API
@@ -84,18 +95,5 @@ export const createAssignmentSubmissionAction =
       return toast.error(response.message);
     }
     toast.success(response.message);
-    dispatch(fetchAllSubmittedAssignmentsListAction());
-  };
-
-//get a submitted assignment by  submission  id
-export const fetchSubmittedAssignmentByIdAction =
-  (studentId) => async (dispatch) => {
-    console.log("Fetching submission for student ID:", studentId);
-    const response = await fetchSubmittedAssignmentById(studentId);
-    console.log("Submitted assignment", response);
-
-    if (response?.status === "error") {
-      return toast.error(response.message);
-    }
-    dispatch(setSubmittedAssignment(response.data));
+    dispatch(fetchSubmittedAssignmentByIdAction(response?.data?.studentId));
   };

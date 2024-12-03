@@ -77,8 +77,8 @@ const AssignmentList = () => {
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
-          {assignments.map((assignment, index) => (
+        {assignments.length > 0 ? (
+          assignments.map((assignment, index) => (
             <TableRow key={assignment._id || index}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>{assignment.title}</TableCell>
@@ -127,8 +127,14 @@ const AssignmentList = () => {
                 </div>
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
+          ))
+        ) : (
+          <TableRow>
+            <TableCell className="text-center text-2xl m-4" colSpan={7}>
+              No assignments found
+            </TableCell>
+          </TableRow>
+        )}
       </Table>
     </>
   );

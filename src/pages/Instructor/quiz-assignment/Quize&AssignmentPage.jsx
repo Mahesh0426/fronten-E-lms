@@ -40,6 +40,8 @@ const QuizAndAssignmentPage = () => {
           </Tabs>
         </CardContent>
       </Card>
+
+      {/* dialogue section */}
       <CommonDialogueQandA
         open={showCreateDialog}
         onOpenChange={setShowCreateDialog}
