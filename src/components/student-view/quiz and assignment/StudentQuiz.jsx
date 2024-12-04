@@ -5,14 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 const StudentQuiz = () => {
-  const { user } = useSelector((state) => state.user);
-
   const { id: courseId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { quiz } = useSelector((state) => state.quiz);
 
+  // Fetch the quiz by courseId on mount
   useEffect(() => {
     if (courseId) {
       dispatch(fetchQuizByIdAction(courseId));

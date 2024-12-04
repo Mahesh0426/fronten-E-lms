@@ -70,3 +70,12 @@ export const fetchSubmittedAssignmentById = (studentId) => {
     url: `${USER_API_URL}/get-submission/${studentId}`,
   });
 };
+
+//  update score and review  by tutor  | PATCH | private Route
+export const gradeAssignmentAxios = (assignmentId, studentId, payload) => {
+  return axiosApiCall({
+    method: "patch",
+    url: `${USER_API_URL}/grade-submission/${assignmentId}/${studentId}`,
+    data: payload,
+  });
+};

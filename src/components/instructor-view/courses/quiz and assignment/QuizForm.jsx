@@ -123,7 +123,7 @@ const QuizForm = ({ onClose }) => {
         <Input
           value={marks}
           onChange={(e) => setMarks(e.target.value)}
-          placeholder="Marks each question"
+          placeholder="Marks per question"
           type="number"
           className="w-50 "
         />

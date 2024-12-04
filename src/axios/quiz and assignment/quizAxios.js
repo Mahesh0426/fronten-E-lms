@@ -35,3 +35,29 @@ export const updateQuizStatus = (quizId, status) => {
     data: { status },
   });
 };
+
+// submitted a quiz by student | POST | private Route
+export const submitQuiz = (quizPayload) => {
+  return axiosApiCall({
+    method: "post",
+    url: `${USER_API_URL}/submit`,
+    data: quizPayload,
+  });
+};
+
+// fetch  sumbitted quiz by student ID | GET | private Route
+export const fetchSubmittedQuizById = (studentId, quizSubmissionId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/get-quiz/${studentId}/${quizSubmissionId}`,
+    isPrivate: true,
+  });
+};
+
+// fetch all submitted quiz by quiz ID | GET | private Route
+export const fetchAllSubmittedQuizByQuizId = (quizId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/get-all-quizes/${quizId}`,
+  });
+};

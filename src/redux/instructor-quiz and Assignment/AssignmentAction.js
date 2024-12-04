@@ -74,7 +74,7 @@ export const fetchSubmittedAssignmentByIdAction =
     dispatch(setSubmittedAssignment(response.data));
   };
 
-// get all submitted assignments list by assignment ID
+// get all submitted assignments list by assignment ID | for tutor
 export const fetchAllSubmittedAssignmentsListAction =
   (assignmentId) => async (dispatch) => {
     //call API
