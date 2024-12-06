@@ -46,10 +46,10 @@ export const submitQuiz = (quizPayload) => {
 };
 
 // fetch  sumbitted quiz by student ID | GET | private Route
-export const fetchSubmittedQuizById = (studentId, quizSubmissionId) => {
+export const fetchSubmittedQuizById = (quizSubmissionId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get-quiz/${studentId}/${quizSubmissionId}`,
+    url: `${USER_API_URL}/get-quiz/${quizSubmissionId}`,
     isPrivate: true,
   });
 };

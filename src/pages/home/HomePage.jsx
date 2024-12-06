@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllStudentCoursesAction } from "@/redux/student-course/studentCourseAction";
 import { useEffect } from "react";
+import PageLoadingSpinner from "@/components/helper/PageLoadingSpinner";
+import { assets } from "@/assets/asset";
 
 const HomePage = () => {
   const { studentCourses } = useSelector((state) => state.studentCourse);
@@ -139,7 +142,7 @@ const HomePage = () => {
                     <motion.span
                       initial={{ x: 0 }}
                       whileHover={{ x: 5 }}
-                      transition={{ duration: 0.2 }}
+                      transition={{ duration: 0.1 }}
                     >
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </motion.span>
@@ -149,6 +152,97 @@ const HomePage = () => {
             </Link>
           </motion.div>
         </motion.div>
+      </section>
+
+      {/* why this platform section */}
+      <section id="benefits" className=" mt-5  mx-auto px-4">
+        <h2 className="text-center text-2xl font-bold mb-8">
+          Why Choose Personalized Learning?
+        </h2>
+        <div className="flex flex-wrap justify-around">
+          <Card className="w-[300px] m-5 overflow-hidden">
+            <img
+              src={assets.adaptiveCurriculum}
+              alt="Adaptive Learning"
+              className="w-full h-[200px] object-cover"
+            />
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                Adaptive Curriculum
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Learn at your own pace with content that adjusts to your needs
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="w-[300px] m-5 overflow-hidden">
+            <img
+              src={assets.trackProgress}
+              alt="Track Progress"
+              className="w-full h-[200px] object-cover"
+            />
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                Track Your Progress
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Visualize your learning journey with detailed analytics</p>
+            </CardContent>
+          </Card>
+          <Card className="w-[300px] m-5 overflow-hidden">
+            <img
+              src={assets.increasedEngaged}
+              alt="Increased Engagement"
+              className="w-full h-[200px] object-cover"
+            />
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                Increased Engagement
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>Stay motivated with interactive and relevant content</p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* ready to transform  section  */}
+      <section
+        id="signup"
+        className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16"
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Ready to Transform Your Learning Experience?
+          </h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Join thousands of students and educators already benefiting from
+            personalized learning
+          </p>
+          <Link
+            to="/signup"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50 transition duration-150 ease-in-out shadow-lg hover:shadow-xl"
+          >
+            Sign Up Now
+            <motion.div
+              className="ml-2"
+              animate={{
+                x: [0, 10, 0],
+                transition: {
+                  duration: 1,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                },
+              }}
+            >
+              <ArrowRight className="h-5 w-5" />
+            </motion.div>
+          </Link>
+        </div>
       </section>
 
       {/* list of  Courses */}
@@ -185,7 +279,7 @@ const HomePage = () => {
               </div>
             ))
           ) : (
-            <h1>NO Course available</h1>
+            <PageLoadingSpinner />
           )}
         </div>
       </section>

@@ -64,20 +64,20 @@ export const fetchQuizByIdAction = (courseId) => async (dispatch) => {
 // submitted a quiz  | for student
 export const submitQuizAction = (quizPayload) => async (dispatch) => {
   const response = await submitQuiz(quizPayload);
+  console.log("submitQuizAction", response);
 
   if (response?.status === "error") {
     return toast.error(response.message);
   }
   toast.success(response.message);
-  dispatch(
-    fetchSubmittedQuizByIdAction(response?.data?.studentId, response?.data?._id)
-  );
+  dispatch(fetchSubmittedQuizByIdAction());
 };
 
 // fetch submitted quiz by student ID and quiz submission ID | for student
 export const fetchSubmittedQuizByIdAction =
-  (studentId, quizSubmissionId) => async (dispatch) => {
-    const response = await fetchSubmittedQuizById(studentId, quizSubmissionId);
+  (quizSubmissionId) => async (dispatch) => {
+    const response = await fetchSubmittedQuizById(quizSubmissionId);
+    console.log(" fetch response", response);
 
     if (response?.status === "error") {
       return toast.error(response.message);
