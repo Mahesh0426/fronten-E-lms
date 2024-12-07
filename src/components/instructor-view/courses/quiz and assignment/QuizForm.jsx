@@ -84,7 +84,7 @@ const QuizForm = ({ onClose }) => {
   // Submit handler for creating the quiz
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (!quizTitle && !selectedCourseId) {
+    if (!quizTitle && !selectedCourseId && !marks) {
       return toast.error("Please provide all required fields !!");
     }
 

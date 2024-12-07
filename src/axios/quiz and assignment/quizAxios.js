@@ -45,11 +45,11 @@ export const submitQuiz = (quizPayload) => {
   });
 };
 
-// fetch  sumbitted quiz by student ID | GET | private Route
-export const fetchSubmittedQuizById = (quizSubmissionId) => {
+// fetch  sumbitted quiz by student ID and QuizId | GET | private Route
+export const fetchSubmittedQuizById = (quizId, studentId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get-quiz/${quizSubmissionId}`,
+    url: `${USER_API_URL}/get-quiz/${quizId}/${studentId}`,
     isPrivate: true,
   });
 };

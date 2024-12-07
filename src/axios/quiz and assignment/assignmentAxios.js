@@ -64,10 +64,11 @@ export const fetchAllAssignmentsSubmissionList = (assignmentId) => {
 };
 
 // get   submitted  assignment by id  | GET | public Route | for student
-export const fetchSubmittedAssignmentById = (studentId) => {
+export const fetchSubmittedAssignmentById = (assignmentId, studentId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get-submission/${studentId}`,
+    url: `${USER_API_URL}/get-submission/${assignmentId}/${studentId}`,
+    isPrivate: true,
   });
 };
 

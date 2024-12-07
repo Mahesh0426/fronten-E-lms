@@ -23,6 +23,7 @@ import CourseProgressPage from "./pages/student/CourseProgressPage";
 import QuizAttemptPage from "./pages/student/quiz and assignment/QuizAttemptPage";
 import AssignmentSubmissionPage from "./pages/student/quiz and assignment/AssignmentSubmissionPage";
 import ViewSubmittedAssignmentsPage from "./pages/Instructor/quiz-assignment/SubmittedAssignmentPage";
+import ViewSubmittedQuizPage from "./pages/Instructor/quiz-assignment/SubmittedQuizPage";
 
 function App() {
   return (
@@ -61,6 +62,10 @@ function App() {
         <Route
           path="/instructor/submitted-assignment/:assignmentId"
           element={<RouteGuard element={<ViewSubmittedAssignmentsPage />} />}
+        />
+        <Route
+          path="/instructor/submitted-quiz/:quizId"
+          element={<RouteGuard element={<ViewSubmittedQuizPage />} />}
         />
 
         <Route path="/" element={<StudentLayout />}>

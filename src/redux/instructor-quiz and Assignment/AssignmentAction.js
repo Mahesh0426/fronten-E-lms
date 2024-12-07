@@ -63,10 +63,13 @@ export const updateAssignmentStatusAction =
 
 //ASSIGNMENT SUBMITSSION ACTION / USER
 
-//get a submitted assignment by  submission  id
+//get a submitted assignment by  student id and assignment id
 export const fetchSubmittedAssignmentByIdAction =
-  (studentId) => async (dispatch) => {
-    const response = await fetchSubmittedAssignmentById(studentId);
+  (assignmentId, studentId) => async (dispatch) => {
+    const response = await fetchSubmittedAssignmentById(
+      assignmentId,
+      studentId
+    );
 
     if (response?.status === "error") {
       return toast.error(response.message);

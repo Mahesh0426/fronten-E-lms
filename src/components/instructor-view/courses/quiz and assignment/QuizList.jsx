@@ -22,11 +22,13 @@ import {
   fetchAllQuizesListAction,
   updateQuizStatusAction,
 } from "@/redux/instructor-quiz and Assignment/quizAction";
+import { useNavigate } from "react-router-dom";
 
 const QuizList = () => {
   const { quizes } = useSelector((state) => state.quiz);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //handle status toggle
   const handleStatusToggle = (quizId, currentStatus) => {
@@ -98,7 +100,13 @@ const QuizList = () => {
               </TableCell>
               <TableCell>
                 <div className="flex space-x-2">
-                  <Button variant="ghost" size="icon">
+                  <Button
+                    onClick={() =>
+                      navigate(`/instructor/submitted-quiz/${quiz?._id}`)
+                    }
+                    variant="ghost"
+                    size="icon"
+                  >
                     <Eye className="h-4 w-4" />
                   </Button>
                   <Button variant="ghost" size="icon">
