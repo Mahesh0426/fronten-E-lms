@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import useLoading from "@/hooks/useLoading";
 
 function AssignmentSubmissionPage() {
   const dispatch = useDispatch();
@@ -27,7 +28,10 @@ function AssignmentSubmissionPage() {
   // Retrieve assignment data from state
   const { assignment } = location.state || {};
   const { user } = useSelector((state) => state.user);
-  const { submittedAssignment } = useSelector((state) => state.assignment);
+  const { submittedAssignment, isLoading } = useSelector(
+    (state) => state.assignment
+  );
+
   const [content, setContent] = useState("");
 
   //function to handle assignment submission
@@ -87,43 +91,6 @@ function AssignmentSubmissionPage() {
         </div>
         {submittedAssignment?._id &&
         submittedAssignment.submissionStatus === "Submitted" ? (
-          // Display submitted assignment details in table
-          // <div className="p-6">
-          //   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-          //     Your Submission:
-          //   </h3>
-          //   <p className="mt-2 text-gray-700 dark:text-gray-300">
-          //     {submittedAssignment.content}
-          //   </p>
-          //   <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
-          //     Submission Date:{" "}
-          //     {new Date(submittedAssignment.submissionDate).toLocaleString()}
-          //   </p>
-          //   <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          //     Submission Status: {submittedAssignment.submissionStatus}
-          //   </p>
-          //   <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          //     Grading Status: {submittedAssignment.gradingStatus}
-          //   </p>
-          //   <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          //     Your Score:{" "}
-          //     {submittedAssignment.gradingStatus === "Graded"
-          //       ? `${submittedAssignment.score}/${assignment.maxScore}`
-          //       : "N/A"}
-          //   </p>
-          //   <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          //     Feedback:{" "}
-          //     {submittedAssignment.gradingStatus === "Graded"
-          //       ? submittedAssignment.review
-          //       : "N/A"}
-          //   </p>
-          //   <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-          //     Graded On :{" "}
-          //     {submittedAssignment.gradingStatus === "Graded"
-          //       ? new Date(submittedAssignment.gradingDate).toLocaleString()
-          //       : "N/A"}
-          //   </p>
-          // </div>
           <div className="p-6">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Your Submission:

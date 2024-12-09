@@ -74,6 +74,7 @@ export const fetchSubmittedAssignmentByIdAction =
     if (response?.status === "error") {
       return toast.error(response.message);
     }
+
     dispatch(setSubmittedAssignment(response.data));
   };
 

@@ -12,7 +12,9 @@ const PaypalPaymentReturnPage = () => {
 
   // Handle payment return and finalize order using PayPal API
   useEffect(() => {
-    if (paymentId && payerId) {
+    // Prevent duplicate execution in development
+    let isMounted = true;
+    if (paymentId && payerId && isMounted) {
       const capturePayment = async () => {
         const orderId = JSON.parse(sessionStorage.getItem("currentOrderId"));
 
@@ -25,7 +27,6 @@ const PaypalPaymentReturnPage = () => {
 
           if (response?.status === "success") {
             sessionStorage.removeItem("currentOrderId");
-            // window.location.href = "/student-courses";
             navigate("/student-courses");
           } else {
             console.log("Payment capture failed:", response);
@@ -36,6 +37,10 @@ const PaypalPaymentReturnPage = () => {
       };
       capturePayment();
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [paymentId, payerId, navigate]);
 
   return (

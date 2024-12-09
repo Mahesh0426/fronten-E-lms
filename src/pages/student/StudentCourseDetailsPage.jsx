@@ -1,5 +1,4 @@
 import { createOrder } from "@/axios/orderAxios";
-import { checkCoursePurchased } from "@/axios/studentCourseAxios";
 import VideoPlayer from "@/components/helper/VideoPlayer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,17 +11,18 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
+import useLoading from "@/hooks/useLoading";
 import { fetchStudentCourseByIdAction } from "@/redux/student-course/studentCourseAction";
 import { CheckCircle, Globe, Lock, PlayCircle } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
 
 const StudentCourseDetailspage = () => {
   const { studentCourseDetails } = useSelector((state) => state.studentCourse);
 
   const { user } = useSelector((state) => state.user);
+  const { isLoading, startLoading, stopLoading } = useLoading();
 
   const [showFreePreviewDialog, setShowFreePreviewDialog] = useState(false);
   const [displayCurrentVideoFreePreview, setDisplayCurrentVideoFreePreview] =
@@ -30,9 +30,8 @@ const StudentCourseDetailspage = () => {
   const [approvalUrl, setApprovalUrl] = useState("");
   const [isCoursePurchased, setIsCoursePurchased] = useState(false);
 
-  // Course ID from URL parameters and location
+  // Course ID from URL parameters and navigation
   const { id: courseId } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -48,7 +47,7 @@ const StudentCourseDetailspage = () => {
     }
   }, [displayCurrentVideoFreePreview]);
 
-  // use-eefct to switch between enroll now and go to course
+  // use-effect to switch between enroll now and go to course
   useEffect(() => {
     if (studentCourseDetails && user) {
       const purchased = studentCourseDetails.students.some(
@@ -72,6 +71,7 @@ const StudentCourseDetailspage = () => {
       navigate("/login");
       return;
     }
+    startLoading();
     const paymentPayload = {
       userId: user?._id,
       userName: user?.userName,
@@ -82,7 +82,7 @@ const StudentCourseDetailspage = () => {
       orderDate: new Date(),
       paymentId: "",
       payerId: "",
-      instructorId: studentCourseDetails?._id,
+      instructorId: studentCourseDetails?.instructorId,
       instructorName: studentCourseDetails?.instructorName,
       instructorEmail: studentCourseDetails?.instructorEmail,
       courseImage: studentCourseDetails?.image,
@@ -109,6 +109,8 @@ const StudentCourseDetailspage = () => {
       }
     } catch (error) {
       console.error("Error creating payment:", error);
+    } finally {
+      stopLoading();
     }
   };
 
@@ -238,17 +240,16 @@ const StudentCourseDetailspage = () => {
                 </span>
               </div>
 
-              {/* <Button
-                onClick={handleEnrollNow}
-                className="w-full flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
-              >
-                Enroll Now
-              </Button> */}
               <Button
                 onClick={isCoursePurchased ? handleGoToCourse : handleEnrollNow}
                 className="w-full flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+                disabled={isLoading}
               >
-                {isCoursePurchased ? "Enrolled: Go to Course" : "Enroll Now"}
+                {isLoading
+                  ? "Processing..."
+                  : isCoursePurchased
+                  ? "Enrolled: Go to Course"
+                  : "Enroll Now"}
               </Button>
             </CardContent>
           </Card>

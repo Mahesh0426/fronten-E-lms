@@ -53,7 +53,7 @@ const Header = () => {
                 Home
               </Link>
               <Link
-                to="/about"
+                to="/aboutUs"
                 className="text-gray-600 hover:text-indigo-600 transition-colors"
               >
                 About Us
@@ -79,15 +79,6 @@ const Header = () => {
               <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
             </div>
 
-            {/* {!isAuthenticated && (
-              <Link
-                to="/login"
-                className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
-              >
-                <Tv className="h-4 w-4 mr-1" />
-                My Courses
-              </Link>
-            )} */}
             {isAuthenticated ? (
               <Link
                 to="/student-courses"
@@ -202,7 +193,7 @@ const Header = () => {
                 Home
               </Link>
               <Link
-                to="/about"
+                to="/aboutUs"
                 className="px-4 text-gray-600 hover:text-indigo-600 transition-colors"
               >
                 About Us
@@ -214,16 +205,7 @@ const Header = () => {
                 Explore Courses
               </Link>
 
-              {!isAuthenticated && (
-                <Link
-                  to="/login"
-                  className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
-                >
-                  <Tv className="h-4 w-4 mr-1" />
-                  My Courses
-                </Link>
-              )}
-              {isAuthenticated && (
+              {isAuthenticated ? (
                 <Link
                   to="/student-courses"
                   className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
@@ -231,7 +213,7 @@ const Header = () => {
                   <Tv className="h-4 w-4 mr-1" />
                   My Courses
                 </Link>
-              )}
+              ) : null}
 
               <div className="px-4">
                 <div className="relative">

@@ -24,6 +24,7 @@ import QuizAttemptPage from "./pages/student/quiz and assignment/QuizAttemptPage
 import AssignmentSubmissionPage from "./pages/student/quiz and assignment/AssignmentSubmissionPage";
 import ViewSubmittedAssignmentsPage from "./pages/Instructor/quiz-assignment/SubmittedAssignmentPage";
 import ViewSubmittedQuizPage from "./pages/Instructor/quiz-assignment/SubmittedQuizPage";
+import AboutUs from "./pages/home/AboutUsPage";
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
 
         <Route path="/" element={<StudentLayout />}>
           <Route path="/home" element={<HomePage />} />
+          <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="" element={<HomePage />} />
           <Route path="courses" element={<StudentAllCoursepage />} />
           <Route

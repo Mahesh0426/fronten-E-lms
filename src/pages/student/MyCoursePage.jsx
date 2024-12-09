@@ -20,6 +20,11 @@ const MyCoursePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Reset the enrolled courses list on mount
+  useEffect(() => {
+    dispatch(setStudentEnrolledCoursesList([]));
+  }, [dispatch]);
+
   //function to fetch the enrolled courses
   const fetchEnrolledCourses = async () => {
     startLoading();
@@ -55,7 +60,7 @@ const MyCoursePage = () => {
                   <img
                     src={course?.courseImage}
                     alt={course?.title}
-                    className="h-52 w-full object-cover rounded-md mb-4"
+                    className="h-45 w-full object-cover rounded-md mb-4"
                   />
                   <h3 className="font-bold mb-1">{course?.title}</h3>
                   <p className="text-sm text-gray-700 mb-2">
