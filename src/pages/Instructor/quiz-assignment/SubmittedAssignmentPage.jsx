@@ -40,15 +40,16 @@ const ViewSubmittedAssignmentsPage = () => {
                 <strong>Assignment Description:</strong>{" "}
                 {submission.assignmentId?.description}
               </p>
-              <p>
-                <strong>Content:</strong> {submission.content}
-              </p>
+
               <p>
                 <strong>Submitted On:</strong>{" "}
                 {new Date(submission.submissionDate).toLocaleString()}
               </p>
               <p>
                 <strong>Max Score:</strong> {submission.assignmentId?.maxScore}
+              </p>
+              <p>
+                <strong>Content:</strong> {submission.content}
               </p>
               {submission.gradingStatus === "Not graded" && (
                 <GradeAssignmentForm
@@ -72,7 +73,7 @@ const ViewSubmittedAssignmentsPage = () => {
                   </p>
                   <p>
                     <strong>Graded On :</strong>{" "}
-                    {new Date(submission.gradingDate).toLocaleDateString()}
+                    {new Date(submission.gradingDate).toLocaleString()}
                   </p>
                   <p>
                     <strong>Graded By:</strong> {submission?.gradedBy?.userName}{" "}

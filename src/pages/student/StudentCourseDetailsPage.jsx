@@ -1,4 +1,4 @@
-import { createOrder } from "@/axios/orderAxios";
+import { createOrder } from "@/axios/student-course/orderAxios";
 import VideoPlayer from "@/components/helper/VideoPlayer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

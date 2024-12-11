@@ -5,10 +5,7 @@ import {
   Users,
   BarChart,
   Lightbulb,
-  MessageSquare,
-  Calendar,
   Settings,
-  HelpCircle,
   LogOut,
   CheckSquare,
   BrainCircuit,
@@ -32,7 +29,11 @@ import InstructorAllCoursePage from "../../../pages/Instructor/course-management
 
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import QuizAndAssignmentPage from "../../../pages/Instructor/quiz-assignment/Quize&AssignmentPage";
-import Sidebar from "@/pages/Instructor/StudentManagementPage";
+
+import StudentManagement from "@/pages/Instructor/StudentManagementPage";
+import StudentManagementDashboard from "@/pages/Instructor/StudentAnalytics";
+import GradebookGrid from "@/pages/Instructor/StudentAnalytics";
+import GradebookTable from "@/pages/Instructor/student-management/studentgradebook";
 
 const InstructorLayout = () => {
   const [activeTab, setActiveTab] = useState("Courses");
@@ -61,13 +62,19 @@ const InstructorLayout = () => {
       icon: Users,
       label: "Student Management",
       value: "Students",
-      component: <Sidebar />,
+      component: <GradebookTable />,
     },
-    { icon: BarChart, label: "Analytics", value: "Analytics" },
+    {
+      icon: BarChart,
+      label: "Analytics",
+      value: "Analytics",
+      component: <GradebookGrid />,
+    },
     {
       icon: Lightbulb,
       label: "Recommendation Engine",
       value: "Recommendations",
+      component: <StudentManagement />,
     },
     {
       icon: BrainCircuit,

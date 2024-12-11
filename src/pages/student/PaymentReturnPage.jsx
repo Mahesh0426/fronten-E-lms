@@ -1,4 +1,4 @@
-import { capturePaymentAndFinalizeOrder } from "@/axios/orderAxios";
+import { capturePaymentAndFinalizeOrder } from "@/axios/student-course/orderAxios";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";

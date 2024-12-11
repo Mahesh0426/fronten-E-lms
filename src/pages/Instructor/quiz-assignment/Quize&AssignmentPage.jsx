@@ -18,9 +18,14 @@ const QuizAndAssignmentPage = () => {
         <CardHeader>
           <div className="flex justify-between items-center">
             <div>
-              <CardTitle>Quiz & Assignment Management</CardTitle>
+              <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+                Quiz & Assignment Management
+              </CardTitle>
             </div>
-            <Button onClick={() => setShowCreateDialog(true)}>
+            <Button
+              className="w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+              onClick={() => setShowCreateDialog(true)}
+            >
               <Plus className="mr-2 h-4 w-4" /> Create New
             </Button>
           </div>

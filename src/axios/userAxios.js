@@ -48,3 +48,22 @@ export const logoutUser = (userEmail) => {
     isPrivate: true,
   });
 };
+
+//FORGET PASSWORD | POST | Public Route
+export const forgetPasswordEmail = (formData) => {
+  return axiosApiCall({
+    method: "post",
+    url: `${USER_API_URL}/forget-password`,
+    data: formData,
+  });
+};
+
+//   CHANGE PASSWORD | PATCH
+export const changePassword = (data) => {
+  console.log(data);
+  return axiosApiCall({
+    method: "patch",
+    url: `${USER_API_URL}/change-password`,
+    data: data,
+  });
+};

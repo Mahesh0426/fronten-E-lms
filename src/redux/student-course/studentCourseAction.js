@@ -1,7 +1,7 @@
 import {
   fetchAllStudentCourses,
   fetchStudentCourseById,
-} from "@/axios/studentCourseAxios";
+} from "@/axios/student-course/studentCourseAxios";
 import {
   setStudentCourseDetails,
   setStudentCourses,

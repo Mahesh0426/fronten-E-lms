@@ -1,4 +1,4 @@
-import { uploadMedia } from "@/axios/uploadAxios";
+import { uploadMedia } from "@/axios/instructor-course/uploadAxios";
 import { toast } from "react-toastify";
 import { setCourse, setCourseContent, setCourses } from "./courseSlice";
 import {
@@ -7,7 +7,7 @@ import {
   createCourse,
   updateCourseById,
   deleteLecture,
-} from "@/axios/courseAxios";
+} from "@/axios/instructor-course/courseAxios";
 
 // upload course video
 export const uploadMediaAction = () => async (dispatch) => {

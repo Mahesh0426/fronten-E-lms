@@ -18,7 +18,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import useLoading from "@/hooks/useLoading";
 
 function AssignmentSubmissionPage() {
   const dispatch = useDispatch();
@@ -28,9 +27,7 @@ function AssignmentSubmissionPage() {
   // Retrieve assignment data from state
   const { assignment } = location.state || {};
   const { user } = useSelector((state) => state.user);
-  const { submittedAssignment, isLoading } = useSelector(
-    (state) => state.assignment
-  );
+  const { submittedAssignment } = useSelector((state) => state.assignment);
 
   const [content, setContent] = useState("");
 
@@ -45,7 +42,9 @@ function AssignmentSubmissionPage() {
     const payload = {
       assignmentId: assignment?._id,
       studentId: user?._id,
+      courseId: assignment?.courseId,
       content: content.trim(),
+      maxScore: assignment?.maxScore,
     };
     try {
       dispatch(createAssignmentSubmissionAction(payload));

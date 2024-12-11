@@ -175,14 +175,23 @@ const QuizForm = ({ onClose }) => {
         ))}
       </div>
 
-      <Button type="button" onClick={addQuestion} className="mb-4">
+      <Button
+        type="button"
+        onClick={addQuestion}
+        className=" mb-4 w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+      >
         Add Question
       </Button>
       <div className="flex justify-end space-x-2 mt-6">
         <Button variant="outline" type="button" onClick={onClose}>
           Cancel
         </Button>
-        <Button type="submit">Create Quiz</Button>
+        <Button
+          className="w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+          type="submit"
+        >
+          Create Quiz
+        </Button>
       </div>
     </form>
   );

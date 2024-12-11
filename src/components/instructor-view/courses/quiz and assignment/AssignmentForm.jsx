@@ -129,7 +129,12 @@ const AssessmentForm = ({ onClose }) => {
         <Button variant="outline" onClick={onClose}>
           Cancel
         </Button>
-        <Button type="submit">Create Assignment</Button>
+        <Button
+          className="w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+          type="submit"
+        >
+          Create Assignment
+        </Button>
       </div>
     </form>
   );

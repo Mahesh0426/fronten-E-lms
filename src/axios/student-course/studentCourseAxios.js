@@ -1,4 +1,4 @@
-import { axiosApiCall } from "./axiosApiCall";
+import { axiosApiCall } from "../axiosApiCall";
 
 const USER_API_URL = `${
   import.meta.env.VITE_APP_API_BASE_URL
@@ -20,10 +20,10 @@ export const fetchStudentCourseById = (courseId) => {
   });
 };
 
-// Check if the course is purchased by the student | GET
-export const checkCoursePurchased = (courseId, studentId) => {
-  return axiosApiCall({
-    method: "get",
-    url: `${USER_API_URL}/purchase-info/${courseId}/${studentId}`,
-  });
-};
+// // Check if the course is purchased by the student | GET
+// export const checkCoursePurchased = (courseId, studentId) => {
+//   return axiosApiCall({
+//     method: "get",
+//     url: `${USER_API_URL}/purchase-info/${courseId}/${studentId}`,
+//   });
+// };

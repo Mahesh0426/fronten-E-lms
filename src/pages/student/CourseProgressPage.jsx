@@ -2,7 +2,7 @@ import {
   getCurrentCourseProgress,
   markLectureAsViewed,
   resetCourseProgress,
-} from "@/axios/courseProgressAxios";
+} from "@/axios/student-course/courseProgressAxios";
 import { Button } from "@/components/ui/button";
 import { setStudentCurrentCourseProgress } from "@/redux/student-course/studentCourseSlice";
 import { Check, ChevronLeft, ChevronRight, Play } from "lucide-react";
@@ -22,10 +22,8 @@ import { Label } from "@/components/ui/label";
 import VideoPlayer from "@/components/helper/VideoPlayer";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
-import QuizList from "@/components/instructor-view/courses/quiz and assignment/QuizList";
-import AssignmentList from "@/components/instructor-view/courses/quiz and assignment/AssignmentList";
-import StudentQuiz from "@/components/student-view/quiz and assignment/studentQuiz";
-import StudentAssignment from "@/components/student-view/quiz and assignment/studentAssignment";
+import StudentAssignment from "@/components/student-view/quiz and assignment/StudentAssignment";
+import StudentQuiz from "@/components/student-view/quiz and assignment/StudentQuiz";
 
 const CourseProgressPage = () => {
   const { user } = useSelector((state) => state.user);

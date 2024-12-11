@@ -7,7 +7,10 @@ import { Switch } from "@/components/ui/switch";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus, Replace, Trash2, Upload } from "lucide-react";
 import { initialCourseContentFormData } from "@/config/formConfig";
-import { mediaDelete, uploadMedia } from "@/axios/uploadAxios";
+import {
+  mediaDelete,
+  uploadMedia,
+} from "@/axios/instructor-course/uploadAxios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCourseContentFormData,

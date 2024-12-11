@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { gradeAssignmentAxios } from "@/axios/quiz and assignment/assignmentAxios";
 import { Label } from "@/components/ui/label";
@@ -13,8 +13,6 @@ const GradeAssignmentForm = ({ assignmentId, studentId }) => {
   const [score, setScore] = useState("");
   const [review, setReview] = useState("");
 
-  const dispatch = useDispatch();
-
   const handleGradeSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,6 +25,7 @@ const GradeAssignmentForm = ({ assignmentId, studentId }) => {
         score: score,
         review,
         gradedBy: user?._id,
+        gradingDate: Date.now(),
       };
 
       const response = await gradeAssignmentAxios(
@@ -34,7 +33,6 @@ const GradeAssignmentForm = ({ assignmentId, studentId }) => {
         studentId,
         payload
       );
-      console.log("response grade", response);
 
       if (response.status === "success") {
         toast.success("Assignment graded successfully!");

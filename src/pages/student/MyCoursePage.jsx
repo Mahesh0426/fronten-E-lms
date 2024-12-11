@@ -1,4 +1,4 @@
-import { getEnrolledCourses } from "@/axios/myCourseAxios";
+import { getEnrolledCourses } from "@/axios/student-course/myCourseAxios";
 import PageLoadingSpinner from "@/components/helper/PageLoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -46,7 +46,7 @@ const MyCoursePage = () => {
     }
   }, [user?._id]);
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <h1 className="text-3xl font-bold mb-8">My Courses</h1>
       {isLoading ? (
         <PageLoadingSpinner />

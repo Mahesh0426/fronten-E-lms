@@ -11,32 +11,29 @@ import { AlertCircle, CheckCircle2, ArrowLeft, Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { Link } from "react-router-dom";
+import useForm from "@/hooks/useForm";
+import { forgetPasswordEmail } from "@/axios/userAxios";
+import { toast } from "react-toastify";
+
+const initialFormData = {
+  email: "",
+};
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { formData, handleOnChange } = useForm(initialFormData);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
-    if (!email) {
-      setError("Please enter your email address");
-      return;
+    const result = await forgetPasswordEmail(formData);
+    console.log(result);
+    if (result.status === "error") {
+      toast.error(result.message);
     }
-
-    setIsSubmitting(true);
-
-    // Simulate API call
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+    if (result.status === "success") {
+      toast.success(result.message);
       setIsSuccess(true);
-    } catch (err) {
-      setError("An error occurred. Please try again.");
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -52,9 +49,9 @@ const ForgetPassword = () => {
           </CardHeader>
           <CardContent>
             <p className="text-center mb-4">
-              We've sent a password reset link to <strong>{email}</strong>.
-              Please check your inbox and follow the instructions to reset your
-              password.
+              We've sent a password reset link to{" "}
+              <strong>{formData.email}</strong>. Please check your inbox and
+              follow the instructions to reset your password.
             </p>
             <p className="text-center text-sm text-muted-foreground">
               If you don't see the email, check your spam folder.
@@ -62,7 +59,7 @@ const ForgetPassword = () => {
           </CardContent>
           <CardFooter>
             <Button asChild className="w-full">
-              <Link href="/login">
+              <Link to="/login">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Return to Login
               </Link>
@@ -102,33 +99,28 @@ const ForgetPassword = () => {
                     size={20}
                   />
                   <Input
-                    id="email"
+                    name="email"
                     type="email"
                     className="pl-10"
                     placeholder="Enter your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={formData.email}
+                    onChange={(e) => handleOnChange(e)}
                     required
                   />
                 </div>
               </div>
-              {error && (
-                <div className="flex items-center text-red-600" role="alert">
-                  <AlertCircle className="w-4 h-4 mr-2" />
-                  <span className="text-sm">{error}</span>
-                </div>
-              )}
-              <Button className="w-full" type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Sending Reset Link..." : "Send Reset Link"}
+
+              <Button className="w-full" type="submit">
+                Send reset link
               </Button>
             </form>
           </CardContent>
           <CardFooter className="flex justify-center">
             <Button variant="link" asChild>
-              <a href="/login">
+              <Link to="/login">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to Login
-              </a>
+              </Link>
             </Button>
           </CardFooter>
         </Card>

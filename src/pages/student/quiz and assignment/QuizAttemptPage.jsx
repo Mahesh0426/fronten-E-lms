@@ -88,9 +88,10 @@ const QuizAttemptPage = () => {
       quizId: quiz?._id,
       studentId: user?._id,
       studentName: user?.userName,
-      courseId: quiz.courseId,
+      courseId: quiz?.courseId,
+      instructorId: quiz?.instructorId,
       submissionStatus: "Completed",
-      answers: quiz.questions.map((question, index) => ({
+      answers: quiz?.questions.map((question, index) => ({
         questionText: question.questionText,
         studentAnswer: answers[index],
         correctAnswer: question.correctAnswer,
