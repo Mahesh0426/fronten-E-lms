@@ -61,7 +61,6 @@ const CourseProgressPage = () => {
             setCurrentLecture(response?.data?.courseDetails?.curriculum[0]);
             setShowCourseCompleteDialog(true);
             setShowConfetti(true);
-
             return;
           }
           if (response?.data?.progress?.length === 0) {
@@ -73,8 +72,6 @@ const CourseProgressPage = () => {
 
             // If no lectures were viewed, lastIndexOfViewedAsTrue will be -1, so we start at index 0
             const nextLectureIndex = lastIndexOfViewedAsTrue + 1;
-
-            // Set the current lecture to the next unwatched one
             setCurrentLecture(
               response?.data?.courseDetails?.curriculum[nextLectureIndex]
             );
@@ -124,6 +121,30 @@ const CourseProgressPage = () => {
       }
     }
   };
+
+  // determine hasNext and hasPrev
+  const curriculum =
+    studentCurrentCourseProgress?.courseDetails?.curriculum || [];
+  const currentIndex = curriculum.findIndex(
+    (lecture) => lecture._id === currentLecture?._id
+  );
+  const hasNext = currentIndex < curriculum.length - 1;
+  const hasPrev = currentIndex > 0;
+
+  // function to handle  watch next video
+  const handleNextVideo = () => {
+    if (hasNext) {
+      setCurrentLecture(curriculum[currentIndex + 1]);
+    }
+  };
+
+  // function to handle  watch prev video
+  const handlePrevVideo = () => {
+    if (hasPrev) {
+      setCurrentLecture(curriculum[currentIndex - 1]);
+    }
+  };
+
   //fetch current course progress when page mount
   useEffect(() => {
     if (user?._id && courseId) {
@@ -176,8 +197,8 @@ const CourseProgressPage = () => {
       <div className="flex flex-1   overflow-y-auto ">
         {/* video player section  */}
         <div
-          className={`flex-1 ${
-            isSideBarOpen ? "mr-[400px]" : ""
+          className={`flex-1 w-full ${
+            isSideBarOpen ? "sm:mr-[400px]" : ""
           } transition-all duration-300`}
         >
           <VideoPlayer
@@ -186,6 +207,10 @@ const CourseProgressPage = () => {
             url={currentLecture?.videoUrl}
             onProgressUpdate={handleProgressUpdate}
             progressData={currentLecture}
+            hasNext={hasNext}
+            hasPrev={hasPrev}
+            onNextVideo={handleNextVideo}
+            onPrevVideo={handlePrevVideo}
           />
           <div className="p-6   bg-gray-900">
             <h2 className="text-2xl font-bold  bg-gray-900 mb-2">
@@ -194,8 +219,7 @@ const CourseProgressPage = () => {
           </div>
 
           {/* quiz and assignent bar section  */}
-
-          <Card className=" mt-5 h-full ">
+          <Card className=" mt-5 h-full rounded-none ">
             <CardContent>
               <Tabs defaultValue="quizzes">
                 <TabsList className=" mt-2 grid w-80 grid-cols-3 space-x-4">
@@ -217,9 +241,9 @@ const CourseProgressPage = () => {
 
         {/* side bar section  */}
         <div
-          className={`fixed top-[64px] right-0 bottom-0 w-[400px] bg-slate-100 border-l border-gray-700 transition-all duration-300 ${
+          className={`fixed top-[70px] right-0 bottom-0 w-[400px] bg-slate-100 border-l border-gray-700 transition-all duration-300 ${
             isSideBarOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          } hidden sm:block`}
         >
           <Tabs defaultValue="content" className="h-full flex flex-col">
             <TabsList className="grid w-full grid-cols-2 p-0 h-14">
@@ -275,7 +299,7 @@ const CourseProgressPage = () => {
         </div>
       </div>
 
-      {/* Course dialogue 1  */}
+      {/* Course Lock Dialog */}
       <Dialog open={isLockCourse}>
         <DialogContent className="sm:w-[425px]">
           <DialogHeader>
@@ -287,7 +311,7 @@ const CourseProgressPage = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Course dialogue 2  */}
+      {/* Course Complete Dialog */}
       <Dialog open={showCourseCompleteDialog}>
         <DialogContent className="sm:w-[425px]">
           <DialogHeader>

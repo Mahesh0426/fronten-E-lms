@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import {
   createAssignment,
   createAssignmentSubmission,
+  editSubmittedAssignment,
   fetchAllAssignmentsList,
   fetchAllAssignmentsSubmissionList,
   fetchAssignmentById,
@@ -63,6 +64,35 @@ export const updateAssignmentStatusAction =
 
 //ASSIGNMENT SUBMITSSION ACTION / USER
 
+// get all submitted assignments list by assignment ID | for tutor
+export const fetchAllSubmittedAssignmentsListAction =
+  (assignmentId) => async (dispatch) => {
+    //call API
+    const response = await fetchAllAssignmentsSubmissionList(assignmentId);
+
+    if (response?.status === "error") {
+      return toast.error(response.message);
+    }
+    dispatch(setSubmittedAssignmentsList(response.data));
+  };
+
+// edit assignment grade  by id | for tutor
+export const editSubmittedAssignmentAction =
+  (assignmentId, studentId, payload) => async (dispatch) => {
+    const response = await editSubmittedAssignment(
+      assignmentId,
+      studentId,
+      payload
+    );
+
+    if (response?.status === "error") {
+      return toast.error(response.message);
+    }
+
+    // Re-fetch the updated submission data
+    dispatch(fetchSubmittedAssignmentById(assignmentId, studentId));
+  };
+
 //get a submitted assignment by  student id and assignment id
 export const fetchSubmittedAssignmentByIdAction =
   (assignmentId, studentId) => async (dispatch) => {
@@ -76,18 +106,6 @@ export const fetchSubmittedAssignmentByIdAction =
     }
 
     dispatch(setSubmittedAssignment(response.data));
-  };
-
-// get all submitted assignments list by assignment ID | for tutor
-export const fetchAllSubmittedAssignmentsListAction =
-  (assignmentId) => async (dispatch) => {
-    //call API
-    const response = await fetchAllAssignmentsSubmissionList(assignmentId);
-
-    if (response?.status === "error") {
-      return toast.error(response.message);
-    }
-    dispatch(setSubmittedAssignmentsList(response.data));
   };
 
 //  create a  new assignmet Submission

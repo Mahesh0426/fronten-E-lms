@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,10 +25,11 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const QuizList = () => {
-  const { quizes } = useSelector((state) => state.quiz);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { quizes } = useSelector((state) => state.quiz);
+  const [searchTerm, setSearchTerm] = useState("");
 
   //handle status toggle
   const handleStatusToggle = (quizId, currentStatus) => {
@@ -41,6 +42,11 @@ const QuizList = () => {
     }
   };
 
+  // Filter quiz by courseName
+  const filteredQuizes = quizes.filter((quiz) =>
+    quiz.courseName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   useEffect(() => {
     // dispatch quizzes action
     dispatch(fetchAllQuizesListAction());
@@ -48,23 +54,28 @@ const QuizList = () => {
 
   return (
     <>
-      <div className="mb-6">
-        <div className="flex items-center space-x-4">
-          <div className="flex-1">
-            <Input placeholder="Search quizzes..." className="w-full" />
-          </div>
-          <Select>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Filter by status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="published">Published</SelectItem>
-              <SelectItem value="draft">Draft</SelectItem>
-            </SelectContent>
-          </Select>
+      {/* search and filter section */}
+      <div className="flex items-center space-x-4 mb-6">
+        <div className="flex-1">
+          <Input
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search quizzes by course..."
+            className="w-full"
+          />
         </div>
+        <Select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter by status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All</SelectItem>
+            <SelectItem value="published">Published</SelectItem>
+            <SelectItem value="draft">Draft</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
+
       <Table>
         <TableHeader>
           <TableRow>
@@ -78,7 +89,7 @@ const QuizList = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {quizes.map((quiz, index) => (
+          {filteredQuizes.map((quiz, index) => (
             <TableRow key={quiz._id || index}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>{quiz.title}</TableCell>
@@ -105,15 +116,24 @@ const QuizList = () => {
                       navigate(`/instructor/submitted-quiz/${quiz?._id}`)
                     }
                     variant="ghost"
-                    size="icon"
+                    size="sm"
+                    className="p-2 mr-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
                   >
                     <Eye className="h-4 w-4" />
                   </Button>
-                  <Button variant="ghost" size="icon">
-                    <Edit className="h-4 w-4" />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                  >
+                    <Edit />
                   </Button>
-                  <Button variant="ghost" size="icon">
-                    <Trash2 className="h-4 w-4" />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                  >
+                    <Trash2 />
                   </Button>
                 </div>
               </TableCell>

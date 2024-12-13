@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
-
 import { Button } from "../ui/button";
 import {
   Maximize,
@@ -11,6 +10,8 @@ import {
   RotateCw,
   Volume2,
   VolumeX,
+  ChevronsLeft,
+  ChevronsRight,
 } from "lucide-react";
 import { Slider } from "../ui/slider";
 
@@ -20,6 +21,10 @@ const VideoPlayer = ({
   url,
   onProgressUpdate,
   progressData,
+  onNextVideo,
+  onPrevVideo,
+  hasNext = false,
+  hasPrev = false,
 }) => {
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
@@ -113,7 +118,6 @@ const VideoPlayer = ({
         progressValue: played,
       });
     }
-    // console.log("onProgressUpdate:", onProgressUpdate);
   }, [played]);
 
   return (
@@ -153,6 +157,7 @@ const VideoPlayer = ({
           />
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
+              {/* Play/Pause */}
               <Button
                 variant="ghost"
                 size="icon"
@@ -165,6 +170,8 @@ const VideoPlayer = ({
                   <Play className="h-6 w-6" />
                 )}
               </Button>
+
+              {/* Rewind 5s */}
               <Button
                 onClick={handleRewind}
                 className="text-white bg-transparent hover:text-white hover:bg-gray-700"
@@ -173,6 +180,8 @@ const VideoPlayer = ({
               >
                 <RotateCcw className="h-6 w-6" />
               </Button>
+
+              {/* Forward 5s */}
               <Button
                 onClick={handleForward}
                 className="text-white bg-transparent hover:text-white hover:bg-gray-700"
@@ -181,6 +190,8 @@ const VideoPlayer = ({
               >
                 <RotateCw className="h-6 w-6" />
               </Button>
+
+              {/* Mute/Unmute */}
               <Button
                 onClick={handleToggleMute}
                 className="text-white bg-transparent hover:text-white hover:bg-gray-700"
@@ -193,6 +204,8 @@ const VideoPlayer = ({
                   <Volume2 className="h-6 w-6" />
                 )}
               </Button>
+
+              {/* Volume Slider */}
               <Slider
                 value={[volume * 100]}
                 max={100}
@@ -201,11 +214,39 @@ const VideoPlayer = ({
                 className="w-24 "
               />
             </div>
+
             <div className="flex items-center space-x-2">
+              {/* Time Display */}
               <div className="text-white">
-                {formatTime(played * (playerRef?.current?.getDuration() || 0))}/{" "}
+                {formatTime(played * (playerRef?.current?.getDuration() || 0))}/
                 {formatTime(playerRef?.current?.getDuration() || 0)}
               </div>
+
+              {/* Previous Video Button (if available) */}
+              {hasPrev && (
+                <Button
+                  onClick={onPrevVideo}
+                  className="text-white bg-transparent hover:text-white hover:bg-gray-700"
+                  variant="ghost"
+                  size="icon"
+                >
+                  <ChevronsLeft className="h-6 w-6" />
+                </Button>
+              )}
+
+              {/* Next Video Button (if available) */}
+              {hasNext && (
+                <Button
+                  onClick={onNextVideo}
+                  className="text-white bg-transparent hover:text-white hover:bg-gray-700"
+                  variant="ghost"
+                  size="icon"
+                >
+                  <ChevronsRight className="h-6 w-6" />
+                </Button>
+              )}
+
+              {/* Full Screen Toggle */}
               <Button
                 className="text-white bg-transparent hover:text-white hover:bg-gray-700"
                 variant="ghost"

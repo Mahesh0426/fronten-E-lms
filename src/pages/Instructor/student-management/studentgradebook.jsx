@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Download } from "lucide-react";
 
 const GradebookTable = () => {
   const { user } = useSelector((state) => state.user);
@@ -65,12 +66,18 @@ const GradebookTable = () => {
               existing.quizScore = quiz.obtainedMarks;
               existing.quizTotalMarks = quiz.totalMarks;
             } else {
+              const relatedAssignment = assignments.find(
+                (assignment) => assignment.courseTitle === quiz.courseTitle
+              );
+
               combinedData.push({
                 name: quiz.studentName,
                 email: quiz.studentEmail,
                 course: quiz.courseTitle,
                 assignmentScore: 0,
-                assignmentMaxScore: 0,
+                assignmentMaxScore: relatedAssignment
+                  ? relatedAssignment.maxScore
+                  : 0,
                 quizScore: quiz.obtainedMarks,
                 quizTotalMarks: quiz.totalMarks,
               });
@@ -101,8 +108,7 @@ const GradebookTable = () => {
   // Filter students based on search term and selected course
   const filteredStudents = studentMarks.filter(
     (student) =>
-      (student.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        student.course?.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      student.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (!filterCourse || student.course === filterCourse)
   );
 
@@ -176,6 +182,7 @@ const GradebookTable = () => {
 
   return (
     <div>
+      {/* header section */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl mb-4 font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
           Student Management
@@ -184,18 +191,19 @@ const GradebookTable = () => {
           className="w-full sm:w-auto  rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
           onClick={handleExportToCSV}
         >
-          Export to CSV
+          <Download /> Export to CSV
         </Button>
       </div>
 
       <div className="mb-4 flex justify-between items-center">
         <Input
           type="text"
-          placeholder="Search by student or course..."
+          placeholder="Search by student..."
           value={searchTerm}
           onChange={handleSearch}
           className=" mt-2 mr-2 w-full"
         />
+        {/* filter section */}
         <Select value={filterCourse} onValueChange={setFilterCourse}>
           <SelectTrigger className=" mt-2 w-1/4">
             <SelectValue placeholder="Filter by Course" />
@@ -213,6 +221,7 @@ const GradebookTable = () => {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>SN</TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
               <TableHead>Course</TableHead>
@@ -231,6 +240,7 @@ const GradebookTable = () => {
               const grade = calculateGrade(progress);
               return (
                 <TableRow key={index}>
+                  <TableCell>{index + 1}</TableCell>
                   <TableCell>{student.name}</TableCell>
                   <TableCell>{student.email}</TableCell>
                   <TableCell>{student.course}</TableCell>

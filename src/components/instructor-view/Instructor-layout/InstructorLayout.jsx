@@ -26,13 +26,10 @@ import { logoutUserAction } from "@/redux/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import InstructorDashboardPage from "../../../pages/Instructor/InstructorDashboardPage";
 import InstructorAllCoursePage from "../../../pages/Instructor/course-management/InstructorAllCoursePage";
-
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import QuizAndAssignmentPage from "../../../pages/Instructor/quiz-assignment/Quize&AssignmentPage";
-
 import StudentManagement from "@/pages/Instructor/StudentManagementPage";
-import StudentManagementDashboard from "@/pages/Instructor/StudentAnalytics";
-import GradebookGrid from "@/pages/Instructor/StudentAnalytics";
+
 import GradebookTable from "@/pages/Instructor/student-management/studentgradebook";
 
 const InstructorLayout = () => {
@@ -68,7 +65,6 @@ const InstructorLayout = () => {
       icon: BarChart,
       label: "Analytics",
       value: "Analytics",
-      component: <GradebookGrid />,
     },
     {
       icon: Lightbulb,

@@ -46,7 +46,7 @@ export const gradeAssignmentSubmission = (assignmentId, studentId) => {
 
 //ASSIGNMENT SUBMITSSION
 
-//   create a  new assignment Submission | POST | | private Route
+//   create a  new assignment Submission | POST | For Student
 export const createAssignmentSubmission = (submissionData) => {
   return axiosApiCall({
     method: "post",
@@ -63,6 +63,15 @@ export const fetchAllAssignmentsSubmissionList = (assignmentId) => {
   });
 };
 
+// edit assignment score  | PATCH |  for tutor
+export const editSubmittedAssignment = (assignmentId, studentId, payload) => {
+  return axiosApiCall({
+    method: "patch",
+    url: `${USER_API_URL}/edit-score/${assignmentId}/${studentId}`,
+    data: payload,
+  });
+};
+
 // get   submitted  assignment by id  | GET | public Route | for student
 export const fetchSubmittedAssignmentById = (assignmentId, studentId) => {
   return axiosApiCall({
@@ -72,7 +81,7 @@ export const fetchSubmittedAssignmentById = (assignmentId, studentId) => {
   });
 };
 
-//  update score and review  by tutor  | PATCH | private Route
+//  update score and review  by tutor  | PATCH |  For Tutor
 export const gradeAssignmentAxios = (assignmentId, studentId, payload) => {
   return axiosApiCall({
     method: "patch",

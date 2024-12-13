@@ -12,7 +12,6 @@ import InstructorLayout from "./components/instructor-view/Instructor-layout/Ins
 import HomePage from "./pages/home/HomePage";
 import InstructorDashboardPage from "./pages/Instructor/InstructorDashboardPage";
 import InstructorQuizesPage from "./pages/Instructor/quiz-assignment/Quize&AssignmentPage";
-
 import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
 import StudentLayout from "./components/student-view/StudentLayout";
 import StudentAllCoursepage from "./pages/student/StudentAllCoursespage";
@@ -26,6 +25,7 @@ import ViewSubmittedAssignmentsPage from "./pages/Instructor/quiz-assignment/Sub
 import ViewSubmittedQuizPage from "./pages/Instructor/quiz-assignment/SubmittedQuizPage";
 import AboutUs from "./pages/home/AboutUsPage";
 import ChangePassword from "./components/forget-password/ChangePassword";
+import StudentDashboard from "./pages/student/dashboard/StudentDashboard";
 
 function App() {
   return (
@@ -87,6 +87,7 @@ function App() {
             path="student-assignment/:assignmentId"
             element={<AssignmentSubmissionPage />}
           />
+          <Route path="dashboard" element={<StudentDashboard />} />
         </Route>
       </Routes>
 

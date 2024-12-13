@@ -1,7 +1,15 @@
 import { assets } from "@/assets/asset";
 import React, { useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { LogInIcon, LogOut, Menu, Search, Tv } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  LayoutDashboard,
+  LogInIcon,
+  LogOut,
+  Menu,
+  Search,
+  Tv,
+  User,
+} from "lucide-react";
 import { Input } from "../ui/input";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUserAction } from "@/redux/user/userAction";
@@ -32,8 +40,8 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-md">
-      <div className="w-full px-4 sm:px-6">
+    <header className="fixed top-0 z-50 bg-white shadow-md w-full ">
+      <div className=" px-4 sm:px-6">
         {/* Main header content */}
         <div className="flex justify-between items-center h-16">
           {/* Desktop: Left - Logo and Nav Links */}
@@ -104,14 +112,17 @@ const Header = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>
+                    <LayoutDashboard /> Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <User /> My Profile
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
+                    <LogOut className="mr-2 h-4 w-4 text-red-500" />
+                    <span className="text-red-500">Log out</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -167,14 +178,17 @@ const Header = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>
+                    <LayoutDashboard /> Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <User /> My Profile
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={handleLogout}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
+                    <LogOut className="mr-2 h-4 w-4 text-red-500" />
+                    <span className="text-red-500">Log out</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

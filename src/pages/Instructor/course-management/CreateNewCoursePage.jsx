@@ -111,19 +111,6 @@ const CreateNewCoursePage = () => {
     }
   };
 
-  // // function to fetch  current details by ID
-  // const fetchCurrentCourseDetails = () => {
-  //   dispatch(fetchCourseByIdAction(currentEditedCourseId));
-  // };
-
-  // useEffect(() => {
-  //   if (currentEditedCourseId !== null) fetchCurrentCourseDetails();
-  // }, [currentEditedCourseId]);
-
-  // useEffect(() => {
-  //   if (params) dispatch(setCurrentEditedCourseId(params?.courseId));
-  // }, [params]);
-
   useEffect(() => {
     if (params?.courseId) {
       dispatch(setCurrentEditedCourseId(params.courseId));

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Eye, Edit, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,10 +25,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const AssignmentList = () => {
-  const { assignments } = useSelector((state) => state.assignment);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { assignments } = useSelector((state) => state.assignment);
+  const [searchTerm, setSearchTerm] = useState("");
 
   //handle status toggle
   const handleStatusToggle = (assignmentId, currentStatus) => {
@@ -40,6 +41,10 @@ const AssignmentList = () => {
       toast.error("Failed to update quiz status");
     }
   };
+  // Filter assignment by courseName
+  const filteredAssignments = assignments.filter((quiz) =>
+    quiz.courseName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     // dispatch assignments action
@@ -51,7 +56,12 @@ const AssignmentList = () => {
       <div className="mb-6">
         <div className="flex items-center space-x-4">
           <div className="flex-1">
-            <Input placeholder="Search assignments..." className="w-full" />
+            <Input
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search assignments by course..."
+              className="w-full"
+            />
           </div>
           <Select>
             <SelectTrigger className="w-[180px]">
@@ -77,8 +87,8 @@ const AssignmentList = () => {
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
-        {assignments.length > 0 ? (
-          assignments.map((assignment, index) => (
+        {filteredAssignments.length > 0 ? (
+          filteredAssignments.map((assignment, index) => (
             <TableRow key={assignment._id || index}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>{assignment.title}</TableCell>
@@ -110,19 +120,24 @@ const AssignmentList = () => {
                       )
                     }
                     variant="ghost"
-                    size="icon"
+                    size="sm"
+                    className="p-2 mr-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
                   >
                     <Eye className="h-4 w-4" />
                   </Button>
                   <Button
-                    className="cursor-pointer"
                     variant="ghost"
-                    size="icon"
+                    size="sm"
+                    className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                   >
-                    <Edit className="h-4 w-4" />
+                    <Edit />
                   </Button>
-                  <Button variant="ghost" size="icon">
-                    <Trash2 className="h-4 w-4" />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                  >
+                    <Trash2 />
                   </Button>
                 </div>
               </TableCell>
