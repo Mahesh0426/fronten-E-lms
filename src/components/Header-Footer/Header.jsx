@@ -113,10 +113,7 @@ const Header = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>
-                    <LayoutDashboard /> Dashboard
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate("/profile")}>
                     <User /> My Profile
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
@@ -179,10 +176,8 @@ const Header = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate("/dashboard")}>
-                    <LayoutDashboard /> Dashboard
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
+
+                  <DropdownMenuItem onClick={() => navigate("/profile")}>
                     <User /> My Profile
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />

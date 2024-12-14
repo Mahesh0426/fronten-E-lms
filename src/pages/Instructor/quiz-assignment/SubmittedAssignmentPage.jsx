@@ -82,7 +82,7 @@ const ViewSubmittedAssignmentsPage = () => {
                     </p>
                     <Badge variant="secondary">
                       Submitted On:{" "}
-                      {new Date(submission.submissionDate).toLocaleDateString()}
+                      {new Date(submission.submissionDate).toLocaleString()}
                     </Badge>
                   </div>
                   <p className="text-sm text-gray-600">
@@ -98,10 +98,6 @@ const ViewSubmittedAssignmentsPage = () => {
                     <strong>Description:</strong>{" "}
                     {submission.assignmentId?.description}
                   </p>
-                  {/* <p className="text-sm text-gray-700">
-                    <strong>Submitted On:</strong>{" "}
-                    {new Date(submission.submissionDate).toLocaleString()}
-                  </p> */}
 
                   <p className="text-sm text-gray-700">
                     <strong>Max Score:</strong>{" "}

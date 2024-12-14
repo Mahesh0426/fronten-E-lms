@@ -14,18 +14,18 @@ import InstructorDashboardPage from "./pages/Instructor/InstructorDashboardPage"
 import InstructorQuizesPage from "./pages/Instructor/quiz-assignment/Quize&AssignmentPage";
 import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
 import StudentLayout from "./components/student-view/StudentLayout";
-import StudentAllCoursepage from "./pages/student/StudentAllCoursespage";
-import StudentCourseDetailspage from "./pages/student/StudentCourseDetailsPage";
-import MyCoursePage from "./pages/student/MyCoursePage";
-import PaypalPaymentReturnPage from "./pages/student/PaymentReturnPage";
-import CourseProgressPage from "./pages/student/CourseProgressPage";
+import StudentAllCoursepage from "./pages/student/course/StudentAllCoursespage";
+import StudentCourseDetailspage from "./pages/student/course/StudentCourseDetailsPage";
+import MyCoursePage from "./pages/student/course/MyCoursePage";
+import PaypalPaymentReturnPage from "./pages/student/course/PaymentReturnPage";
+import CourseProgressPage from "./pages/student/course/CourseProgressPage";
 import QuizAttemptPage from "./pages/student/quiz and assignment/QuizAttemptPage";
 import AssignmentSubmissionPage from "./pages/student/quiz and assignment/AssignmentSubmissionPage";
 import ViewSubmittedAssignmentsPage from "./pages/Instructor/quiz-assignment/SubmittedAssignmentPage";
 import ViewSubmittedQuizPage from "./pages/Instructor/quiz-assignment/SubmittedQuizPage";
 import AboutUs from "./pages/home/AboutUsPage";
 import ChangePassword from "./components/forget-password/ChangePassword";
-import StudentDashboard from "./pages/student/dashboard/StudentDashboard";
+import StudentProfile from "./pages/student/profile/StudentProfile";
 
 function App() {
   return (
@@ -87,7 +87,7 @@ function App() {
             path="student-assignment/:assignmentId"
             element={<AssignmentSubmissionPage />}
           />
-          <Route path="dashboard" element={<StudentDashboard />} />
+          <Route path="profile" element={<StudentProfile />} />
         </Route>
       </Routes>
 
