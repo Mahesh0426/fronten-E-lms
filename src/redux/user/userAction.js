@@ -1,4 +1,9 @@
-import { getNewAccessJwt, getUser, logoutUser } from "@/axios/userAxios";
+import {
+  getNewAccessJwt,
+  getUser,
+  logoutUser,
+  updateUser,
+} from "@/axios/userAxios";
 import { toast } from "react-toastify";
 import { setUser } from "./userSlice";
 
@@ -12,6 +17,19 @@ export const getUserAction = () => async (dispatch) => {
   }
 
   dispatch(setUser(response.data));
+};
+
+//UPDATE USER
+export const updateUserAction = (formData) => async (dispatch) => {
+  const response = await updateUser(formData);
+
+  if (response?.status === "error") {
+    return toast.error(response.message);
+  }
+  // update the Redux store with the new user data
+  dispatch(setUser(response.data));
+
+  return toast.success(response.message);
 };
 
 // AUTOLOGIN

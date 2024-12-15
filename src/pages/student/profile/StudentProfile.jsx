@@ -78,7 +78,7 @@ const StudentProfile = () => {
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-100 via-white to-purple-100 ">
+      <div className="flex w-full  h-screen overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-100 via-white to-purple-100 ">
         <Sidebar className=" bg-blue-300 shadow-md ">
           <SidebarHeader className="border-b px-6 py-4 bg-white sticky top-16 z-10">
             <div className="flex items-center  space-x-2">
@@ -119,7 +119,7 @@ const StudentProfile = () => {
             </Button>
           </SidebarFooter>
         </Sidebar>
-        <main className="flex-1 overflow-y-auto bg-secondary/10 p-6">
+        <main className="flex-[3]  w-full overflow-y-auto bg-secondary/10 p-6">
           <SidebarTrigger className="mb-4 lg:hidden" />
           {/* Render the active component */}
           {menuItems.find((item) => item.value === activePage)?.component}

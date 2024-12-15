@@ -163,7 +163,7 @@ const CourseProgressPage = () => {
   }, [showConfetti]);
 
   return (
-    <div className="flex flex-col h-screen  bg-gray-900 text-white">
+    <div className="  flex flex-col h-screen  bg-gray-900 text-white">
       {showConfetti && <ReactConfetti />}
 
       {/* header section  */}

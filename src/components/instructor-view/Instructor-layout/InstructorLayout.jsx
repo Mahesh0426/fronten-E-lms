@@ -31,6 +31,11 @@ import QuizAndAssignmentPage from "../../../pages/Instructor/quiz-assignment/Qui
 import StudentManagement from "@/pages/Instructor/StudentManagementPage";
 
 import GradebookTable from "@/pages/Instructor/student-management/studentgradebook";
+import { compose } from "@reduxjs/toolkit";
+import AnalyticsPage from "@/pages/Instructor/analytics/instructorAnalytics";
+import ActivityLog from "@/pages/Instructor/Activity-Log/ActivityLog";
+import StudentAnalytics from "@/pages/Instructor/StudentAnalytics";
+import PerformanceReports from "@/pages/Instructor/Reports";
 
 const InstructorLayout = () => {
   const [activeTab, setActiveTab] = useState("Courses");
@@ -65,6 +70,7 @@ const InstructorLayout = () => {
       icon: BarChart,
       label: "Analytics",
       value: "Analytics",
+      component: <AnalyticsPage />,
     },
     {
       icon: Lightbulb,
@@ -76,10 +82,21 @@ const InstructorLayout = () => {
       icon: BrainCircuit,
       label: "Learning Materials",
       value: "Learning Materials",
+      component: <StudentAnalytics />,
     },
-    { icon: NotebookTabs, label: "Activity Logs", value: "Activity Logs" },
+    {
+      icon: NotebookTabs,
+      label: "Activity Logs",
+      value: "Activity Logs",
+      component: <ActivityLog />,
+    },
     { icon: Settings, label: "Personalization Settings", value: "Settings" },
-    { icon: Flag, label: "Reports", value: "Reports" },
+    {
+      icon: Flag,
+      label: "Reports",
+      value: "Reports",
+      component: <PerformanceReports />,
+    },
   ];
 
   const { user } = useSelector((state) => state.user);

@@ -61,7 +61,7 @@ const FormControl = (props) => {
     <div className="mb-4 ">
       <Label
         htmlFor={inputAttributes.id}
-        className="block text-sm font-medium text-gray-900 "
+        className="block text-sm   font-bold text-gray-900 "
       >
         {label}
       </Label>

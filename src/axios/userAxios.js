@@ -29,6 +29,16 @@ export const getUser = () => {
   });
 };
 
+// UPDATE USER | PATCH | PRIVATE
+export const updateUser = (userData) => {
+  return axiosApiCall({
+    method: "patch",
+    url: `${USER_API_URL}/update`,
+    data: userData,
+    isPrivate: true,
+  });
+};
+
 // Get new access token using refresh token | GET | PRIVATE
 export const getNewAccessJwt = () => {
   return axiosApiCall({
