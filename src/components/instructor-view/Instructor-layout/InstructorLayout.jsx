@@ -12,6 +12,8 @@ import {
   NotebookTabs,
   Flag,
   GraduationCap,
+  User,
+  Settings2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,9 +38,11 @@ import AnalyticsPage from "@/pages/Instructor/analytics/instructorAnalytics";
 import ActivityLog from "@/pages/Instructor/Activity-Log/ActivityLog";
 import StudentAnalytics from "@/pages/Instructor/StudentAnalytics";
 import PerformanceReports from "@/pages/Instructor/Reports";
+import { useNavigate } from "react-router-dom";
 
 const InstructorLayout = () => {
   const [activeTab, setActiveTab] = useState("Courses");
+  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -155,8 +159,15 @@ const InstructorLayout = () => {
             <DropdownMenuContent align="start" className="w-56 ">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => navigate("/instructor/instructor-profile")}
+              >
+                <User /> Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                {" "}
+                <Settings2 /> Settings
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />

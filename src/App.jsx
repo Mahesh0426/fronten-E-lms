@@ -26,6 +26,8 @@ import ViewSubmittedQuizPage from "./pages/Instructor/quiz-assignment/SubmittedQ
 import AboutUs from "./pages/home/AboutUsPage";
 import ChangePassword from "./components/forget-password/ChangePassword";
 import StudentProfile from "./pages/student/profile/StudentProfile";
+import InstructorProfilePage from "./pages/Instructor/instructor-profile/InstructorProfilePage";
+import QuizAndAssignmentPage from "./pages/Instructor/quiz-assignment/Quize&AssignmentPage";
 
 function App() {
   return (
@@ -38,7 +40,7 @@ function App() {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/*" element={<PageNotFound />} />
 
-        {/* ptivate Routes */}
+        {/* private Routes */}
 
         <Route
           path="/instructor"
@@ -53,14 +55,19 @@ function App() {
           element={<RouteGuard element={<CreateNewCoursePage />} />}
         />
 
-        <Route
+        {/* <Route
           path="/instructor/dashboard"
           element={<RouteGuard element={<InstructorDashboardPage />} />}
-        />
+        /> */}
+
         <Route
-          path="/instructor/quizes"
-          element={<RouteGuard element={<InstructorQuizesPage />} />}
+          path="/instructor/instructor-profile"
+          element={<RouteGuard element={<InstructorProfilePage />} />}
         />
+        {/* <Route
+          path="/instructor/quizes"
+          element={<RouteGuard element={<QuizAndAssignmentPage />} />}
+        /> */}
         <Route
           path="/instructor/submitted-assignment/:assignmentId"
           element={<RouteGuard element={<ViewSubmittedAssignmentsPage />} />}
@@ -70,6 +77,7 @@ function App() {
           element={<RouteGuard element={<ViewSubmittedQuizPage />} />}
         />
 
+        {/* student layout */}
         <Route path="/" element={<StudentLayout />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/aboutUs" element={<AboutUs />} />

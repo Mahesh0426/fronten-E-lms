@@ -145,8 +145,11 @@ const AssignmentList = () => {
           ))
         ) : (
           <TableRow>
-            <TableCell className="text-center text-2xl m-4" colSpan={7}>
-              No assignments found
+            <TableCell
+              className="text-center text-gray-600 text-lg m-4 p-4"
+              colSpan={7}
+            >
+              No assignment found matching your search
             </TableCell>
           </TableRow>
         )}

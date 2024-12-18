@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Brain, Users, Zap } from "lucide-react";
+import sujanImage from "../../assets/sujan.png";
 
 export default function AboutUs() {
   return (
@@ -102,16 +103,15 @@ export default function AboutUs() {
                   "https://strapi-wasabi-bucket.apyhi.com/7_Features_Ai_powered_design_3_c153e8079b.webp",
               },
               {
-                name: "Sujan Maharjan",
+                name: "Sujit Maharjan",
                 role: "Chief Learning Officer",
                 image:
                   "https://plus.unsplash.com/premium_photo-1664536392896-cd1743f9c02c?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
               },
               {
-                name: "Sujit",
+                name: "Sujan Banjara",
                 role: "Head of AI Development",
-                image:
-                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=3000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                image: sujanImage,
               },
               {
                 name: "Barsha Rai",

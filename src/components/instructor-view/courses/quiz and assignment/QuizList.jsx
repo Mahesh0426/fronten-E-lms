@@ -89,56 +89,67 @@ const QuizList = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredQuizes.map((quiz, index) => (
-            <TableRow key={quiz._id || index}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{quiz.title}</TableCell>
-              <TableCell>{quiz.courseName}</TableCell>
-              <TableCell>{quiz.totalQuestions}</TableCell>
-              <TableCell>{quiz.totalMarks}</TableCell>
+          {filteredQuizes.length > 0 ? (
+            filteredQuizes.map((quiz, index) => (
+              <TableRow key={quiz._id || index}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>{quiz.title}</TableCell>
+                <TableCell>{quiz.courseName}</TableCell>
+                <TableCell>{quiz.totalQuestions}</TableCell>
+                <TableCell>{quiz.totalMarks}</TableCell>
 
-              <TableCell>
-                <span
-                  onClick={() => handleStatusToggle(quiz?._id, quiz.status)}
-                  className={`px-2 py-1 rounded-full cursor-pointer text-xs ${
-                    quiz.status === "Published"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-yellow-100 text-yellow-800"
-                  }`}
-                >
-                  {quiz.status}
-                </span>
-              </TableCell>
-              <TableCell>
-                <div className="flex space-x-2">
-                  <Button
-                    onClick={() =>
-                      navigate(`/instructor/submitted-quiz/${quiz?._id}`)
-                    }
-                    variant="ghost"
-                    size="sm"
-                    className="p-2 mr-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
+                <TableCell>
+                  <span
+                    onClick={() => handleStatusToggle(quiz?._id, quiz.status)}
+                    className={`px-2 py-1 rounded-full cursor-pointer text-xs ${
+                      quiz.status === "Published"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                    }`}
                   >
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                  >
-                    <Edit />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                  >
-                    <Trash2 />
-                  </Button>
-                </div>
+                    {quiz.status}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <div className="flex space-x-2">
+                    <Button
+                      onClick={() =>
+                        navigate(`/instructor/submitted-quiz/${quiz?._id}`)
+                      }
+                      variant="ghost"
+                      size="sm"
+                      className="p-2 mr-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    >
+                      <Edit />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                    >
+                      <Trash2 />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell
+                className="text-center text-gray-600 text-lg m-4 p-4"
+                colSpan={7}
+              >
+                No quiz found matching your search
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </>

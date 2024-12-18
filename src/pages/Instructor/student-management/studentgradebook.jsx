@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Table,
   TableBody,
@@ -9,9 +10,8 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { fetchAllMarksByInstructorId } from "@/axios/marks/marksAxios";
-import { useSelector } from "react-redux";
+
+import PageLoadingSpinner from "@/components/helper/PageLoadingSpinner";
 import {
   Select,
   SelectContent,
@@ -20,98 +20,38 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Download } from "lucide-react";
+import { fetchAllMarksByInstructorIdAction } from "@/redux/grade/gradeAction";
 
 const GradebookTable = () => {
+  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.user);
+  const { allStudentMarks, uniqueCourses, isLoading } = useSelector(
+    (state) => state.grade
+  );
+
   const instructorId = user?._id;
   const [searchTerm, setSearchTerm] = useState("");
-  const [studentMarks, setStudentMarks] = useState([]);
   const [filterCourse, setFilterCourse] = useState("");
-  const [uniqueCourses, setUniqueCourses] = useState([]);
 
-  //use effect to fetch all students marks
+  // Fetch data on mount
   useEffect(() => {
-    const fetchMarks = async () => {
-      if (!instructorId) return;
-      try {
-        const response = await fetchAllMarksByInstructorId(instructorId);
+    if (instructorId) {
+      dispatch(fetchAllMarksByInstructorIdAction(instructorId));
+    }
+  }, [dispatch, instructorId]);
 
-        if (response?.status === "success") {
-          //Creates an empty array to store assignments and quizzes.
-          const combinedData = [];
-          const assignments = response.data.assignments || [];
-          const quizzes = response.data.quizzes || [];
-
-          assignments.forEach((assignment) => {
-            combinedData.push({
-              name: assignment.studentName,
-              email: assignment.studentEmail,
-              course: assignment.courseTitle,
-              assignmentScore: assignment.score,
-              assignmentMaxScore: assignment.maxScore,
-              quizScore: 0,
-              quizTotalMarks: 0,
-            });
-          });
-
-          quizzes.forEach((quiz) => {
-            const existing = combinedData.find(
-              (item) =>
-                item.name === quiz.studentName &&
-                item.email === quiz.studentEmail &&
-                item.course === quiz.courseTitle
-            );
-
-            if (existing) {
-              existing.quizScore = quiz.obtainedMarks;
-              existing.quizTotalMarks = quiz.totalMarks;
-            } else {
-              const relatedAssignment = assignments.find(
-                (assignment) => assignment.courseTitle === quiz.courseTitle
-              );
-
-              combinedData.push({
-                name: quiz.studentName,
-                email: quiz.studentEmail,
-                course: quiz.courseTitle,
-                assignmentScore: 0,
-                assignmentMaxScore: relatedAssignment
-                  ? relatedAssignment.maxScore
-                  : 0,
-                quizScore: quiz.obtainedMarks,
-                quizTotalMarks: quiz.totalMarks,
-              });
-            }
-          });
-
-          setStudentMarks(combinedData);
-
-          // Extract unique course titles for the dropdown
-          const courses = [
-            ...new Set(combinedData.map((data) => data?.course)),
-          ];
-          setUniqueCourses(courses);
-        }
-      } catch (error) {
-        console.error("Error fetching marks:", error);
-      }
-    };
-
-    fetchMarks();
-  }, [instructorId]);
-
-  //function to handle search input
+  // Handle search input
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  // Filter students based on search term and selected course
-  const filteredStudents = studentMarks.filter(
+  // Filtered students
+  const filteredStudents = allStudentMarks.filter(
     (student) =>
       student.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (!filterCourse || student.course === filterCourse)
   );
-
   //fucntion to download csv file
   const handleExportToCSV = () => {
     const headers = [
@@ -126,7 +66,7 @@ const GradebookTable = () => {
       "Grade",
     ];
 
-    const rows = studentMarks.map((student) => {
+    const rows = filteredStudents.map((student) => {
       const total = calculateTotal(student);
       const maxScore = calculateMaxScore(student);
       const grade = calculateGrade(calculateProgress(total, maxScore));
@@ -156,22 +96,15 @@ const GradebookTable = () => {
     link.click();
   };
 
-  // function to calculate total score
-  const calculateTotal = (student) => {
-    return student.assignmentScore + student.quizScore;
-  };
+  const calculateTotal = (student) =>
+    student.assignmentScore + student.quizScore;
 
-  // function to calculate total score
-  const calculateMaxScore = (student) => {
-    return student.assignmentMaxScore + student.quizTotalMarks;
-  };
+  const calculateMaxScore = (student) =>
+    student.assignmentMaxScore + student.quizTotalMarks;
 
-  // function to calculate progress percentage
-  const calculateProgress = (total, maxScore) => {
-    return maxScore > 0 ? (total / maxScore) * 100 : 0;
-  };
+  const calculateProgress = (total, maxScore) =>
+    maxScore > 0 ? (total / maxScore) * 100 : 0;
 
-  //function to calculate grade
   const calculateGrade = (percentage) => {
     if (percentage < 50) return "F";
     if (percentage >= 50 && percentage < 65) return "P";
@@ -179,33 +112,47 @@ const GradebookTable = () => {
     if (percentage >= 75 && percentage < 86) return "D";
     return "HD";
   };
+  const getProgressBarColor = (grade) => {
+    switch (grade) {
+      case "HD":
+        return "bg-green-600";
+      case "D":
+        return "bg-blue-500";
+      case "C":
+        return "bg-yellow-500";
+      case "P":
+        return "bg-orange-500";
+      case "F":
+        return "bg-red-600";
+      default:
+        return "bg-gray-300";
+    }
+  };
 
   return (
     <div>
-      {/* header section */}
+      {/* Header Section */}
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl mb-4 font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-          Student Management
-        </h1>
+        <h1 className="text-3xl mb-4 font-bold">Student Management</h1>
         <Button
-          className="w-full sm:w-auto  rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+          className="rounded-md bg-indigo-600 text-white font-bold"
           onClick={handleExportToCSV}
         >
           <Download /> Export to CSV
         </Button>
       </div>
 
+      {/* Search and Filter */}
       <div className="mb-4 flex justify-between items-center">
         <Input
           type="text"
           placeholder="Search by student..."
           value={searchTerm}
           onChange={handleSearch}
-          className=" mt-2 mr-2 w-full"
+          className="mr-2"
         />
-        {/* filter section */}
         <Select value={filterCourse} onValueChange={setFilterCourse}>
-          <SelectTrigger className=" mt-2 w-1/4">
+          <SelectTrigger className="w-1/4">
             <SelectValue placeholder="Filter by Course" />
           </SelectTrigger>
           <SelectContent>
@@ -217,57 +164,69 @@ const GradebookTable = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="overflow-x-auto overflow-y-auto max-h-100">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>SN</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Course</TableHead>
-              <TableHead>Assignment</TableHead>
-              <TableHead>Quiz</TableHead>
-              <TableHead>Total Marks</TableHead>
-              <TableHead>Grade</TableHead>
-              <TableHead>Progress</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredStudents.map((student, index) => {
-              const total = calculateTotal(student);
-              const maxScore = calculateMaxScore(student);
-              const progress = calculateProgress(total, maxScore);
-              const grade = calculateGrade(progress);
-              return (
-                <TableRow key={index}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{student.name}</TableCell>
-                  <TableCell>{student.email}</TableCell>
-                  <TableCell>{student.course}</TableCell>
-                  <TableCell>
-                    {student.assignmentScore}/{student.assignmentMaxScore}
-                  </TableCell>
-                  <TableCell>
-                    {student.quizScore}/{student.quizTotalMarks}
-                  </TableCell>
-                  <TableCell>
-                    {total}/{maxScore}
-                  </TableCell>
-                  <TableCell>{grade}</TableCell>
-                  <TableCell>
-                    <div className="w-full max-w-xs">
-                      <Progress value={progress} className="w-full" />
+
+      {/* Table */}
+      {isLoading ? (
+        <PageLoadingSpinner />
+      ) : (
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>SN</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Course</TableHead>
+                <TableHead>Assignment</TableHead>
+                <TableHead>Quiz</TableHead>
+                <TableHead>Total Marks</TableHead>
+                <TableHead>Grade</TableHead>
+                <TableHead>Progress</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredStudents.map((student, index) => {
+                const total = calculateTotal(student);
+                const maxScore = calculateMaxScore(student);
+                const progress = calculateProgress(total, maxScore);
+                const grade = calculateGrade(progress);
+
+                return (
+                  <TableRow key={index}>
+                    <TableCell>{index + 1}</TableCell>
+                    <TableCell>{student.name}</TableCell>
+                    <TableCell>{student.email}</TableCell>
+                    <TableCell>{student.course}</TableCell>
+                    <TableCell>
+                      {student.assignmentScore}/{student.assignmentMaxScore}
+                    </TableCell>
+                    <TableCell>
+                      {student.quizScore}/{student.quizTotalMarks}
+                    </TableCell>
+                    <TableCell>
+                      {total}/{maxScore}
+                    </TableCell>
+                    <TableCell>{grade}</TableCell>
+                    <TableCell>
+                      <div className="w-full h-2 bg-gray-200 rounded-lg overflow-hidden">
+                        <div
+                          className={`h-full ${getProgressBarColor(
+                            grade
+                          )} transition-all duration-300`}
+                          style={{ width: `${progress}%` }}
+                        ></div>
+                      </div>
                       <div className="text-xs text-center mt-1">
                         {progress.toFixed(2)}%
-                      </div>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </div>
+                      </div>{" "}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </div>
+      )}
     </div>
   );
 };

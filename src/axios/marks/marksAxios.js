@@ -9,3 +9,11 @@ export const fetchAllMarksByInstructorId = (instructorId) => {
     url: `${USER_API_URL}/get-all-marks/instructor/${instructorId}`,
   });
 };
+
+//get  particular courses marks by student id | GET | private Route
+export const fetchMarksByStudentId = (studentId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/get-marks/student/${studentId}`,
+  });
+};
