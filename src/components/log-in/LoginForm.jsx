@@ -25,29 +25,6 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   //function to handle login submit
-  // const handleOnSubmit = async (e) => {
-  //   e.preventDefault();
-  //   startLoading();
-
-  //   // Call API to login the user
-  //   const response = await loginUser(formData);
-
-  //   stopLoading();
-  //   if (response?.status === "error") {
-  //     return toast.error(response.message);
-  //   }
-
-  //   // Store JWTs in session and local storage
-  //   sessionStorage.setItem("accessJWT", response.data.accessJWT);
-  //   localStorage.setItem("refreshJWT", response.data.refreshJWT);
-
-  //   // Dispatch action to get the user
-  //   dispatch(getUserAction());
-
-  //   //Show success message and Clear the form
-  //   toast.success(response.message);
-  //   setFormData(initialLoginFormData);
-  // };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     startLoading();

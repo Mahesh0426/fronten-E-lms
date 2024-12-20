@@ -112,16 +112,22 @@ const QuizList = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex space-x-2">
-                    <Button
-                      onClick={() =>
-                        navigate(`/instructor/submitted-quiz/${quiz?._id}`)
-                      }
-                      variant="ghost"
-                      size="sm"
-                      className="p-2 mr-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
-                    >
-                      <Eye className="h-4 w-4" />
-                    </Button>
+                    <div className="relative group">
+                      <Button
+                        onClick={() =>
+                          navigate(`/instructor/submitted-quiz/${quiz?._id}`)
+                        }
+                        variant="ghost"
+                        size="sm"
+                        className="p-2 mr-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      {/* tooltip */}
+                      <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex items-center justify-center bg-gray-800 text-white text-xs rounded-md h-8 w-40 shadow-lg">
+                        View Student Quiz
+                      </div>
+                    </div>
                     <Button
                       variant="ghost"
                       size="sm"

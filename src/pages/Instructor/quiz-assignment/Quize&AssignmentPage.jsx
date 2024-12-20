@@ -8,9 +8,15 @@ import AssignmentList from "@/components/instructor-view/courses/quiz and assign
 import CommonDialogueQandA from "@/components/instructor-view/courses/quiz and assignment/CommonDialogueQandA";
 
 const QuizAndAssignmentPage = () => {
-  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
   const [activeTab, setActiveTab] = useState("quizzes");
   const [assessmentType, setAssessmentType] = useState("quiz");
+  const [edittedAssignmentId, setEdittedAssignmentId] = useState(null);
+
+  const handleCreateNew = () => {
+    setShowDialog(true);
+    setEdittedAssignmentId(null);
+  };
 
   return (
     <div className="space-y-6">
@@ -24,7 +30,7 @@ const QuizAndAssignmentPage = () => {
             </div>
             <Button
               className="w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
-              onClick={() => setShowCreateDialog(true)}
+              onClick={() => handleCreateNew()}
             >
               <Plus className="mr-2 h-4 w-4" /> Create New
             </Button>
@@ -40,7 +46,18 @@ const QuizAndAssignmentPage = () => {
               <QuizList />
             </TabsContent>
             <TabsContent value="assignments">
-              <AssignmentList />
+              <AssignmentList
+                onEditAssignment={(assignment) => {
+                  console.log("Selected assignment:", assignment);
+                  setAssessmentType("assignment");
+                  setEdittedAssignmentId(assignment._id);
+                  console.log(
+                    "edittedAssignmentId in parent:",
+                    edittedAssignmentId
+                  );
+                  setShowDialog(true);
+                }}
+              />
             </TabsContent>
           </Tabs>
         </CardContent>
@@ -48,10 +65,11 @@ const QuizAndAssignmentPage = () => {
 
       {/* dialogue section */}
       <CommonDialogueQandA
-        open={showCreateDialog}
-        onOpenChange={setShowCreateDialog}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
         assessmentType={assessmentType}
         setAssessmentType={setAssessmentType}
+        edittedAssignmentId={edittedAssignmentId}
       />
     </div>
   );

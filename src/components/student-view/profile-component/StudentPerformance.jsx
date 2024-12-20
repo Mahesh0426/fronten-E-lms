@@ -51,14 +51,19 @@ const MyPerformancePage = () => {
   //function to export in pdf
   const handleExportPDF = async () => {
     try {
+      // Select the HTML element you want to capture
       const element = document.getElementById("grading-summary");
-      const canvas = await html2canvas(element, { scale: 2 }); // Use html2canvas to capture the HTML element
-      const imgData = canvas.toDataURL("image/png");
 
+      // Use html2canvas to capture the element as a canvas
+      const canvas = await html2canvas(element, { scale: 2 }); // Increase scale for better resolution
+      const imgData = canvas.toDataURL("image/png"); // Convert canvas to png data
+
+      // "p" for portrait, "mm" for millimeters, "a4" for A4 size paper
       const pdf = new jsPDF("p", "mm", "a4");
       const imgWidth = 190; // PDF width in mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
 
+      // Add the image to the PDF
       pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
       pdf.save("grading-summary.pdf");
     } catch (error) {
@@ -83,16 +88,18 @@ const MyPerformancePage = () => {
         </div>
       </div>
 
-      <div className="p-4 mt-4">
-        <h1 className="text-2xl sm:text-3xl mb-4 font-bold text-indigo-600 ">
-          Grading Summary
-        </h1>
-        <Button
-          className=" text-center mb-2 rounded-md bg-indigo-600 text-white font-bold mt-4"
-          onClick={handleExportPDF}
-        >
-          Export PDF
-        </Button>
+      <div className="p-4 mt-4 ">
+        <div className="flex items-center justify-between ">
+          <h1 className="text-2xl sm:text-3xl mb-4 font-bold text-indigo-600 ">
+            Grading Summary
+          </h1>
+          <Button
+            className=" text-end   mb-2 rounded-md bg-indigo-600 text-white font-bold mt-4 hover:bg-indigo-400"
+            onClick={handleExportPDF}
+          >
+            Export to PDF
+          </Button>
+        </div>
 
         {isLoading ? (
           <div className="flex justify-center items-center">

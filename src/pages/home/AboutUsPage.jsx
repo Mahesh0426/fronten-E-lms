@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Brain, Users, Zap } from "lucide-react";
 import sujanImage from "../../assets/sujan.png";
 
-export default function AboutUs() {
+const AboutUsPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4 py-16">
@@ -164,4 +164,5 @@ export default function AboutUs() {
       </div>
     </div>
   );
-}
+};
+export default AboutUsPage;

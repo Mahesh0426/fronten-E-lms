@@ -109,7 +109,7 @@ const UpdateInfo = () => {
           />
           <Button
             type="submit"
-            className=" ml-32 w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+            className="  w-full  flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
           >
             Update Info
           </Button>

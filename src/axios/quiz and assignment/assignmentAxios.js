@@ -11,6 +11,15 @@ export const createAssignment = (assignmentData) => {
   });
 };
 
+// edit assignment | PATCH | private Route
+export const editAssignment = (assignmentId, assignmentData) => {
+  return axiosApiCall({
+    method: "patch",
+    url: `${USER_API_URL}/edit/${assignmentId}`,
+    data: assignmentData,
+  });
+};
+
 // get  all assignments  list |GET | Public Route
 export const fetchAllAssignmentsList = () => {
   return axiosApiCall({

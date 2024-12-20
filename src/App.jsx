@@ -23,11 +23,10 @@ import QuizAttemptPage from "./pages/student/quiz and assignment/QuizAttemptPage
 import AssignmentSubmissionPage from "./pages/student/quiz and assignment/AssignmentSubmissionPage";
 import ViewSubmittedAssignmentsPage from "./pages/Instructor/quiz-assignment/SubmittedAssignmentPage";
 import ViewSubmittedQuizPage from "./pages/Instructor/quiz-assignment/SubmittedQuizPage";
-import AboutUs from "./pages/home/AboutUsPage";
 import ChangePassword from "./components/forget-password/ChangePassword";
-import StudentProfile from "./pages/student/profile/StudentProfile";
 import InstructorProfilePage from "./pages/Instructor/instructor-profile/InstructorProfilePage";
-import QuizAndAssignmentPage from "./pages/Instructor/quiz-assignment/Quize&AssignmentPage";
+import AboutUsPage from "./pages/home/AboutUsPage";
+import StudentProfilePage from "./pages/student/profile/StudentProfile";
 
 function App() {
   return (
@@ -80,7 +79,7 @@ function App() {
         {/* student layout */}
         <Route path="/" element={<StudentLayout />}>
           <Route path="/home" element={<HomePage />} />
-          <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/aboutUs" element={<AboutUsPage />} />
           <Route path="" element={<HomePage />} />
           <Route path="courses" element={<StudentAllCoursepage />} />
           <Route
@@ -95,7 +94,7 @@ function App() {
             path="student-assignment/:assignmentId"
             element={<AssignmentSubmissionPage />}
           />
-          <Route path="profile" element={<StudentProfile />} />
+          <Route path="profile" element={<StudentProfilePage />} />
         </Route>
       </Routes>
 

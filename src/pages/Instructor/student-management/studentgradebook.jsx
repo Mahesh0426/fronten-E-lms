@@ -132,8 +132,10 @@ const GradebookTable = () => {
   return (
     <div>
       {/* Header Section */}
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl mb-4 font-bold">Student Management</h1>
+      <div className="  flex justify-between items-center">
+        <h1 className=" mb-3 text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+          Student Management
+        </h1>
         <Button
           className="rounded-md bg-indigo-600 text-white font-bold"
           onClick={handleExportToCSV}
@@ -143,7 +145,7 @@ const GradebookTable = () => {
       </div>
 
       {/* Search and Filter */}
-      <div className="mb-4 flex justify-between items-center">
+      <div className=" mt-2 mb-4 flex justify-between items-center">
         <Input
           type="text"
           placeholder="Search by student..."

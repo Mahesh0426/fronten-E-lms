@@ -7,6 +7,7 @@ import {
   User,
   ChartNoAxesCombined,
   CircleUser,
+  ReceiptText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,12 +25,13 @@ import MyCoursePage from "../course/MyCoursePage";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUserAction } from "@/redux/user/userAction";
-import StudentDashboard from "./StudentDashboard";
-import UpdateInfo from "./UpdateInfo";
-import StudentSetting from "./StudentSetting";
-import StudentPerformance from "./StudentPerformance";
+import StudentDashboard from "../../../components/student-view/profile-component/StudentDashboard";
+import UpdateInfo from "../../../components/student-view/profile-component/UpdateInfo";
+import StudentSetting from "../../../components/student-view/profile-component/StudentSetting";
+import StudentPerformance from "../../../components/student-view/profile-component/StudentPerformance";
+import StudentInvoice from "@/components/student-view/profile-component/StudentInvoice";
 
-const StudentProfile = () => {
+const StudentProfilePage = () => {
   const [activePage, setActivePage] = useState("Dashboard");
   const {
     user: { userEmail, userName },
@@ -59,6 +61,12 @@ const StudentProfile = () => {
       label: "Update Info",
       value: "Update Info",
       component: <UpdateInfo />,
+    },
+    {
+      icon: ReceiptText,
+      label: "Invoice",
+      value: "invoice",
+      component: <StudentInvoice />,
     },
     {
       icon: Settings,
@@ -129,4 +137,4 @@ const StudentProfile = () => {
   );
 };
 
-export default StudentProfile;
+export default StudentProfilePage;

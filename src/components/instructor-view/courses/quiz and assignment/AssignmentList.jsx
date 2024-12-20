@@ -24,7 +24,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const AssignmentList = () => {
+const AssignmentList = ({ onEditAssignment }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,8 +42,8 @@ const AssignmentList = () => {
     }
   };
   // Filter assignment by courseName
-  const filteredAssignments = assignments.filter((quiz) =>
-    quiz.courseName.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredAssignments = assignments.filter((assignment) =>
+    assignment.courseName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   useEffect(() => {
@@ -87,72 +87,85 @@ const AssignmentList = () => {
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
-        {filteredAssignments.length > 0 ? (
-          filteredAssignments.map((assignment, index) => (
-            <TableRow key={assignment._id || index}>
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{assignment.title}</TableCell>
-              <TableCell>{assignment.courseName}</TableCell>
-              <TableCell>
-                {new Date(assignment.dueDate).toLocaleDateString()}
-              </TableCell>
-              <TableCell>{assignment.maxScore}</TableCell>
-              <TableCell className="w-[100px]">
-                <span
-                  onClick={() =>
-                    handleStatusToggle(assignment?._id, assignment.status)
-                  }
-                  className={`px-2 py-1 rounded-full cursor-pointer text-xs ${
-                    assignment.status === "Published"
-                      ? "bg-green-100 text-green-800"
-                      : "bg-yellow-100 text-yellow-800"
-                  }`}
-                >
-                  {assignment.status}
-                </span>
-              </TableCell>
-              <TableCell>
-                <div className="flex space-x-2">
-                  <Button
+        <TableBody>
+          {filteredAssignments.length > 0 ? (
+            filteredAssignments.map((assignment, index) => (
+              <TableRow key={assignment._id || index}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>{assignment.title}</TableCell>
+                <TableCell>{assignment.courseName}</TableCell>
+                <TableCell>
+                  {new Date(assignment.dueDate).toLocaleDateString()}
+                </TableCell>
+                <TableCell>{assignment.maxScore}</TableCell>
+                <TableCell className="w-[100px]">
+                  <span
                     onClick={() =>
-                      navigate(
-                        `/instructor/submitted-assignment/${assignment._id}`
-                      )
+                      handleStatusToggle(assignment?._id, assignment.status)
                     }
-                    variant="ghost"
-                    size="sm"
-                    className="p-2 mr-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
+                    className={`px-2 py-1 rounded-full cursor-pointer text-xs ${
+                      assignment.status === "Published"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-yellow-100 text-yellow-800"
+                    }`}
                   >
-                    <Eye className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                  >
-                    <Edit />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                  >
-                    <Trash2 />
-                  </Button>
-                </div>
+                    {assignment.status}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  <div className="flex space-x-2">
+                    <div className="relative group">
+                      <Button
+                        onClick={() =>
+                          navigate(
+                            `/instructor/submitted-assignment/${assignment._id}`
+                          )
+                        }
+                        variant="ghost"
+                        size="sm"
+                        className="p-2 mr-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      {/* tooltip */}
+                      <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex items-center justify-center bg-gray-800 text-white text-xs rounded-md h-8 w-48 shadow-lg">
+                        View Student Assignment
+                      </div>
+                    </div>
+
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                      onClick={() => {
+                        console.log("Edit clicked:", assignment);
+                        onEditAssignment(assignment);
+                      }}
+                    >
+                      <Edit />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                    >
+                      <Trash2 />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell
+                className="text-center text-gray-600 text-lg m-4 p-4"
+                colSpan={7}
+              >
+                No assignment found matching your search
               </TableCell>
             </TableRow>
-          ))
-        ) : (
-          <TableRow>
-            <TableCell
-              className="text-center text-gray-600 text-lg m-4 p-4"
-              colSpan={7}
-            >
-              No assignment found matching your search
-            </TableCell>
-          </TableRow>
-        )}
+          )}
+        </TableBody>
       </Table>
     </>
   );
