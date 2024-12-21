@@ -138,7 +138,6 @@ const AssignmentList = ({ onEditAssignment }) => {
                       size="sm"
                       className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                       onClick={() => {
-                        console.log("Edit clicked:", assignment);
                         onEditAssignment(assignment);
                       }}
                     >

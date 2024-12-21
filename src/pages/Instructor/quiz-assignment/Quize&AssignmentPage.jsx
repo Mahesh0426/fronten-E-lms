@@ -12,6 +12,7 @@ const QuizAndAssignmentPage = () => {
   const [activeTab, setActiveTab] = useState("quizzes");
   const [assessmentType, setAssessmentType] = useState("quiz");
   const [edittedAssignmentId, setEdittedAssignmentId] = useState(null);
+  const [edittedQuizId, setEdittedQuizId] = useState(null);
 
   const handleCreateNew = () => {
     setShowDialog(true);
@@ -43,18 +44,23 @@ const QuizAndAssignmentPage = () => {
               <TabsTrigger value="assignments">Assignments</TabsTrigger>
             </TabsList>
             <TabsContent value="quizzes">
-              <QuizList />
+              <QuizList
+                onEditQuiz={(quiz) => {
+                  console.log("editted quiz", quiz);
+
+                  setAssessmentType("quiz");
+                  setEdittedQuizId(quiz._id);
+                  console.log("quiz id", edittedQuizId);
+
+                  setShowDialog(true);
+                }}
+              />
             </TabsContent>
             <TabsContent value="assignments">
               <AssignmentList
                 onEditAssignment={(assignment) => {
-                  console.log("Selected assignment:", assignment);
                   setAssessmentType("assignment");
                   setEdittedAssignmentId(assignment._id);
-                  console.log(
-                    "edittedAssignmentId in parent:",
-                    edittedAssignmentId
-                  );
                   setShowDialog(true);
                 }}
               />
@@ -70,6 +76,7 @@ const QuizAndAssignmentPage = () => {
         assessmentType={assessmentType}
         setAssessmentType={setAssessmentType}
         edittedAssignmentId={edittedAssignmentId}
+        edittedQuizId={edittedQuizId}
       />
     </div>
   );

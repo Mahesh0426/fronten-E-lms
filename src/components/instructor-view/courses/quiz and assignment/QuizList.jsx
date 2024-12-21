@@ -24,7 +24,7 @@ import {
 } from "@/redux/instructor-quiz and Assignment/quizAction";
 import { useNavigate } from "react-router-dom";
 
-const QuizList = () => {
+const QuizList = ({ onEditQuiz }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -132,6 +132,11 @@ const QuizList = () => {
                       variant="ghost"
                       size="sm"
                       className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                      onClick={() => {
+                        console.log("quiz details", quiz);
+
+                        onEditQuiz(quiz);
+                      }}
                     >
                       <Edit />
                     </Button>

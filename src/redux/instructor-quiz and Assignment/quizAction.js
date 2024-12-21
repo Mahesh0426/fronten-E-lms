@@ -1,5 +1,6 @@
 import {
   createQuiz,
+  editquiz,
   fetchAllQuizesList,
   fetchAllSubmittedQuizByQuizId,
   fetchQuizById,
@@ -30,6 +31,17 @@ export const fetchAllQuizesListAction = () => async (dispatch) => {
 //  create a  new quizes | for tutor
 export const createQuizAction = (quizData) => async (dispatch) => {
   const response = await createQuiz(quizData);
+
+  if (response?.status === "error") {
+    return toast.error(response.message);
+  }
+  toast.success(response.message);
+  dispatch(fetchAllQuizesListAction());
+};
+
+//edit quiz by quiz id
+export const editQuizAction = (quizId, quizData) => async (dispatch) => {
+  const response = await editquiz(quizId, quizData);
 
   if (response?.status === "error") {
     return toast.error(response.message);

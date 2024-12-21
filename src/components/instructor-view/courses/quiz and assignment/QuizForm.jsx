@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,7 +11,10 @@ import {
 } from "@/components/ui/select";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { createQuizAction } from "@/redux/instructor-quiz and Assignment/quizAction";
+import {
+  createQuizAction,
+  editQuizAction,
+} from "@/redux/instructor-quiz and Assignment/quizAction";
 
 const initialQuizFormData = [
   {
@@ -21,24 +24,71 @@ const initialQuizFormData = [
   },
 ];
 
-const QuizForm = ({ onClose }) => {
+const QuizForm = ({ onClose, edittedQuizId }) => {
+  const dispatch = useDispatch();
+  console.log("edittedQuizId", edittedQuizId);
+
+  // State management
   const [quizTitle, setQuizTitle] = useState("");
   const [marks, setMarks] = useState("");
   const [selectedCourseId, setSelectedCourseId] = useState("");
   const [selectedCourseName, setSelectedCourseName] = useState("");
   const [quizFormData, setQuizFormData] = useState(initialQuizFormData);
-  const dispatch = useDispatch();
 
+  // Redux selectors
   const { user } = useSelector((state) => state.user);
+  const { courses } = useSelector((state) => state.course) || {};
+  const { quizes } = useSelector((state) => state.quiz);
+  console.log("Quizes", quizes);
+
   const instructorId = user?._id;
   const instructorName = user?.userName;
-  const { courses } = useSelector((state) => state.course) || {};
 
   // Extracting course fields for the dropdown
-  const filteredCourses = courses?.map((course) => ({
-    courseId: course._id,
-    courseName: course.title,
+  const filteredCourses = courses?.map(({ _id, title }) => ({
+    courseId: _id,
+    courseName: title,
   }));
+
+  // Populates the form with quiz data if editing
+  const populateFormForEditing = () => {
+    if (edittedQuizId && quizes?.length > 0) {
+      const quizToEdit = quizes.find((quiz) => quiz?._id === edittedQuizId);
+      if (quizToEdit) {
+        // Title
+        setQuizTitle(quizToEdit.title || "");
+
+        // If you store total marks in quizToEdit.totalMarks,
+        // you could compute marks per question here:
+        // setMarks(quizToEdit.totalMarks / quizToEdit.totalQuestions || "");
+        // Or, if it’s simply stored in quizToEdit.totalMarks:
+        setMarks(quizToEdit.totalMarks / quizToEdit.totalQuestions || "");
+
+        // Questions
+        setQuizFormData(quizToEdit.questions || initialQuizFormData);
+
+        // Course
+        setSelectedCourseId(quizToEdit.courseId || "");
+        setSelectedCourseName(quizToEdit.courseName || "");
+      }
+    } else {
+      resetForm();
+    }
+  };
+
+  // Resets the form data to its initial state
+  const resetForm = () => {
+    setQuizTitle("");
+    setMarks("");
+    setQuizFormData(initialQuizFormData);
+    setSelectedCourseId("");
+    setSelectedCourseName("");
+  };
+
+  //update form when component mounts
+  useEffect(() => {
+    populateFormForEditing();
+  }, [edittedQuizId, quizes]);
 
   // Handler for changes in course dropdown
   const handleCourseChange = (courseId) => {
@@ -96,15 +146,22 @@ const QuizForm = ({ onClose }) => {
       instructorName,
       courseId: selectedCourseId,
       courseName: selectedCourseName,
-      status: "Draft",
+      status: edittedQuizId ? "Published" : "Draft",
       totalQuestions: quizFormData.length,
       totalMarks: quizFormData.length * marks,
     };
 
     try {
       // Dispatch the action to create the quiz
-      dispatch(createQuizAction(quizData));
-      setQuizFormData(initialQuizFormData);
+      // dispatch(createQuizAction(quizData));
+      // setQuizFormData(initialQuizFormData);
+
+      if (edittedQuizId) {
+        dispatch(editQuizAction(edittedQuizId, quizData));
+      } else {
+        dispatch(createQuizAction(quizData));
+        setQuizFormData(initialQuizFormData);
+      }
       onClose();
     } catch (error) {
       toast.error("Failed to create quiz");

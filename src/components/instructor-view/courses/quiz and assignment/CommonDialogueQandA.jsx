@@ -17,9 +17,8 @@ const CommonDialogQandA = ({
   assessmentType,
   setAssessmentType,
   edittedAssignmentId,
+  edittedQuizId,
 }) => {
-  console.log("assignmentId:", edittedAssignmentId);
-
   return (
     <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogContent className="sm:max-w-[600px]">
@@ -41,7 +40,10 @@ const CommonDialogQandA = ({
             <TabsTrigger value="assignment">Assignment</TabsTrigger>
           </TabsList>
           <TabsContent value="quiz">
-            <QuizForm onClose={() => setShowDialog(false)} />
+            <QuizForm
+              onClose={() => setShowDialog(false)}
+              edittedQuizId={edittedQuizId}
+            />
           </TabsContent>
           <TabsContent value="assignment">
             <AssessmentForm

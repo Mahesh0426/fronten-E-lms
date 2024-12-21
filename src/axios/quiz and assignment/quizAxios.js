@@ -10,6 +10,14 @@ export const createQuiz = (quizData) => {
     data: quizData,
   });
 };
+// edit quiz | PATCH | private Route
+export const editquiz = (quizId, quizData) => {
+  return axiosApiCall({
+    method: "patch",
+    url: `${USER_API_URL}/edit/${quizId}`,
+    data: quizData,
+  });
+};
 
 // get  all quizes  list |GET | Public Route
 export const fetchAllQuizesList = () => {
