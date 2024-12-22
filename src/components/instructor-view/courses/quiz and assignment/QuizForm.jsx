@@ -26,9 +26,8 @@ const initialQuizFormData = [
 
 const QuizForm = ({ onClose, edittedQuizId }) => {
   const dispatch = useDispatch();
-  console.log("edittedQuizId", edittedQuizId);
 
-  // State management
+  // State for quiz metadata
   const [quizTitle, setQuizTitle] = useState("");
   const [marks, setMarks] = useState("");
   const [selectedCourseId, setSelectedCourseId] = useState("");
@@ -39,35 +38,24 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
   const { user } = useSelector((state) => state.user);
   const { courses } = useSelector((state) => state.course) || {};
   const { quizes } = useSelector((state) => state.quiz);
-  console.log("Quizes", quizes);
 
   const instructorId = user?._id;
   const instructorName = user?.userName;
 
-  // Extracting course fields for the dropdown
+  //  extracting For course dropdown
   const filteredCourses = courses?.map(({ _id, title }) => ({
     courseId: _id,
     courseName: title,
   }));
 
-  // Populates the form with quiz data if editing
+  // Populate form for editing
   const populateFormForEditing = () => {
     if (edittedQuizId && quizes?.length > 0) {
-      const quizToEdit = quizes.find((quiz) => quiz?._id === edittedQuizId);
+      const quizToEdit = quizes.find((quiz) => quiz._id === edittedQuizId);
       if (quizToEdit) {
-        // Title
         setQuizTitle(quizToEdit.title || "");
-
-        // If you store total marks in quizToEdit.totalMarks,
-        // you could compute marks per question here:
-        // setMarks(quizToEdit.totalMarks / quizToEdit.totalQuestions || "");
-        // Or, if it’s simply stored in quizToEdit.totalMarks:
         setMarks(quizToEdit.totalMarks / quizToEdit.totalQuestions || "");
-
-        // Questions
         setQuizFormData(quizToEdit.questions || initialQuizFormData);
-
-        // Course
         setSelectedCourseId(quizToEdit.courseId || "");
         setSelectedCourseName(quizToEdit.courseName || "");
       }
@@ -76,7 +64,11 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
     }
   };
 
-  // Resets the form data to its initial state
+  // mount populateFormFormEditing when id chanages
+  useEffect(() => {
+    populateFormForEditing();
+  }, [edittedQuizId, quizes]);
+
   const resetForm = () => {
     setQuizTitle("");
     setMarks("");
@@ -85,60 +77,67 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
     setSelectedCourseName("");
   };
 
-  //update form when component mounts
-  useEffect(() => {
-    populateFormForEditing();
-  }, [edittedQuizId, quizes]);
-
-  // Handler for changes in course dropdown
+  //handle course change
   const handleCourseChange = (courseId) => {
     const selectedCourse = filteredCourses.find(
       (course) => course.courseId === courseId
     );
     setSelectedCourseId(courseId);
-    setSelectedCourseName(selectedCourse ? selectedCourse.courseName : "");
+    setSelectedCourseName(selectedCourse?.courseName || "");
   };
 
-  // Function to add a new question to the form
+  // Change the question text
+  const handleQuestionChange = (qIndex, value) => {
+    setQuizFormData((prevData) => {
+      const updated = [...prevData];
+      updated[qIndex] = { ...updated[qIndex], questionText: value };
+      return updated;
+    });
+  };
+
+  // Change a specific option
+  const handleOptionChange = (qIndex, oIndex, value) => {
+    setQuizFormData((prevData) => {
+      const updated = [...prevData];
+      updated[qIndex] = {
+        ...updated[qIndex],
+        options: updated[qIndex].options.map((opt, idx) =>
+          idx === oIndex ? value : opt
+        ),
+      };
+      return updated;
+    });
+  };
+
+  // Change the correct answer
+  const handleCorrectAnswerChange = (qIndex, value) => {
+    setQuizFormData((prevData) => {
+      const updated = [...prevData];
+      updated[qIndex] = { ...updated[qIndex], correctAnswer: value };
+      return updated;
+    });
+  };
+
+  // Add a new question
   const addQuestion = () => {
-    const newQuestion = {
-      questionText: "",
-      options: ["", "", "", ""],
-      correctAnswer: "",
-    };
-
-    setQuizFormData([...quizFormData, newQuestion]);
+    setQuizFormData([
+      ...quizFormData,
+      {
+        questionText: "",
+        options: ["", "", "", ""],
+        correctAnswer: "",
+      },
+    ]);
   };
 
-  // Handlers for changes in form fields
-  const handleQuestionChange = (index, value) => {
-    const newQuizFormData = [...quizFormData];
-    newQuizFormData[index].questionText = value;
-    setQuizFormData(newQuizFormData);
-  };
-
-  // Handlers for changes when option change
-  const handleOptionChange = (questionIndex, optionIndex, value) => {
-    const newQuizFormData = [...quizFormData];
-    newQuizFormData[questionIndex].options[optionIndex] = value;
-    setQuizFormData(newQuizFormData);
-  };
-
-  //handlers for  correct answer
-  const handleCorrectAnswerChange = (questionIndex, value) => {
-    const newQuizFormData = [...quizFormData];
-    newQuizFormData[questionIndex].correctAnswer = value;
-    setQuizFormData(newQuizFormData);
-  };
-
-  // Submit handler for creating the quiz
+  // ========== Submit ==========
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (!quizTitle && !selectedCourseId && !marks) {
-      return toast.error("Please provide all required fields !!");
+    if (!quizTitle || !marks || !selectedCourseId) {
+      toast.error("Please fill in all required fields.");
+      return;
     }
 
-    // Prepare the quiz data object
     const quizData = {
       title: quizTitle,
       questions: quizFormData,
@@ -152,19 +151,15 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
     };
 
     try {
-      // Dispatch the action to create the quiz
-      // dispatch(createQuizAction(quizData));
-      // setQuizFormData(initialQuizFormData);
-
       if (edittedQuizId) {
         dispatch(editQuizAction(edittedQuizId, quizData));
       } else {
         dispatch(createQuizAction(quizData));
-        setQuizFormData(initialQuizFormData);
+        resetForm();
       }
       onClose();
     } catch (error) {
-      toast.error("Failed to create quiz");
+      toast.error("Failed to create or update quiz.");
     }
   };
 
@@ -182,11 +177,14 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
           onChange={(e) => setMarks(e.target.value)}
           placeholder="Marks per question"
           type="number"
-          className="w-50 "
+          className="w-41"
         />
       </div>
-      {/* dropdown for course selection  */}
-      <Select onValueChange={(value) => handleCourseChange(value)}>
+
+      <Select
+        value={selectedCourseId}
+        onValueChange={(value) => handleCourseChange(value)}
+      >
         <SelectTrigger>
           <SelectValue placeholder="Select Course" />
         </SelectTrigger>
@@ -199,26 +197,26 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
         </SelectContent>
       </Select>
 
-      {/* form for quiz input */}
+      {/* Questions */}
       <div className="max-h-96 overflow-y-auto border p-4 rounded">
         {quizFormData.map((question, qIndex) => (
           <div key={qIndex} className="mb-6 p-4 border rounded">
             <Textarea
               value={question.questionText}
               onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
-              placeholder={`Question ${qIndex + 1}`}
+              placeholder={` write question here Question ${qIndex + 1}`}
               className="mb-2"
             />
             {question.options.map((option, oIndex) => (
-              <div key={oIndex} className="mb-2">
-                <Input
-                  value={option}
-                  onChange={(e) =>
-                    handleOptionChange(qIndex, oIndex, e.target.value)
-                  }
-                  placeholder={`Option ${oIndex + 1}`}
-                />
-              </div>
+              <Input
+                key={oIndex}
+                value={option}
+                onChange={(e) =>
+                  handleOptionChange(qIndex, oIndex, e.target.value)
+                }
+                placeholder={`Option ${oIndex + 1}`}
+                className="mb-2"
+              />
             ))}
             <Input
               value={question.correctAnswer}
@@ -235,10 +233,11 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
       <Button
         type="button"
         onClick={addQuestion}
-        className=" mb-4 w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+        className="mb-4 w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
       >
         Add Question
       </Button>
+
       <div className="flex justify-end space-x-2 mt-6">
         <Button variant="outline" type="button" onClick={onClose}>
           Cancel
@@ -247,7 +246,7 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
           className="w-full sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
           type="submit"
         >
-          Create Quiz
+          {edittedQuizId ? "Update Quiz" : "Create Quiz"}
         </Button>
       </div>
     </form>

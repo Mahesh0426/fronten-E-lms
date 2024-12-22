@@ -17,6 +17,7 @@ const QuizAndAssignmentPage = () => {
   const handleCreateNew = () => {
     setShowDialog(true);
     setEdittedAssignmentId(null);
+    setEdittedQuizId(null);
   };
 
   return (

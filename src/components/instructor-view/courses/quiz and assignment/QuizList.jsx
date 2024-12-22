@@ -128,18 +128,26 @@ const QuizList = ({ onEditQuiz }) => {
                         View Student Quiz
                       </div>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                      onClick={() => {
-                        console.log("quiz details", quiz);
 
-                        onEditQuiz(quiz);
-                      }}
-                    >
-                      <Edit />
-                    </Button>
+                    <div className="relative group">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                        onClick={() => {
+                          console.log("quiz details", quiz);
+
+                          onEditQuiz(quiz);
+                        }}
+                      >
+                        <Edit />
+                      </Button>
+                      {/* tooltip */}
+                      <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex items-center justify-center bg-gray-800 text-white text-xs rounded-md h-8 w-20 shadow-lg">
+                        Edit Quiz
+                      </div>
+                    </div>
+
                     <Button
                       variant="ghost"
                       size="sm"

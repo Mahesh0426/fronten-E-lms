@@ -25,12 +25,15 @@ const QuizAttemptPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Redux selectors
   const { quiz } = location.state || {};
   const { user } = useSelector((state) => state.user);
   const { quizGradeDetails } = useSelector((state) => state.quiz);
 
+  // State management
   const [answers, setAnswers] = useState([]);
 
+  // functon to handle radio change in options
   const handleRadioChange = (questionIndex, option) => {
     const newAnswers = [...answers];
     newAnswers[questionIndex] = option;
@@ -43,7 +46,9 @@ const QuizAttemptPage = () => {
     let correctAnswers = 0;
     const scoredQuestions = quiz.questions.map((question, index) => {
       const studentAnswer = answers[index];
-      const isCorrect = studentAnswer === question.correctAnswer;
+      const isCorrect =
+        studentAnswer.trim().toLowerCase() ===
+        question.correctAnswer.trim().toLowerCase();
 
       if (isCorrect) {
         correctAnswers++;

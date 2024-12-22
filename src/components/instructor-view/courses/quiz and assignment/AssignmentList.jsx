@@ -127,22 +127,29 @@ const AssignmentList = ({ onEditAssignment }) => {
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
-                      {/* tooltip */}
+
                       <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex items-center justify-center bg-gray-800 text-white text-xs rounded-md h-8 w-48 shadow-lg">
                         View Student Assignment
                       </div>
                     </div>
 
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                      onClick={() => {
-                        onEditAssignment(assignment);
-                      }}
-                    >
-                      <Edit />
-                    </Button>
+                    <div className="relative group">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                        onClick={() => {
+                          onEditAssignment(assignment);
+                        }}
+                      >
+                        <Edit />
+                      </Button>
+                      {/* tooltip */}
+                      <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex items-center justify-center bg-gray-800 text-white text-xs rounded-md h-8 w-40 shadow-lg">
+                        Edit Assignment
+                      </div>
+                    </div>
+
                     <Button
                       variant="ghost"
                       size="sm"

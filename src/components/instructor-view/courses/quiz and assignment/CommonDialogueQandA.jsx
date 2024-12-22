@@ -24,9 +24,13 @@ const CommonDialogQandA = ({
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
           <DialogTitle>
-            {edittedAssignmentId
-              ? "Edit Assignment"
-              : "Create New Quiz And Assessment"}
+            <DialogTitle>
+              {edittedAssignmentId
+                ? "Edit Assignment"
+                : edittedQuizId
+                ? "Edit Quiz"
+                : "Create New Quiz And Assessment"}
+            </DialogTitle>
           </DialogTitle>
           <DialogDescription>you can create from here.</DialogDescription>
         </DialogHeader>

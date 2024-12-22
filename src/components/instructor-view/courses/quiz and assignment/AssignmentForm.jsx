@@ -109,6 +109,7 @@ const AssessmentForm = ({ onClose, edittedAssignmentId }) => {
         dispatch(editAssignmentAction(edittedAssignmentId, assignmentData));
       } else {
         dispatch(createAssignmentAction(assignmentData));
+        setFormData(initialAssignmentFormData);
       }
       onClose();
     } catch (error) {
