@@ -19,3 +19,11 @@ export const capturePaymentAndFinalizeOrder = (paymentId, payerId, orderId) => {
     data: { paymentId, payerId, orderId },
   });
 };
+
+//get order as invoice  by student id   | GET
+export const fetchOrderAsInvoice = (studentId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/invoice/${studentId}`,
+  });
+};
