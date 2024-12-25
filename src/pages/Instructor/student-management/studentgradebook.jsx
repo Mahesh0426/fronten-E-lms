@@ -33,6 +33,7 @@ const GradebookTable = () => {
   const instructorId = user?._id;
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCourse, setFilterCourse] = useState("");
+  // const [average, setAverage] = useState(null);
 
   // Fetch data on mount
   useEffect(() => {

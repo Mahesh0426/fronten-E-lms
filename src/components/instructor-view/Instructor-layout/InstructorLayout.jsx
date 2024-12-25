@@ -31,14 +31,13 @@ import InstructorAllCoursePage from "../../../pages/Instructor/course-management
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import QuizAndAssignmentPage from "../../../pages/Instructor/quiz-assignment/Quize&AssignmentPage";
 import StudentManagement from "@/pages/Instructor/StudentManagementPage";
-
 import GradebookTable from "@/pages/Instructor/student-management/studentgradebook";
-import { compose } from "@reduxjs/toolkit";
-import AnalyticsPage from "@/pages/Instructor/analytics/instructorAnalytics";
 import ActivityLog from "@/pages/Instructor/Activity-Log/ActivityLog";
 import StudentAnalytics from "@/pages/Instructor/StudentAnalytics";
 import PerformanceReports from "@/pages/Instructor/Reports";
 import { useNavigate } from "react-router-dom";
+import Setting from "@/pages/Instructor/Setting";
+import Analytics from "@/pages/Instructor/analytics/instructorAnalytics";
 
 const InstructorLayout = () => {
   const [activeTab, setActiveTab] = useState("Courses");
@@ -74,7 +73,7 @@ const InstructorLayout = () => {
       icon: BarChart,
       label: "Analytics",
       value: "Analytics",
-      component: <AnalyticsPage />,
+      component: <Analytics />,
     },
     {
       icon: Lightbulb,
@@ -94,7 +93,12 @@ const InstructorLayout = () => {
       value: "Activity Logs",
       component: <ActivityLog />,
     },
-    { icon: Settings, label: "Personalization Settings", value: "Settings" },
+    {
+      icon: Settings,
+      label: "Personalization Settings",
+      value: "Settings",
+      component: <Setting />,
+    },
     {
       icon: Flag,
       label: "Reports",

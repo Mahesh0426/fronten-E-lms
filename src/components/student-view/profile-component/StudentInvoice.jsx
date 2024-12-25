@@ -48,7 +48,7 @@ const StudentInvoice = () => {
 
     // Header
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(20);
+    pdf.setFontSize(15);
     pdf.text("Invoice", 20, 20);
 
     // Invoice details
@@ -67,7 +67,7 @@ const StudentInvoice = () => {
     pdf.text("GyanX", 20, 70);
     pdf.setFont("helvetica", "normal");
     pdf.text("support@gyanx.com", 20, 80);
-    pdf.text("+1 234 567 890", 20, 90);
+    pdf.text("+61 0426 182 792", 20, 90);
 
     // Customer details
     pdf.setFont("helvetica", "bold");
@@ -122,7 +122,7 @@ const StudentInvoice = () => {
     // Footer
     pdf.setFont("helvetica", "italic");
     pdf.setFontSize(10);
-    pdf.text("Thank you for choosing purchasing Course !!.", 20, 280);
+    pdf.text("Thank you for  purchasing Course !!.", 20, 280);
 
     pdf.save(`invoice.pdf`);
   };

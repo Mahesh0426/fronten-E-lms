@@ -17,3 +17,11 @@ export const fetchMarksByStudentId = (studentId) => {
     url: `${USER_API_URL}/get-marks/student/${studentId}`,
   });
 };
+
+// GET average scores of all courses taught by a particular instructor
+export const fetchAverageScoresByInstructorId = (instructorId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/get-course-stats/instructor/${instructorId}`,
+  });
+};
