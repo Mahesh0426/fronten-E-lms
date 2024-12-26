@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import RouteGuard from "./components/Route-Guard/RouteGuard";
 import InstructorLayout from "./components/instructor-view/Instructor-layout/InstructorLayout";
 import HomePage from "./pages/home/HomePage";
-import InstructorDashboardPage from "./pages/Instructor/InstructorDashboardPage";
+import InstructorDashboardPage from "./pages/Instructor/Dashboard/InstructorDashboardPage";
 import InstructorQuizesPage from "./pages/Instructor/quiz-assignment/Quize&AssignmentPage";
 import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
 import StudentLayout from "./components/student-view/StudentLayout";

@@ -25,3 +25,11 @@ export const fetchAverageScoresByInstructorId = (instructorId) => {
     url: `${USER_API_URL}/get-course-stats/instructor/${instructorId}`,
   });
 };
+
+// GET Activity Log by instructor id  | GET
+export const fetchActivityLogByInstructorId = (instructorId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/get-activity-log/instructor/${instructorId}`,
+  });
+};

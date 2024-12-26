@@ -48,7 +48,7 @@ const GradeBarChart = ({ selectedCourseData }) => {
     scales: {
       y: {
         beginAtZero: true,
-        max: 20, // Assuming the maximum score is 20
+        max: 25,
         title: {
           display: true,
           text: "Score",

@@ -26,18 +26,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { logoutUserAction } from "@/redux/user/userAction";
 import { useDispatch, useSelector } from "react-redux";
-import InstructorDashboardPage from "../../../pages/Instructor/InstructorDashboardPage";
+import InstructorDashboardPage from "../../../pages/Instructor/Dashboard/InstructorDashboardPage";
 import InstructorAllCoursePage from "../../../pages/Instructor/course-management/InstructorAllCoursePage";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import QuizAndAssignmentPage from "../../../pages/Instructor/quiz-assignment/Quize&AssignmentPage";
 import StudentManagement from "@/pages/Instructor/StudentManagementPage";
 import GradebookTable from "@/pages/Instructor/student-management/studentgradebook";
-import ActivityLog from "@/pages/Instructor/Activity-Log/ActivityLog";
-import StudentAnalytics from "@/pages/Instructor/StudentAnalytics";
 import PerformanceReports from "@/pages/Instructor/Reports";
 import { useNavigate } from "react-router-dom";
-import Setting from "@/pages/Instructor/Setting";
 import Analytics from "@/pages/Instructor/analytics/instructorAnalytics";
+import ActivityLogPage from "@/pages/Instructor/Activity-Log/ActivityLog.jsx.jsx";
 
 const InstructorLayout = () => {
   const [activeTab, setActiveTab] = useState("Courses");
@@ -85,19 +83,18 @@ const InstructorLayout = () => {
       icon: BrainCircuit,
       label: "Learning Materials",
       value: "Learning Materials",
-      component: <StudentAnalytics />,
     },
     {
       icon: NotebookTabs,
       label: "Activity Logs",
       value: "Activity Logs",
-      component: <ActivityLog />,
+      component: <ActivityLogPage />,
     },
     {
       icon: Settings,
       label: "Personalization Settings",
       value: "Settings",
-      component: <Setting />,
+      component: <ActivityLogPage />,
     },
     {
       icon: Flag,

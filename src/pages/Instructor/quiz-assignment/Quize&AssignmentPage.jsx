@@ -47,11 +47,8 @@ const QuizAndAssignmentPage = () => {
             <TabsContent value="quizzes">
               <QuizList
                 onEditQuiz={(quiz) => {
-                  console.log("editted quiz", quiz);
-
                   setAssessmentType("quiz");
                   setEdittedQuizId(quiz._id);
-                  console.log("quiz id", edittedQuizId);
 
                   setShowDialog(true);
                 }}

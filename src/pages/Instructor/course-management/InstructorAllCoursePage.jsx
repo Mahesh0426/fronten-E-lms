@@ -50,9 +50,9 @@ const InstructorAllCoursePage = () => {
   );
 
   return (
-    <Card className="min-h-[600px]">
+    <Card className="min-h-[650px]">
       <CardHeader>
-        <CardTitle className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+        <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
           All courses
         </CardTitle>
       </CardHeader>
@@ -88,7 +88,7 @@ const InstructorAllCoursePage = () => {
         {courses && courses.length > 0 ? (
           <div>
             {filteredCourses.length > 0 ? (
-              <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-300px)]">
+              <div className="overflow-x-auto overflow-y-auto max-h-[calc(110vh-300px)]">
                 <Table>
                   <TableHeader>
                     <TableRow>

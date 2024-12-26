@@ -27,3 +27,11 @@ export const fetchOrderAsInvoice = (studentId) => {
     url: `${USER_API_URL}/invoice/${studentId}`,
   });
 };
+
+// get revenue data for chart  | GET
+export const fetchRevenueData = (instructorId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/revenue-data/${instructorId}`,
+  });
+};

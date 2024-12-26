@@ -43,6 +43,10 @@ const ProgressPieChart = ({ data }) => {
       title: {
         display: true,
         text: `Course Progress: ${data.courseTitle || "Unknown Course"}`,
+        font: {
+          size: 14,
+          weight: "bold",
+        },
       },
     },
   };

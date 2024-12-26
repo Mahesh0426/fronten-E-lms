@@ -172,7 +172,7 @@ const GradebookTable = () => {
       {isLoading ? (
         <PageLoadingSpinner />
       ) : (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-300px)] ">
           <Table>
             <TableHeader>
               <TableRow>
