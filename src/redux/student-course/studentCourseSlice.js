@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  studentCourses: {},
+  studentCourses: [],
   studentCourseDetails: null,
   studentEnrolledCoursesList: [],
   studentCurrentCourseProgress: {},
@@ -31,5 +31,6 @@ export const {
   setStudentCourseDetails,
   setStudentEnrolledCoursesList,
   setStudentCurrentCourseProgress,
+  setSearch,
 } = actions;
 export default studentCourseReducer;

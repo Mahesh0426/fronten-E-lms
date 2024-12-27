@@ -27,6 +27,7 @@ import ChangePassword from "./components/forget-password/ChangePassword";
 import InstructorProfilePage from "./pages/Instructor/instructor-profile/InstructorProfilePage";
 import AboutUsPage from "./pages/home/AboutUsPage";
 import StudentProfilePage from "./pages/student/profile/StudentProfile";
+import SearchPage from "./pages/home/SearchPage";
 
 function App() {
   return (
@@ -95,6 +96,7 @@ function App() {
             element={<AssignmentSubmissionPage />}
           />
           <Route path="profile" element={<StudentProfilePage />} />
+          <Route path="search" element={<SearchPage />} />
         </Route>
       </Routes>
 

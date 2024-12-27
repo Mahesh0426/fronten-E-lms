@@ -22,18 +22,30 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { setSearch } from "@/redux/student-course/studentCourseSlice";
 
 const Header = () => {
-  const {
-    user: { _id, userName, userEmail, role },
-  } = useSelector((state) => state.user);
-
-  const isAuthenticated = _id;
-
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  //redut selector
+  const {
+    user: { _id, userName, userEmail, role },
+  } = useSelector((state) => state.user);
+  const isAuthenticated = _id;
+
+  //state management
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
+  // handle on search
+  const handleOnSearch = (e) => {
+    e.preventDefault();
+    // Redirect to SearchPage  | /search path
+    navigate(`/search?query=${encodeURIComponent(searchInput)}`);
+  };
+
+  //function to handle logout
   const handleLogout = () => {
     dispatch(logoutUserAction(userEmail));
     navigate("/login");
@@ -79,12 +91,16 @@ const Header = () => {
           {/* Desktop: Right section */}
           <div className="hidden md:flex items-center space-x-6">
             <div className="flex items-center relative">
-              <Input
-                type="text"
-                placeholder="Search courses..."
-                className="w-64 pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
-              />
-              <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+              <form onSubmit={handleOnSearch}>
+                <Input
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  type="text"
+                  placeholder="Search courses..."
+                  className="w-64 pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                />
+                <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+              </form>
             </div>
 
             {isAuthenticated ? (

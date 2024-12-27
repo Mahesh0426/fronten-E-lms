@@ -30,6 +30,6 @@ export const fetchAverageScoresByInstructorId = (instructorId) => {
 export const fetchActivityLogByInstructorId = (instructorId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get-activity-log/instructor/${instructorId}`,
+    url: `${USER_API_URL}/activity-log/instructor/${instructorId}`,
   });
 };

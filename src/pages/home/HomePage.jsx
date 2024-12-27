@@ -2,17 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllStudentCoursesAction } from "@/redux/student-course/studentCourseAction";
-import { useEffect } from "react";
-import PageLoadingSpinner from "@/components/helper/PageLoadingSpinner";
+import { Link } from "react-router-dom";
 import { assets } from "@/assets/asset";
+import FeaturesCoursesPage from "../student/course/featuresCoursesPage";
 
 const HomePage = () => {
-  const { studentCourses } = useSelector((state) => state.studentCourse);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -66,11 +60,6 @@ const HomePage = () => {
       },
     },
   };
-
-  // use effect to fetch courses
-  useEffect(() => {
-    dispatch(fetchAllStudentCoursesAction());
-  }, [dispatch]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -248,40 +237,7 @@ const HomePage = () => {
       {/* list of  Courses */}
       <section className="py-12 px-4 lg:px-8">
         <h2 className="text-2xll font-bold mb-6">Featured Courses</h2>
-        <div className="grid grid-cols1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {studentCourses && studentCourses.length > 0 ? (
-            studentCourses.map((courseItem) => (
-              <div
-                onClick={() => navigate(`/course/details/${courseItem?._id}`)}
-                key={courseItem?._id}
-                className="border rounded-lg overflow-hidden shadow cursor-pointer transition-all duration-300 ease-in hover:shadow-lg hover:scale-105"
-              >
-                <img
-                  src={courseItem?.image}
-                  alt="thumbnail"
-                  width={300}
-                  height={150}
-                  className="w-full h-40 object-cover "
-                />
-                <div className="p-4">
-                  <h3 className="font-bold mb-2">{courseItem?.title}</h3>
-                  <p className="text-sm text-gray-700 mb-2">
-                    Created by{" "}
-                    <span className="font-bold">
-                      {courseItem?.instructorName.charAt(0).toUpperCase() +
-                        courseItem?.instructorName.slice(1)}
-                    </span>
-                  </p>
-                  <p className="font-bold text-[16px]">
-                    ${courseItem?.pricing}
-                  </p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <PageLoadingSpinner />
-          )}
-        </div>
+        <FeaturesCoursesPage />
       </section>
     </div>
   );

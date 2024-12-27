@@ -12,6 +12,14 @@ export const getCurrentCourseProgress = (userId, courseId) => {
   });
 };
 
+//get course progress percentage by studentId  | GET
+export const getCourseProgressHistory = (studentId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/${studentId}`,
+  });
+};
+
 //mark current lecture as viewed | POST
 export const markLectureAsViewed = (userId, courseId, lectureId) => {
   return axiosApiCall({
