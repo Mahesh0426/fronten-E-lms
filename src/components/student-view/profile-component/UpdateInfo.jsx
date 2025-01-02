@@ -18,6 +18,7 @@ const UpdateInfo = () => {
     skillLevel: user?.skillLevel || "Select your level",
     learningGoals: user?.learningGoals || "select Learning goals",
     primaryInterests: user?.primaryInterests,
+    language: user?.language || "select prefered language",
   };
   // custom hook to handle formdata changes
   const { handleOnChange, formData } = useForm(initialFormData);
@@ -25,8 +26,6 @@ const UpdateInfo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUserAction(formData));
-
-    console.log("Updated Data:", formData);
   };
 
   return (
@@ -107,6 +106,23 @@ const UpdateInfo = () => {
               value: formData.primaryInterests,
             }}
           />
+          <FormControl
+            label="Select prefered language"
+            handleOnChange={handleOnChange}
+            inputAttributes={{
+              type: "select",
+              name: "language",
+              value: formData.language,
+            }}
+            options={[
+              { value: "English", label: "English " },
+              { value: "Hindi", label: "Hindi" },
+              { value: "Nepali", label: "Nepali" },
+              { value: "Bengali", label: "Bengali" },
+              { value: "Urdu", label: "Urdu" },
+            ]}
+          />
+
           <Button
             type="submit"
             className="  w-full  flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"

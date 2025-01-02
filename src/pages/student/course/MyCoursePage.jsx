@@ -1,11 +1,14 @@
-import { getEnrolledCourses } from "@/axios/student-course/myCourseAxios";
+import {
+  getEnrolledCourses,
+  getRecommendedCourses,
+} from "@/axios/student-course/myCourseAxios";
 import PageLoadingSpinner from "@/components/helper/PageLoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import useLoading from "@/hooks/useLoading";
 import { setStudentEnrolledCoursesList } from "@/redux/student-course/studentCourseSlice";
 import { BookOpen, GraduationCap, Watch } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -16,14 +19,11 @@ const MyCoursePage = () => {
   );
 
   const { isLoading, startLoading, stopLoading } = useLoading();
+  const [recommendations, setRecommendations] = useState([]);
+  console.log("recommendations", recommendations);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // Reset the enrolled courses list on mount
-  useEffect(() => {
-    dispatch(setStudentEnrolledCoursesList([]));
-  }, [dispatch]);
 
   //function to fetch the enrolled courses
   const fetchEnrolledCourses = async () => {
@@ -45,6 +45,33 @@ const MyCoursePage = () => {
       fetchEnrolledCourses();
     }
   }, [user?._id]);
+
+  // Reset the enrolled courses list on mount
+  useEffect(() => {
+    dispatch(setStudentEnrolledCoursesList([]));
+  }, [dispatch]);
+
+  //function to fetch recommendations
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      startLoading();
+      try {
+        const response = await getRecommendedCourses(user?._id);
+        console.log("response", response);
+
+        if (response?.success === true) {
+          setRecommendations(response.recommendations);
+          return;
+        }
+      } catch (error) {
+        console.error("Error fetching recommendations:", error);
+      } finally {
+        stopLoading();
+      }
+    };
+    fetchRecommendations();
+  }, [user?._id]);
+
   return (
     <div className="p-4 ">
       <h1 className="text-3xl font-bold mb-8">My Courses</h1>
@@ -117,6 +144,57 @@ const MyCoursePage = () => {
           )}
         </div>
       )}
+      <h1 className=" mt-10 text-2xl font-bold mb-4 ">Recommended Courses</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        {recommendations && recommendations.length > 0 ? (
+          recommendations.map((course) => (
+            <Card key={course._id} className="flex flex-col">
+              <CardContent className="p-4 flex-grow">
+                <img
+                  src={course?.image}
+                  alt={course?.title}
+                  className="h-45 w-full object-cover rounded-md mb-4"
+                />
+                <h3 className="font-bold mb-1">{course?.title}</h3>
+                <p className="text-sm text-gray-700 mb-2">
+                  Created by - {course?.instructorName}
+                </p>
+              </CardContent>
+              <CardFooter>
+                {/* <Button
+                  onClick={() =>
+                    navigate(`/course-progress/${course?.courseId}`)
+                  }
+                  className=" flex-1 sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+                >
+                  <Watch className="mr-2 h-4 w-4" />
+                  Go to Course
+                </Button> */}
+              </CardFooter>
+            </Card>
+          ))
+        ) : (
+          <Card className="col-span-full p-8 text-center">
+            <div className="flex flex-col items-center space-y-6">
+              <div className="relative">
+                <div className="absolute -left-8 top-0">
+                  <BookOpen className="w-8 h-8 text-muted-foreground/30 transform -rotate-12" />
+                </div>
+                <GraduationCap className="w-16 h-16 text-primary" />
+                <div className="absolute -right-8 top-4">
+                  <BookOpen className="w-8 h-8 text-muted-foreground/30 transform rotate-12" />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <h1 className="text-2xl font-semibold tracking-tight">
+                  No recommendation
+                </h1>
+              </div>
+            </div>
+          </Card>
+        )}
+      </div>
     </div>
   );
 };

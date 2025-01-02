@@ -12,3 +12,12 @@ export const getEnrolledCourses = (studentId) => {
     isPrivate: true,
   });
 };
+
+// recommendation system for student | GET
+export const getRecommendedCourses = (studentId) => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/recommendations/${studentId}`,
+    isPrivate: true,
+  });
+};
