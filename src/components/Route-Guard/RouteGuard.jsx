@@ -32,6 +32,15 @@
 //   ) {
 //     return <Navigate to="/instructor" />;
 //   }
+
+//   // Check if User is Admin
+//   if (
+//     isAuthenticated &&
+//     user?.role === "admin" &&
+//     !location.pathname.includes("admin")
+//   ) {
+//     return <Navigate to="/admin" />;
+//   }
 //   return <Fragment>{element}</Fragment>;
 // };
 
@@ -52,12 +61,12 @@ const RouteGuard = ({ element }) => {
     return <PageLoadingSpinner />;
   }
 
-  // Check if User is Not Authenticated
+  // If the user is not authenticated, redirect to the login page
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  // Check if User is Instructor but Not on Instructor Route
+  // Redirect instructors to the  / instructor
   if (
     isAuthenticated &&
     user?.role !== "instructor" &&
@@ -66,6 +75,26 @@ const RouteGuard = ({ element }) => {
     return <Navigate to="/home" replace />;
   }
 
+  // Instructors: Redirect to /instructor if they access non-instructor routes
+  if (
+    user?.role === "instructor" &&
+    !location.pathname.startsWith("/instructor")
+  ) {
+    return <Navigate to="/instructor" replace />;
+  }
+  // Admin: Redirect to /admin if they try to access non-admin routes
+  if (user?.role === "admin" && !location.pathname.startsWith("/admin")) {
+    return <Navigate to="/admin" replace />;
+  }
+
+  // Redirect regular users to the home page if they try to access restricted routes
+  if (
+    user?.role === "user" &&
+    (location.pathname.startsWith("/admin") ||
+      location.pathname.startsWith("/instructor"))
+  ) {
+    return <Navigate to="/home" replace />;
+  }
   return <>{element}</>;
 };
 

@@ -103,7 +103,7 @@ const Header = () => {
               </form>
             </div>
 
-            {isAuthenticated ? (
+            {isAuthenticated && role === "user" ? (
               <Link
                 to="/student-courses"
                 className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
@@ -115,7 +115,7 @@ const Header = () => {
 
             {/* User Profile or Sign In dropdown */}
 
-            {isAuthenticated ? (
+            {isAuthenticated && role === "user" ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -230,7 +230,7 @@ const Header = () => {
                 Explore Courses
               </Link>
 
-              {isAuthenticated ? (
+              {isAuthenticated && role === "user" ? (
                 <Link
                   to="/student-courses"
                   className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"

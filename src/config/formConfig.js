@@ -72,8 +72,9 @@ export const assignmentFormControls = [
     name: "maxScore",
     label: "maxScore",
     type: "number",
-    placeholder: "Enter Max Score",
+    placeholder: "Enter Max Score below 26",
     required: true,
+    max: 25,
   },
 ];
 
@@ -124,15 +125,11 @@ export const courseCategories = [
     value: "web-development",
   },
   {
-    id: "backend-development",
-    label: "Backend Development",
-    value: "backend-development",
+    id: "database-design",
+    label: "Database & Design",
+    value: "database-design",
   },
-  {
-    id: "fronten-development",
-    label: "Fronten Development",
-    value: "fronten-development",
-  },
+
   { id: "data-science", label: "Data Science", value: "data-science" },
   {
     id: "machine-learning",
@@ -145,8 +142,23 @@ export const courseCategories = [
     label: "Artificial Intelligence",
     value: "artificial-intelligence",
   },
+  {
+    id: "cloud-infrastructure",
+    label: "Cloud Infrastructure",
+    value: "cloud-infrastructure",
+  },
+  {
+    id: "blockchain",
+    label: "Blockchain",
+    value: "blockchain",
+  },
+
   { id: "cloud-computing", label: "Cloud Computing", value: "cloud-computing" },
-  { id: "cyber-security", label: "Cyber Security", value: "cyber-security" },
+  {
+    id: "cyber-security",
+    label: "Cyber Security & Networking",
+    value: "cyber-security",
+  },
   {
     id: "mobile-development",
     label: "Mobile Development",
@@ -156,11 +168,6 @@ export const courseCategories = [
     id: "game-development",
     label: "Game Development",
     value: "game-development",
-  },
-  {
-    id: "software-engineering",
-    label: "Software Engineering",
-    value: "software-engineering",
   },
 ];
 

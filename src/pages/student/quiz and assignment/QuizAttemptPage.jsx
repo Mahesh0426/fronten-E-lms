@@ -40,6 +40,23 @@ const QuizAttemptPage = () => {
     setAnswers(newAnswers);
   };
 
+  // Function to compare student answers and  correct answer
+  const normalizeString = (answer) => {
+    return JSON.stringify(
+      answer
+        .trim()
+        .toLowerCase()
+        // Replace all types of brackets with empty strings
+        .replace(/[\[\]\(\)\{\}]/g, "")
+        // Replace multiple spaces with a single space
+        .replace(/\s+/g, " ")
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean)
+    );
+  };
+
+  //function to calculate quiz score
   const calculateQuizScore = () => {
     if (!quiz || !quiz.questions) return null;
 
@@ -47,8 +64,8 @@ const QuizAttemptPage = () => {
     const scoredQuestions = quiz.questions.map((question, index) => {
       const studentAnswer = answers[index];
       const isCorrect =
-        studentAnswer.trim().toLowerCase() ===
-        question.correctAnswer.trim().toLowerCase();
+        normalizeString(studentAnswer) ===
+        normalizeString(question.correctAnswer);
 
       if (isCorrect) {
         correctAnswers++;
@@ -261,7 +278,7 @@ const QuizAttemptPage = () => {
           {quiz.questions.map((question, qIndex) => (
             <div key={question._id} className="p-6 space-y-4">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                {question.questionText}
+                Q{qIndex + 1}: {question.questionText}
               </h2>
               <div className="space-y-3">
                 {question.options.map((option, oIndex) => (

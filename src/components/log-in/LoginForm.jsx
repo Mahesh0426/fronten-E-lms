@@ -12,7 +12,6 @@ import { Eye, EyeOff } from "lucide-react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useNavigate } from "react-router-dom";
-import { setUser } from "@/redux/user/userSlice";
 import { getUserAction } from "@/redux/user/userAction";
 
 const LoginForm = () => {
@@ -37,6 +36,7 @@ const LoginForm = () => {
         return;
       }
 
+      // Store JWTs in session and local storage
       sessionStorage.setItem("accessJWT", response.data.accessJWT);
       localStorage.setItem("refreshJWT", response.data.refreshJWT);
 
@@ -56,30 +56,27 @@ const LoginForm = () => {
   // Logic to handle what should happen if a user is logged in
   const { user } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    if (user?._id) {
-      navigate("/instructor");
-    }
-  }, [user?._id, navigate]);
-
-  // // If user is logged in, redirect to the instructor dashboard
   // useEffect(() => {
-  //   // if user exists [logged in], navigate to instructor homepage
   //   if (user?._id) {
   //     navigate("/instructor");
   //   }
-  //   // if no tokens, keep them in login page
-  //   if (
-  //     !sessionStorage.getItem("accessJWT") &&
-  //     !localStorage.getItem("refreshJWT")
-  //   ) {
-  //     return;
-  //   }
-  //   // if not try auto login
-  //   if (!user?._id) {
-  //     dispatch(autoLoginAction());
-  //   }
-  // }, [user?._id, navigate, dispatch]);
+  // }, [user?._id, navigate]);
+
+  useEffect(() => {
+    if (user?._id) {
+      switch (user.role) {
+        case "admin":
+          navigate("/admin");
+          break;
+        case "instructor":
+          navigate("/instructor");
+          break;
+        default:
+          navigate("/home");
+          break;
+      }
+    }
+  }, [user?._id, user?.role, navigate]);
 
   return (
     <div className="min-h-screen w-full p-4 md:px-6 md:py-12 lg:px-8">

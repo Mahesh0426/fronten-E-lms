@@ -10,8 +10,6 @@ import { ToastContainer } from "react-toastify";
 import RouteGuard from "./components/Route-Guard/RouteGuard";
 import InstructorLayout from "./components/instructor-view/Instructor-layout/InstructorLayout";
 import HomePage from "./pages/home/HomePage";
-import InstructorDashboardPage from "./pages/Instructor/Dashboard/InstructorDashboardPage";
-import InstructorQuizesPage from "./pages/Instructor/quiz-assignment/Quize&AssignmentPage";
 import CreateNewCoursePage from "./pages/Instructor/course-management/CreateNewCoursePage";
 import StudentLayout from "./components/student-view/StudentLayout";
 import StudentAllCoursepage from "./pages/student/course/StudentAllCoursespage";
@@ -24,10 +22,10 @@ import AssignmentSubmissionPage from "./pages/student/quiz and assignment/Assign
 import ViewSubmittedAssignmentsPage from "./pages/Instructor/quiz-assignment/SubmittedAssignmentPage";
 import ViewSubmittedQuizPage from "./pages/Instructor/quiz-assignment/SubmittedQuizPage";
 import ChangePassword from "./components/forget-password/ChangePassword";
-import InstructorProfilePage from "./pages/Instructor/instructor-profile/InstructorProfilePage";
 import AboutUsPage from "./pages/home/AboutUsPage";
 import StudentProfilePage from "./pages/student/profile/StudentProfile";
 import SearchPage from "./pages/home/SearchPage";
+import AdminLayout from "./components/admin-view/AdminLayout";
 
 function App() {
   return (
@@ -41,7 +39,14 @@ function App() {
         <Route path="/*" element={<PageNotFound />} />
 
         {/* private Routes */}
+        {/* admin route */}
+        <Route
+          path="/admin"
+          element={<RouteGuard element={<AdminLayout />} />}
+        />
+        {/* <Route path="/admin" element={<AdminLayout />} /> */}
 
+        {/* instructor route */}
         <Route
           path="/instructor"
           element={<RouteGuard element={<InstructorLayout />} />}
@@ -55,19 +60,6 @@ function App() {
           element={<RouteGuard element={<CreateNewCoursePage />} />}
         />
 
-        {/* <Route
-          path="/instructor/dashboard"
-          element={<RouteGuard element={<InstructorDashboardPage />} />}
-        /> */}
-
-        <Route
-          path="/instructor/instructor-profile"
-          element={<RouteGuard element={<InstructorProfilePage />} />}
-        />
-        {/* <Route
-          path="/instructor/quizes"
-          element={<RouteGuard element={<QuizAndAssignmentPage />} />}
-        /> */}
         <Route
           path="/instructor/submitted-assignment/:assignmentId"
           element={<RouteGuard element={<ViewSubmittedAssignmentsPage />} />}
@@ -77,7 +69,7 @@ function App() {
           element={<RouteGuard element={<ViewSubmittedQuizPage />} />}
         />
 
-        {/* student layout */}
+        {/* student Routes */}
         <Route path="/" element={<StudentLayout />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/aboutUs" element={<AboutUsPage />} />

@@ -25,7 +25,7 @@ const InstructorDashboardPage = () => {
     const revenueData = async () => {
       try {
         const response = await fetchRevenueData(instructorId);
-        console.log("Revenue response:", response.data);
+
         setRevenueData(response.data || []);
       } catch (error) {
         console.error("Error fetching revenue data:", error);
@@ -93,7 +93,10 @@ const InstructorDashboardPage = () => {
     <div className="p-8">
       {/* header */}
       <h1 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-        Welcome, Instructor!
+        Welcome,{" "}
+        {user?.userName &&
+          user.userName.charAt(0).toUpperCase() +
+            user.userName.slice(1).toLowerCase()}
       </h1>
       {/*  total data show cards */}
       <div className="overflow-x-auto overflow-y-auto max-h-[calc(120vh-300px)]">

@@ -82,7 +82,7 @@ const MyCoursePage = () => {
           {studentEnrolledCoursesList &&
           studentEnrolledCoursesList.length > 0 ? (
             studentEnrolledCoursesList.map((course) => (
-              <Card key={course._id} className="flex flex-col">
+              <Card key={course._id} className="flex flex-col ">
                 <CardContent className="p-4 flex-grow">
                   <img
                     src={course?.courseImage}

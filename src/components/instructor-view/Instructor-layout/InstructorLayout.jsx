@@ -30,12 +30,13 @@ import InstructorDashboardPage from "../../../pages/Instructor/Dashboard/Instruc
 import InstructorAllCoursePage from "../../../pages/Instructor/course-management/InstructorAllCoursePage";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import QuizAndAssignmentPage from "../../../pages/Instructor/quiz-assignment/Quize&AssignmentPage";
-import StudentManagement from "@/pages/Instructor/StudentManagementPage";
+
 import GradebookTable from "@/pages/Instructor/student-management/studentgradebook";
 import PerformanceReports from "@/pages/Instructor/Reports";
 import { useNavigate } from "react-router-dom";
 import Analytics from "@/pages/Instructor/analytics/instructorAnalytics";
 import ActivityLogPage from "@/pages/Instructor/Activity-Log/ActivityLog.jsx.jsx";
+import InstructorProfilePage from "@/pages/Instructor/setting/InstructorSetting";
 
 const InstructorLayout = () => {
   const [activeTab, setActiveTab] = useState("Courses");
@@ -73,17 +74,7 @@ const InstructorLayout = () => {
       value: "Analytics",
       component: <Analytics />,
     },
-    {
-      icon: Lightbulb,
-      label: "Recommendation Engine",
-      value: "Recommendations",
-      component: <StudentManagement />,
-    },
-    {
-      icon: BrainCircuit,
-      label: "Learning Materials",
-      value: "Learning Materials",
-    },
+
     {
       icon: NotebookTabs,
       label: "Activity Logs",
@@ -92,9 +83,9 @@ const InstructorLayout = () => {
     },
     {
       icon: Settings,
-      label: "Personalization Settings",
+      label: "Settings",
       value: "Settings",
-      component: <ActivityLogPage />,
+      component: <InstructorProfilePage />,
     },
     {
       icon: Flag,
@@ -112,6 +103,7 @@ const InstructorLayout = () => {
   // LOGOUT FEATURE
   const handleLogout = () => {
     dispatch(logoutUserAction(userEmail));
+    navigate("/login");
   };
 
   return (
@@ -121,7 +113,7 @@ const InstructorLayout = () => {
           {/* header */}
           <header className="mb-3 flex flext-start">
             <GraduationCap className="mr-2 h-6 w-6" />
-            <span className="font-bold">gyanX Admin</span>
+            <span className="font-bold">gyanX Instructor</span>
           </header>
         </div>
 
@@ -153,16 +145,15 @@ const InstructorLayout = () => {
                   {userName.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex flex-col items-start">
-                  <span className="text-sm text-gray-500">{userName}</span>
+                  <span className="text-sm font-medium">{userName}</span>
+                  <span className="text-xs text-blue-800">{userEmail}</span>
                 </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-56 ">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => navigate("/instructor/instructor-profile")}
-              >
+              <DropdownMenuItem>
                 <User /> Profile
               </DropdownMenuItem>
               <DropdownMenuItem>

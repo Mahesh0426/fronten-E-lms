@@ -33,7 +33,6 @@ const GradebookTable = () => {
   const instructorId = user?._id;
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCourse, setFilterCourse] = useState("");
-  // const [average, setAverage] = useState(null);
 
   // Fetch data on mount
   useEffect(() => {
@@ -53,6 +52,7 @@ const GradebookTable = () => {
       student.name?.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (!filterCourse || student.course === filterCourse)
   );
+
   //fucntion to download csv file
   const handleExportToCSV = () => {
     const headers = [
