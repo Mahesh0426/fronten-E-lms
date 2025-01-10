@@ -13,8 +13,7 @@ const StudentLayout = () => {
       <div className="pt-16">
         <Outlet />
       </div>
-
-      <Footer />
+      {!location.pathname.includes("profile") ? <Footer /> : null}
     </div>
   );
 };

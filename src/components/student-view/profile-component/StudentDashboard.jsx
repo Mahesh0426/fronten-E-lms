@@ -35,7 +35,7 @@ const StudentDashboard = () => {
   }
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 space-y-8 m-0 min-h-96">
       <div>
         <h1 className="text-3xl sm:text-3xl font-bold text-indigo-600 ">
           Welcome back, {user?.userName} !

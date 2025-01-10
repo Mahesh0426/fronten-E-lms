@@ -20,7 +20,6 @@ const MyCoursePage = () => {
 
   const { isLoading, startLoading, stopLoading } = useLoading();
   const [recommendations, setRecommendations] = useState([]);
-  console.log("recommendations", recommendations);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,7 +56,6 @@ const MyCoursePage = () => {
       startLoading();
       try {
         const response = await getRecommendedCourses(user?._id);
-        console.log("response", response);
 
         if (response?.success === true) {
           setRecommendations(response.recommendations);
@@ -159,40 +157,20 @@ const MyCoursePage = () => {
                 <p className="text-sm text-gray-700 mb-2">
                   Created by - {course?.instructorName}
                 </p>
+                <p className="font-bold text-[16px]">${course?.pricing}</p>
               </CardContent>
               <CardFooter>
-                {/* <Button
-                  onClick={() =>
-                    navigate(`/course-progress/${course?.courseId}`)
-                  }
-                  className=" flex-1 sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
+                <Button
+                  onClick={() => navigate(`/course/details/${course._id}`)}
+                  className="flex-1 sm:w-auto flex items-center justify-center rounded-md bg-indigo-600 text-sm font-bold text-white shadow-sm hover:bg-indigo-500"
                 >
-                  <Watch className="mr-2 h-4 w-4" />
-                  Go to Course
-                </Button> */}
+                  Enroll Now
+                </Button>
               </CardFooter>
             </Card>
           ))
         ) : (
-          <Card className="col-span-full p-8 text-center">
-            <div className="flex flex-col items-center space-y-6">
-              <div className="relative">
-                <div className="absolute -left-8 top-0">
-                  <BookOpen className="w-8 h-8 text-muted-foreground/30 transform -rotate-12" />
-                </div>
-                <GraduationCap className="w-16 h-16 text-primary" />
-                <div className="absolute -right-8 top-4">
-                  <BookOpen className="w-8 h-8 text-muted-foreground/30 transform rotate-12" />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <h1 className="text-2xl font-semibold tracking-tight">
-                  No recommendation
-                </h1>
-              </div>
-            </div>
-          </Card>
+          <p>no recommendation available </p>
         )}
       </div>
     </div>

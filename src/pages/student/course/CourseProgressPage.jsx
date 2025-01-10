@@ -24,13 +24,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
 import StudentAssignment from "@/components/student-view/quiz and assignment/StudentAssignment";
 import StudentQuiz from "@/components/student-view/quiz and assignment/StudentQuiz";
+import Review from "@/components/student-view/review/Review";
 
 const CourseProgressPage = () => {
+  //redux management
   const { user } = useSelector((state) => state.user);
-
   const { studentCurrentCourseProgress } = useSelector(
     (state) => state.studentCourse
   );
+
+  //state management
   const [isLockCourse, setIsLockCourse] = useState(false);
   const [currentLecture, setCurrentLecture] = useState(null);
   const [showCourseCompleteDialog, setShowCourseCompleteDialog] =
@@ -167,7 +170,7 @@ const CourseProgressPage = () => {
       {showConfetti && <ReactConfetti />}
 
       {/* header section  */}
-      <div className="flex items-center justify-between p-4  border-b bg-gray-900 border-gray-700">
+      <div className=" -mt-16 flex items-center justify-between p-4  border-b bg-gray-900 border-gray-700">
         <div className="flex items-center space-x-4">
           <Button
             onClick={() => {
@@ -233,7 +236,9 @@ const CourseProgressPage = () => {
                 <TabsContent value="assignments">
                   <StudentAssignment />
                 </TabsContent>
-                <TabsContent value="review">No review Yet</TabsContent>
+                <TabsContent value="review">
+                  <Review currentCourse={studentCurrentCourseProgress} />
+                </TabsContent>
               </Tabs>
             </CardContent>
           </Card>
