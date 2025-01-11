@@ -19,15 +19,16 @@ import {
 } from "./AssignmentSlice";
 
 // get all assignments list
-export const fetchAllAssignmentListAction = () => async (dispatch) => {
-  //call API
-  const response = await fetchAllAssignmentsList();
+export const fetchAllAssignmentListAction =
+  (instructorId) => async (dispatch) => {
+    //call API
+    const response = await fetchAllAssignmentsList(instructorId);
 
-  if (response?.status === "error") {
-    return toast.error(response.message);
-  }
-  dispatch(setAssignments(response.data));
-};
+    if (response?.status === "error") {
+      return toast.error(response.message);
+    }
+    dispatch(setAssignments(response.data));
+  };
 
 //  create a  new assignmet
 export const createAssignmentAction = (assignmentData) => async (dispatch) => {

@@ -245,7 +245,7 @@ const CourseContent = () => {
                           <LoadingSpinner size={16} /> // Show loading spinner
                         ) : (
                           <>
-                            <Trash2 className="mr-2 h-4 w-4" /> Delete Lecture
+                            <Trash2 className="  mr-2 h-4 w-4" /> Delete Lecture
                           </>
                         )}
                       </Button>

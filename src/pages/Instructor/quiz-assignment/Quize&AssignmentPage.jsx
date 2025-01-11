@@ -6,14 +6,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import QuizList from "@/components/instructor-view/courses/quiz and assignment/QuizList";
 import AssignmentList from "@/components/instructor-view/courses/quiz and assignment/AssignmentList";
 import CommonDialogueQandA from "@/components/instructor-view/courses/quiz and assignment/CommonDialogueQandA";
+import { useSelector } from "react-redux";
 
 const QuizAndAssignmentPage = () => {
+  //redux management
+  const { user } = useSelector((state) => state.user || {});
+  const instructorId = user?._id;
+
+  //local state management
   const [showDialog, setShowDialog] = useState(false);
   const [activeTab, setActiveTab] = useState("quizzes");
   const [assessmentType, setAssessmentType] = useState("quiz");
   const [edittedAssignmentId, setEdittedAssignmentId] = useState(null);
   const [edittedQuizId, setEdittedQuizId] = useState(null);
 
+  //function to handle create new quiz
   const handleCreateNew = () => {
     setShowDialog(true);
     setEdittedAssignmentId(null);
@@ -52,6 +59,7 @@ const QuizAndAssignmentPage = () => {
 
                   setShowDialog(true);
                 }}
+                instructorId={instructorId}
               />
             </TabsContent>
             <TabsContent value="assignments">
@@ -61,6 +69,7 @@ const QuizAndAssignmentPage = () => {
                   setEdittedAssignmentId(assignment._id);
                   setShowDialog(true);
                 }}
+                instructorId={instructorId}
               />
             </TabsContent>
           </Tabs>

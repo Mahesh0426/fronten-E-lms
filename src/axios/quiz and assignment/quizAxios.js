@@ -20,10 +20,11 @@ export const editquiz = (quizId, quizData) => {
 };
 
 // get  all quizes  list |GET | Public Route
-export const fetchAllQuizesList = () => {
+export const fetchAllQuizesList = (instructorId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get`,
+    url: `${USER_API_URL}/get/${instructorId}`,
+    isPrivate: true,
   });
 };
 

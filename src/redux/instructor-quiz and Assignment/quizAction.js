@@ -18,9 +18,9 @@ import {
 import { toast } from "react-toastify";
 
 // get all quizes list | for tutor
-export const fetchAllQuizesListAction = () => async (dispatch) => {
+export const fetchAllQuizesListAction = (instructorId) => async (dispatch) => {
   //call API
-  const response = await fetchAllQuizesList();
+  const response = await fetchAllQuizesList(instructorId);
 
   if (response?.status === "error") {
     return toast.error(response.message);

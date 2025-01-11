@@ -21,9 +21,9 @@ export const uploadMediaAction = () => async (dispatch) => {
 };
 
 // get all courss
-export const fetchAllCoursesAction = () => async (dispatch) => {
+export const fetchAllCoursesAction = (instructorId) => async (dispatch) => {
   //call API
-  const response = await fetchAllCourses();
+  const response = await fetchAllCourses(instructorId);
 
   if (response?.status === "error") {
     return toast.error(response.message);

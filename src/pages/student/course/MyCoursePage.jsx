@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import useLoading from "@/hooks/useLoading";
 import { setStudentEnrolledCoursesList } from "@/redux/student-course/studentCourseSlice";
-import { BookOpen, GraduationCap, Watch } from "lucide-react";
+import { BookOpen, GraduationCap, Star, Watch } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -157,6 +157,20 @@ const MyCoursePage = () => {
                 <p className="text-sm text-gray-700 mb-2">
                   Created by - {course?.instructorName}
                 </p>
+                {course.averageRating > 0 && (
+                  <div className="flex mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        fill={i < course.averageRating ? "gold" : "none"}
+                        stroke={
+                          i < course.averageRating ? "gold" : "currentColor"
+                        }
+                      />
+                    ))}
+                  </div>
+                )}
                 <p className="font-bold text-[16px]">${course?.pricing}</p>
               </CardContent>
               <CardFooter>

@@ -35,8 +35,9 @@ const courseContentSlice = createSlice({
       state.courseContentFormData = action.payload.curriculum || [];
     },
     setCourses: (state, action) => {
-      state.courses = action.payload;
+      state.courses = Array.isArray(action.payload) ? action.payload : [];
     },
+
     setMediaUploadProgressPercentage: (state, action) => {
       state.mediaUploadProgressPercentage = action.payload;
     },

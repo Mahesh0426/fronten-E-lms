@@ -24,7 +24,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const AssignmentList = ({ onEditAssignment }) => {
+const AssignmentList = ({ onEditAssignment, instructorId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -48,8 +48,8 @@ const AssignmentList = ({ onEditAssignment }) => {
 
   useEffect(() => {
     // dispatch assignments action
-    dispatch(fetchAllAssignmentListAction());
-  }, [dispatch]);
+    dispatch(fetchAllAssignmentListAction(instructorId));
+  }, [dispatch, instructorId]);
 
   return (
     <>

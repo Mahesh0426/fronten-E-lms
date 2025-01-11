@@ -24,7 +24,7 @@ import {
 } from "@/redux/instructor-quiz and Assignment/quizAction";
 import { useNavigate } from "react-router-dom";
 
-const QuizList = ({ onEditQuiz }) => {
+const QuizList = ({ onEditQuiz, instructorId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -49,8 +49,8 @@ const QuizList = ({ onEditQuiz }) => {
 
   useEffect(() => {
     // dispatch quizzes action
-    dispatch(fetchAllQuizesListAction());
-  }, [dispatch]);
+    dispatch(fetchAllQuizesListAction(instructorId));
+  }, [dispatch, instructorId]);
 
   return (
     <>

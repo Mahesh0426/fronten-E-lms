@@ -11,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { Star } from "lucide-react";
 
 const FeaturesCoursesPage = ({ search }) => {
   const { studentCourses } = useSelector((state) => state.studentCourse);
@@ -69,6 +70,22 @@ const FeaturesCoursesPage = ({ search }) => {
                         courseItem?.instructorName.slice(1)}
                     </span>
                   </p>
+                  {courseItem.averageRating > 0 && (
+                    <div className="flex mb-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={16}
+                          fill={i < courseItem.averageRating ? "gold" : "none"}
+                          stroke={
+                            i < courseItem.averageRating
+                              ? "gold"
+                              : "currentColor"
+                          }
+                        />
+                      ))}
+                    </div>
+                  )}
                   <p className="font-bold text-[16px]">
                     ${courseItem?.pricing}
                   </p>

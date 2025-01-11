@@ -3,10 +3,11 @@ import { axiosApiCall } from "../axiosApiCall";
 const USER_API_URL = `${import.meta.env.VITE_APP_API_BASE_URL}/api/course`;
 
 // get  all courss |GET | Public Route
-export const fetchAllCourses = () => {
+export const fetchAllCourses = (instructorId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get`,
+    url: `${USER_API_URL}/get/${instructorId}`,
+    isPrivate: true,
   });
 };
 

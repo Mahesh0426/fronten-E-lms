@@ -34,18 +34,21 @@ import { Input } from "@/components/ui/input";
 const InstructorAllCoursePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { courses } = useSelector((state) => state.course);
+  const { courses } = useSelector((state) => state.course || {});
+  const { user } = useSelector((state) => state.user);
 
   // State to manage the search input
   const [searchProduct, setSearchProduct] = useState("");
 
   useEffect(() => {
     // Dispatch action to get all courses
-    dispatch(fetchAllCoursesAction());
-  }, [dispatch]);
+    if (user?._id) {
+      dispatch(fetchAllCoursesAction(user?._id));
+    }
+  }, [dispatch, user?._id]);
 
   // Filter courses based on search input
-  const filteredCourses = courses.filter((course) =>
+  const filteredCourses = (courses || []).filter((course) =>
     course.title.toLowerCase().includes(searchProduct.toLowerCase())
   );
 
@@ -152,8 +155,8 @@ const InstructorAllCoursePage = () => {
           </div>
         ) : (
           // for the first time if no course available
-          <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-neutral-100 flex items-center justify-center p-4">
-            <Card className="max-w-2xl w-full p-8 text-center space-y-6">
+          <div className="min-h-96  flex justify-center   p-4">
+            <Card className="max-w-2xl w-full  text-center space-y-6">
               <div className="flex justify-center">
                 <div className="relative">
                   <BookX
@@ -179,7 +182,20 @@ const InstructorAllCoursePage = () => {
               </div>
 
               <div className="flex justify-center gap-3">
-                <Button size="lg" className="font-medium">
+                <Button
+                  onClick={() => {
+                    dispatch(setCurrentEditedCourseId(null));
+                    dispatch(
+                      setCourseContentFormData(initialCourseContentFormData)
+                    );
+                    dispatch(
+                      setCourseDetailsFormData(initialCourseDetailsFormData)
+                    );
+                    navigate("/instructor/create-new-course");
+                  }}
+                  size="lg"
+                  className="font-medium"
+                >
                   Create Course
                 </Button>
               </div>

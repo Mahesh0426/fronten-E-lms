@@ -20,11 +20,12 @@ export const editAssignment = (assignmentId, assignmentData) => {
   });
 };
 
-// get  all assignments  list |GET | Public Route
-export const fetchAllAssignmentsList = () => {
+// get  all assignments  list by instructorId |GET | Public Route
+export const fetchAllAssignmentsList = (instructorId) => {
   return axiosApiCall({
     method: "get",
-    url: `${USER_API_URL}/get`,
+    url: `${USER_API_URL}/get/${instructorId}`,
+    isPrivate: true,
   });
 };
 
