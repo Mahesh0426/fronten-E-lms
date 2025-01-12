@@ -29,6 +29,15 @@ export const getUser = () => {
   });
 };
 
+//Get All the user | Private | for admin
+export const getAllUsers = () => {
+  return axiosApiCall({
+    method: "get",
+    url: `${USER_API_URL}/all`,
+    isPrivate: true,
+  });
+};
+
 // UPDATE USER | PATCH | PRIVATE
 export const updateUser = (userData) => {
   return axiosApiCall({

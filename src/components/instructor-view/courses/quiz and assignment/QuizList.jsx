@@ -84,7 +84,7 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
             <TableHead>CourseName</TableHead>
             <TableHead>Questions</TableHead>
             <TableHead>Total Marks</TableHead>
-            <TableHead className="w-[100px]">Status</TableHead>
+            <TableHead className="w-[100px] ">Status</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -135,8 +135,6 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
                         size="sm"
                         className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                         onClick={() => {
-                          console.log("quiz details", quiz);
-
                           onEditQuiz(quiz);
                         }}
                       >

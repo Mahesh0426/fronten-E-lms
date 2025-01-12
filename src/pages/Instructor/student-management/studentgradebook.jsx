@@ -97,6 +97,7 @@ const GradebookTable = () => {
     link.click();
   };
 
+  //helper function
   const calculateTotal = (student) =>
     student.assignmentScore + student.quizScore;
 
@@ -113,6 +114,7 @@ const GradebookTable = () => {
     if (percentage >= 75 && percentage < 86) return "D";
     return "HD";
   };
+
   const getProgressBarColor = (grade) => {
     switch (grade) {
       case "HD":

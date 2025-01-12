@@ -219,45 +219,15 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
                 className="mb-2"
               />
             ))}
-            {/* {question.options.map((option, oIndex) => (
-              <div key={oIndex} className="mb-2 flex items-center">
-                <span className="mr-2 font-bold">
-                  {String.fromCharCode(65 + oIndex)}.
-                </span>
-                <Input
-                  value={option}
-                  onChange={(e) =>
-                    handleOptionChange(qIndex, oIndex, e.target.value)
-                  }
-                  placeholder={`Option ${String.fromCharCode(65 + oIndex)}`}
-                  className="flex-1"
-                />
-              </div>
-            ))} */}
 
             <Input
               value={question.correctAnswer}
               onChange={(e) =>
                 handleCorrectAnswerChange(qIndex, e.target.value)
               }
-              placeholder="Correct Answer (e.g., option A)"
+              placeholder="Correct Answer as it is)"
               className="mt-2"
             />
-            {/* <label className="mt-2 block font-medium">Correct Answer</label>
-            <select
-              value={question.correctAnswer}
-              onChange={(e) =>
-                handleCorrectAnswerChange(qIndex, e.target.value)
-              }
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
-            >
-              <option value="">Select Correct Answer</option>
-              {question.options.map((_, oIndex) => (
-                <option key={oIndex} value={String.fromCharCode(65 + oIndex)}>
-                  Option {String.fromCharCode(65 + oIndex)}
-                </option>
-              ))}
-            </select> */}
           </div>
         ))}
       </div>

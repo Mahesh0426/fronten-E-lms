@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { useNavigate } from "react-router-dom";
 import InstructorProfilePage from "@/pages/Instructor/setting/InstructorSetting";
-import AdminAdshboardPage from "@/pages/admin/AdminDashboardPage";
 import InstructorManagementPage from "@/pages/admin/InstructorManagement";
 import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";
 
