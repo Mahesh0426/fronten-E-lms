@@ -32,9 +32,10 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Edit2, PlusCircle } from "lucide-react";
-import { getAllUsers } from "@/axios/userAxios";
+import { getAllUsers, updateUserRole } from "@/axios/userAxios";
 import { Input } from "@/components/ui/input";
 import SignUpForm from "@/components/sign-up/SignUpForm";
+import { toast } from "react-toastify";
 
 const InstructorManagementPage = () => {
   const [users, setUsers] = useState([]);
@@ -75,7 +76,28 @@ const InstructorManagementPage = () => {
     setSortRole(value);
   };
 
-  //function to toggle role
+  // Function to toggle the user role
+  const toggleRole = async (userId, selectedRole) => {
+    try {
+      // Ensure flat object structure
+      const response = await updateUserRole({
+        userId: userId,
+        role: selectedRole,
+      });
+
+      if (response.status === "success") {
+        const updatedUsers = users.map((user) =>
+          user._id === userId ? { ...user, role: selectedRole } : user
+        );
+        setUsers(updatedUsers);
+        toast.success(`Role updated to ${selectedRole}`);
+      } else {
+        toast.error("Failed to update role");
+      }
+    } catch (error) {
+      toast.error("An error occurred while updating the role");
+    }
+  };
 
   return (
     <div className="p-8">
@@ -105,22 +127,23 @@ const InstructorManagementPage = () => {
             className="w-full"
           />
         </div>
-
-        <Select onValueChange={handleSortRoleChange}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Sort By Role" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
-            <SelectItem value="instructor">Instructor</SelectItem>
-            <SelectItem value="user">User</SelectItem>
-          </SelectContent>
-        </Select>
+        <div>
+          <Select onValueChange={handleSortRoleChange}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Sort By Role" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="admin">Admin</SelectItem>
+              <SelectItem value="instructor">Instructor</SelectItem>
+              <SelectItem value="user">User</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
-      {/* Instructor Table */}
-      <div className="rounded-md border">
+      {/* UserList Table */}
+      <div className="rounded-md border overflow-x-auto overflow-y-auto max-h-[calc(110vh-300px)]">
         <Table>
           <TableHeader>
             <TableRow>
@@ -164,18 +187,27 @@ const InstructorManagementPage = () => {
                         >
                           <Edit2 className="h-6 w-6" />
                         </Button>
-                        {/* tooltip */}
+                        {/* Tooltip */}
                         <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex items-center justify-center bg-gray-800 text-white text-xs rounded-md h-8 w-40 shadow-lg">
-                          Edit role
+                          Edit Role
                         </div>
                       </div>
                     </DropdownMenuTrigger>
+
                     <DropdownMenuContent align="start" className="w-50">
-                      <DropdownMenuItem>admin</DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>instructor</DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem>user</DropdownMenuItem>
+                      {["admin", "instructor", "user"].map((role) => (
+                        <DropdownMenuItem
+                          key={role}
+                          onClick={() => toggleRole(user._id, role)}
+                          className={`${
+                            user.role === role
+                              ? "bg-blue-500 text-white"
+                              : "hover:bg-gray-100"
+                          }`}
+                        >
+                          {role}
+                        </DropdownMenuItem>
+                      ))}
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>

@@ -38,6 +38,16 @@ export const getAllUsers = () => {
   });
 };
 
+//UPDATE USER ROLE  | FOR ADMIN
+export const updateUserRole = (userId, role) => {
+  return axiosApiCall({
+    method: "patch",
+    url: `${USER_API_URL}/update-role`,
+    data: { userId, role },
+    isPrivate: true,
+  });
+};
+
 // UPDATE USER | PATCH | PRIVATE
 export const updateUser = (userData) => {
   return axiosApiCall({
