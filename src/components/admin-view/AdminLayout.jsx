@@ -5,6 +5,8 @@ import {
   Settings,
   LogOut,
   GraduationCap,
+  User,
+  Settings2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logoutUserAction } from "@/redux/user/userAction";
@@ -85,25 +88,38 @@ const AdminLayout = () => {
           ))}
         </nav>
 
-        <div className="absolute bottom-4 w-full px-4">
+        <div className="absolute bottom-3  w-full">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="w-full p-4 flex items-center space-x-3 justify-start text-white hover:bg-blue-700"
+                className="w-64 p-4 flex items-center space-x-2 justify-start"
               >
-                <div className="h-10 w-10 rounded-full font-bold bg-yellow-500 text-blue-800 text-xl flex justify-center items-center">
+                <div className="h-10 w-10 rounded-full font-bold bg-yellow-500 text-white text-2xl flex justify-center items-center">
                   {userName.charAt(0).toUpperCase()}
                 </div>
                 <div className="flex flex-col items-start">
                   <span className="text-sm font-medium">{userName}</span>
-                  <span className="text-xs text-blue-200">{userEmail}</span>
+                  <span className="text-x">{userEmail}</span>
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-56">
+            <DropdownMenuContent
+              align="top"
+              sideOffset={30}
+              className="w-56 bg-white shadow-md rounded-md border border-gray-200"
+            >
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuItem onClick={handleLogout} className="text-red-600">
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <User /> Profile
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                {" "}
+                <Settings2 /> Settings
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>

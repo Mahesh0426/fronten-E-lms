@@ -30,9 +30,7 @@ import InstructorDashboardPage from "../../../pages/Instructor/Dashboard/Instruc
 import InstructorAllCoursePage from "../../../pages/Instructor/course-management/InstructorAllCoursePage";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import QuizAndAssignmentPage from "../../../pages/Instructor/quiz-assignment/Quize&AssignmentPage";
-
 import GradebookTable from "@/pages/Instructor/student-management/studentgradebook";
-import PerformanceReports from "@/pages/Instructor/Reports";
 import { useNavigate } from "react-router-dom";
 import Analytics from "@/pages/Instructor/analytics/instructorAnalytics";
 import ActivityLogPage from "@/pages/Instructor/Activity-Log/ActivityLog.jsx.jsx";
@@ -86,12 +84,6 @@ const InstructorLayout = () => {
       label: "Settings",
       value: "Settings",
       component: <InstructorProfilePage />,
-    },
-    {
-      icon: Flag,
-      label: "Reports",
-      value: "Reports",
-      component: <PerformanceReports />,
     },
   ];
 

@@ -44,7 +44,6 @@ function App() {
           path="/admin"
           element={<RouteGuard element={<AdminLayout />} />}
         />
-        {/* <Route path="/admin" element={<AdminLayout />} /> */}
 
         {/* instructor route */}
         <Route

@@ -30,6 +30,17 @@ import {
   initialCourseDetailsFormData,
 } from "@/config/formConfig";
 import { Input } from "@/components/ui/input";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const InstructorAllCoursePage = () => {
   const navigate = useNavigate();
@@ -52,6 +63,11 @@ const InstructorAllCoursePage = () => {
     course.title.toLowerCase().includes(searchProduct.toLowerCase())
   );
 
+  //function to delete course
+  const deleteCourse = () => {
+    alert("course deleted");
+  };
+
   return (
     <Card className="min-h-[650px]">
       <CardHeader>
@@ -60,6 +76,7 @@ const InstructorAllCoursePage = () => {
         </CardTitle>
       </CardHeader>
 
+      {/* search and create ne button */}
       <div className="px-6 pb-4">
         <div className="flex flex-col sm:flex-row gap-4 w-full">
           <div className="flex-grow">
@@ -122,25 +139,61 @@ const InstructorAllCoursePage = () => {
                         <TableCell>
                           {course?.students?.length * course?.pricing}
                         </TableCell>
-                        <TableCell className="text-right ">
-                          <Button
-                            onClick={() =>
-                              navigate(`/instructor/edit-course/${course?._id}`)
-                            }
-                            variant="ghost"
-                            size="sm"
-                            className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                          >
-                            <Edit className="h-6 w-6" />
-                          </Button>
+                        <TableCell className="flex justify-end ">
+                          <div className="relative group">
+                            <Button
+                              onClick={() =>
+                                navigate(
+                                  `/instructor/edit-course/${course?._id}`
+                                )
+                              }
+                              variant="ghost"
+                              size="sm"
+                              className="p-2 mr-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                            >
+                              <Edit className="h-6 w-6" />
+                            </Button>
+                            <div className="absolute left-1/2 transform -translate-x-1/2 bottom-full mb-2 hidden group-hover:flex items-center justify-center bg-gray-800 text-white text-xs rounded-md h-8 w-40 shadow-lg">
+                              Edit Course
+                            </div>
+                          </div>
 
-                          <Button
+                          {/* <Button
+                            onClick={deleteCourse}
                             variant="ghost"
                             size="sm"
                             className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
                           >
                             <Trash2 className="h-6 w-6" />
-                          </Button>
+                          </Button> */}
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                variant="destructive"
+                                size="sm"
+                                className="p-2 mr-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                              >
+                                <Trash2 className="h-6 w-6" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Are you absolutely sure?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  This action cannot be undone. This will
+                                  permanently delete your course
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction onClick={deleteCourse}>
+                                  Delete Account
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
                         </TableCell>
                       </TableRow>
                     ))}

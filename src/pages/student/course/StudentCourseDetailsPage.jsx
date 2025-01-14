@@ -1,5 +1,7 @@
 import { createOrder } from "@/axios/student-course/orderAxios";
+import { getReviewByCourseId } from "@/axios/student-course/reviewAxios";
 import VideoPlayer from "@/components/helper/VideoPlayer";
+import Review from "@/components/student-view/review/Review";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -13,22 +15,24 @@ import {
 } from "@/components/ui/dialog";
 import useLoading from "@/hooks/useLoading";
 import { fetchStudentCourseByIdAction } from "@/redux/student-course/studentCourseAction";
-import { CheckCircle, Globe, Lock, PlayCircle } from "lucide-react";
+import { CheckCircle, Globe, Lock, PlayCircle, Star } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 const StudentCourseDetailspage = () => {
+  //redux state
   const { studentCourseDetails } = useSelector((state) => state.studentCourse);
-
   const { user } = useSelector((state) => state.user);
   const { isLoading, startLoading, stopLoading } = useLoading();
 
+  //local state management
   const [showFreePreviewDialog, setShowFreePreviewDialog] = useState(false);
   const [displayCurrentVideoFreePreview, setDisplayCurrentVideoFreePreview] =
     useState(null);
   const [approvalUrl, setApprovalUrl] = useState("");
   const [isCoursePurchased, setIsCoursePurchased] = useState(false);
+  const [reviews, setReviews] = useState([]);
 
   // Course ID from URL parameters and navigation
   const { id: courseId } = useParams();
@@ -129,6 +133,18 @@ const StudentCourseDetailspage = () => {
     studentCourseDetails !== null
       ? studentCourseDetails?.curriculum?.findIndex((item) => item.freePreview)
       : -1;
+
+  // use effect  to fech revie of course
+  useEffect(() => {
+    const getReviews = async () => {
+      const response = await getReviewByCourseId(courseId);
+
+      if (response.status === "success") {
+        setReviews(response.data);
+      }
+    };
+    getReviews();
+  }, [courseId, user?._id]);
 
   return (
     <div className=" mx-auto p-4">
@@ -299,6 +315,37 @@ const StudentCourseDetailspage = () => {
           </DialogContent>
         </Dialog>
       </div>
+
+      {/* reviews section  */}
+      <Card className="mb-8 mt-4">
+        <CardHeader>
+          <CardTitle>Course Reviews</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4 mb-8 max-h-64 overflow-y-auto ">
+            {reviews.map((review) => (
+              <div key={review._id} className="bg-white p-4 rounded-lg shadow">
+                <div className="mb-2">
+                  <span className="font-semibold block mb-1">
+                    {review?.studentId?.userName}
+                  </span>
+                  <div className="flex mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        fill={i < review.rating ? "gold" : "none"}
+                        stroke={i < review.rating ? "gold" : "currentColor"}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-sm text-gray-600">{review.comment}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

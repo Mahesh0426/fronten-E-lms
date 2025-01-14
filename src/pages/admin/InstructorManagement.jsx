@@ -46,7 +46,6 @@ const InstructorManagementPage = () => {
   // function to get all the user
   const fetchAllUsers = async () => {
     const resposne = await getAllUsers();
-    console.log("all users", resposne);
 
     if (resposne.status === "success") {
       setUsers(resposne.data);
@@ -162,6 +161,7 @@ const InstructorManagementPage = () => {
                 <TableCell>{user?.userName}</TableCell>
                 <TableCell>{user?.userEmail}</TableCell>
                 <TableCell>{user?.phone || "N?A"}</TableCell>
+
                 <TableCell>
                   <span
                     className={`px-2 py-1 rounded-full text-xs font-medium ${

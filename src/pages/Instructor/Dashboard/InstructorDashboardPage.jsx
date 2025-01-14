@@ -49,6 +49,7 @@ const InstructorDashboardPage = () => {
               courseTitle: course.title,
               studentName: student.studentName,
               studentEmail: student.studentEmail,
+              enrolledAt: student.enrolledAt,
             });
           });
 
@@ -148,6 +149,7 @@ const InstructorDashboardPage = () => {
                     <TableHead className="font-bold">Course Name</TableHead>
                     <TableHead className="font-bold">Student Name</TableHead>
                     <TableHead className="font-bold">Student Email</TableHead>
+                    <TableHead className="font-bold">Enroll Date</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -159,6 +161,17 @@ const InstructorDashboardPage = () => {
                         </TableCell>
                         <TableCell>{studentItem.studentName}</TableCell>
                         <TableCell>{studentItem.studentEmail}</TableCell>
+                        <TableCell>
+                          {" "}
+                          {new Date(studentItem.enrolledAt).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "2-digit",
+                              year: "numeric",
+                            }
+                          )}
+                        </TableCell>
                       </TableRow>
                     )
                   )}

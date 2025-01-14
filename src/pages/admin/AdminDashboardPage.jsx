@@ -1,99 +1,101 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Users, UserCog, ShieldCheck } from "lucide-react";
+import { getAllUsers } from "@/axios/userAxios";
 import { useSelector } from "react-redux";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Switch } from "@/components/ui/switch";
-import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
 
 const AdminDashboardPage = () => {
   const { user } = useSelector((state) => state.user);
-  const [instructors, setInstructors] = useState([
-    { id: 1, name: "John Doe", email: "john@example.com", isInstructor: true },
-    {
-      id: 2,
-      name: "Jane Smith",
-      email: "jane@example.com",
-      isInstructor: false,
-    },
-    {
-      id: 3,
-      name: "Bob Johnson",
-      email: "bob@example.com",
-      isInstructor: true,
-    },
-  ]);
+  const [users, setUsers] = useState([]);
 
-  const handleRoleToggle = (id) => {
-    setInstructors(
-      instructors.map((instructor) =>
-        instructor.id === id
-          ? { ...instructor, isInstructor: !instructor.isInstructor }
-          : instructor
-      )
-    );
+  // count each role in users
+  const countRole = (role) => users.filter((user) => user.role === role).length;
+
+  // function to get all the user
+  const fetchAllUsers = async () => {
+    const resposne = await getAllUsers();
+
+    if (resposne.status === "success") {
+      setUsers(resposne.data);
+    }
   };
 
-  const handleAddInstructor = () => {
-    // Implement logic to add a new instructor
-    console.log("Add new instructor");
-  };
+  // Fetch users on component mount
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
 
   return (
-    <div className="p-8">
-      {/* Header */}
-      <h1 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
-        Welcome,{" "}
-        {user?.userName &&
-          user.userName.charAt(0).toUpperCase() +
-            user.userName.slice(1).toLowerCase()}
-      </h1>
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <h2 className="text-4xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+        Welcome, {user.userName}
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+            <Users className="h-4 w-4 text-blue-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{countRole("user")}</div>
+            <p className="text-xs text-gray-500 mt-1">Active accounts</p>
+          </CardContent>
+        </Card>
 
-      {/* Add Instructor Button */}
-      <div className="mb-6">
-        <Button
-          onClick={handleAddInstructor}
-          className="bg-green-500 hover:bg-green-600 text-white"
-        >
-          <PlusCircle className="mr-2 h-4 w-4" /> Add Instructor
-        </Button>
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total Instructors
+            </CardTitle>
+            <UserCog className="h-4 w-4 text-green-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{countRole("instructor")}</div>
+            <p className="text-xs text-gray-500 mt-1">Certified teachers</p>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Admins</CardTitle>
+            <ShieldCheck className="h-4 w-4 text-red-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{countRole("admin")}</div>
+            <p className="text-xs text-gray-500 mt-1">System administrators</p>
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Instructor Table */}
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {instructors.map((instructor) => (
-              <TableRow key={instructor.id}>
-                <TableCell>{instructor.name}</TableCell>
-                <TableCell>{instructor.email}</TableCell>
-                <TableCell>
-                  {instructor.isInstructor ? "Instructor" : "User"}
-                </TableCell>
-                <TableCell>
-                  <Switch
-                    checked={instructor.isInstructor}
-                    onCheckedChange={() => handleRoleToggle(instructor.id)}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+      <div className="mt-5">
+        <table className="w-full bg-white rounded-lg shadow-md">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-3 text-left">User Name</th>
+              <th className="p-3 text-left">Email</th>
+              <th className="p-3 text-left">Role</th>
+              <th className="p-3 text-left">Registered On</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users
+              .filter((user) => user.role === "instructor") // ✅ Filter only instructors
+              .map((user) => (
+                <tr key={user._id} className="border-t">
+                  <td className="p-3">{user.userName}</td>
+                  <td className="p-3">{user.userEmail}</td>
+                  <td className="p-3 capitalize">{user.role}</td>
+                  <td className="p-3">
+                    {new Date(user.createdAt).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "2-digit",
+                      year: "numeric",
+                    })}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
