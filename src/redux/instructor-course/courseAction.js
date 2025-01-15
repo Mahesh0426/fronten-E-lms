@@ -7,6 +7,7 @@ import {
   createCourse,
   updateCourseById,
   deleteLecture,
+  deleteCourse,
 } from "@/axios/instructor-course/courseAxios";
 
 // upload course video
@@ -50,6 +51,18 @@ export const createCourseAction = (courseData) => async (dispatch) => {
     return toast.error(response.message);
   }
   toast.success(response.message);
+  dispatch(fetchAllCoursesAction());
+};
+
+//delete a course
+export const deleteCourseAction = (courseId) => async (dispatch) => {
+  const response = await deleteCourse(courseId);
+
+  if (response?.status === "error") {
+    return toast.error(response.message);
+  }
+  toast.success(response.message);
+
   dispatch(fetchAllCoursesAction());
 };
 

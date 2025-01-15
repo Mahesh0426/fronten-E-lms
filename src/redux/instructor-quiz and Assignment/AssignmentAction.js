@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import {
   createAssignment,
   createAssignmentSubmission,
+  deleteAssignment,
   editAssignment,
   editSubmittedAssignment,
   fetchAllAssignmentsList,
@@ -52,6 +53,17 @@ export const editAssignmentAction =
     toast.success(response.message);
     dispatch(fetchAllAssignmentListAction());
   };
+
+//delete assignment by assignment id
+export const deleteAssignmentAction = (assignmentId) => async (dispatch) => {
+  const response = await deleteAssignment(assignmentId);
+
+  if (response?.status === "error") {
+    return toast.error(response.message);
+  }
+  toast.success(response.message);
+  dispatch(fetchAllAssignmentListAction());
+};
 
 //get a assignment by course id
 export const fetchAssignmentByIdAction = (courseId) => async (dispatch) => {

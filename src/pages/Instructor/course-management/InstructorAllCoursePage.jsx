@@ -19,7 +19,10 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCoursesAction } from "@/redux/instructor-course/courseAction";
+import {
+  deleteCourseAction,
+  fetchAllCoursesAction,
+} from "@/redux/instructor-course/courseAction";
 import {
   setCourseContentFormData,
   setCourseDetailsFormData,
@@ -64,8 +67,13 @@ const InstructorAllCoursePage = () => {
   );
 
   //function to delete course
-  const deleteCourse = () => {
-    alert("course deleted");
+  const deleteCourse = (courseId) => {
+    // const isPublished = currentStatus === "true" ? "false" : "true";
+    try {
+      dispatch(deleteCourseAction(courseId));
+    } catch (error) {
+      console.error("Error deleting course:", error);
+    }
   };
 
   return (
@@ -139,7 +147,8 @@ const InstructorAllCoursePage = () => {
                         <TableCell>
                           {course?.students?.length * course?.pricing}
                         </TableCell>
-                        <TableCell className="flex justify-end ">
+                        <TableCell className="flex justify-end mt-3 ">
+                          {/* edit button */}
                           <div className="relative group">
                             <Button
                               onClick={() =>
@@ -158,14 +167,7 @@ const InstructorAllCoursePage = () => {
                             </div>
                           </div>
 
-                          {/* <Button
-                            onClick={deleteCourse}
-                            variant="ghost"
-                            size="sm"
-                            className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                          >
-                            <Trash2 className="h-6 w-6" />
-                          </Button> */}
+                          {/* delete button */}
                           <AlertDialog>
                             <AlertDialogTrigger asChild>
                               <Button
@@ -188,7 +190,9 @@ const InstructorAllCoursePage = () => {
                               </AlertDialogHeader>
                               <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={deleteCourse}>
+                                <AlertDialogAction
+                                  onClick={() => deleteCourse(course?._id)}
+                                >
                                   Delete Account
                                 </AlertDialogAction>
                               </AlertDialogFooter>

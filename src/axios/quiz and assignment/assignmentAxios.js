@@ -20,6 +20,14 @@ export const editAssignment = (assignmentId, assignmentData) => {
   });
 };
 
+// delete assignment | DELETE | private Route
+export const deleteAssignment = (assignmentId) => {
+  return axiosApiCall({
+    method: "delete",
+    url: `${USER_API_URL}/delete/${assignmentId}`,
+  });
+};
+
 // get  all assignments  list by instructorId |GET | Public Route
 export const fetchAllAssignmentsList = (instructorId) => {
   return axiosApiCall({

@@ -11,11 +11,18 @@ export const createQuiz = (quizData) => {
   });
 };
 // edit quiz | PATCH | private Route
-export const editquiz = (quizId, quizData) => {
+export const editQuiz = (quizId, quizData) => {
   return axiosApiCall({
     method: "patch",
     url: `${USER_API_URL}/edit/${quizId}`,
     data: quizData,
+  });
+};
+// delete quiz | DELETE | private Route
+export const deleteQuiz = (quizId) => {
+  return axiosApiCall({
+    method: "delete",
+    url: `${USER_API_URL}/delete/${quizId}`,
   });
 };
 

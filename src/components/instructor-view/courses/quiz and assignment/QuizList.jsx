@@ -19,10 +19,22 @@ import {
 } from "@/components/ui/table";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  deleteQuizAction,
   fetchAllQuizesListAction,
   updateQuizStatusAction,
 } from "@/redux/instructor-quiz and Assignment/quizAction";
 import { useNavigate } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const QuizList = ({ onEditQuiz, instructorId }) => {
   const dispatch = useDispatch();
@@ -51,6 +63,15 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
     // dispatch quizzes action
     dispatch(fetchAllQuizesListAction(instructorId));
   }, [dispatch, instructorId]);
+
+  //function to delete quiz
+  const deleteQuiz = (quizId) => {
+    try {
+      dispatch(deleteQuizAction(quizId));
+    } catch (error) {
+      toast.error("Failed to delete quiz");
+    }
+  };
 
   return (
     <>
@@ -112,6 +133,7 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
                 </TableCell>
                 <TableCell>
                   <div className="flex space-x-2">
+                    {/* view button */}
                     <div className="relative group">
                       <Button
                         onClick={() =>
@@ -129,6 +151,7 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
                       </div>
                     </div>
 
+                    {/* edit button */}
                     <div className="relative group">
                       <Button
                         variant="ghost"
@@ -146,13 +169,39 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
                       </div>
                     </div>
 
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                    >
-                      <Trash2 />
-                    </Button>
+                    {/* delete button */}
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          className="p-2 mr-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                        >
+                          <Trash2 className="h-6 w-6" />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete your quiz
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => {
+                              deleteQuiz(quiz._id);
+                            }}
+                          >
+                            <Trash2 />
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </TableCell>
               </TableRow>

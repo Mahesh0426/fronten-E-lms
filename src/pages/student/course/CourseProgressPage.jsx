@@ -21,7 +21,7 @@ import ReactConfetti from "react-confetti";
 import { Label } from "@/components/ui/label";
 import VideoPlayer from "@/components/helper/VideoPlayer";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import StudentAssignment from "@/components/student-view/quiz and assignment/StudentAssignment";
 import StudentQuiz from "@/components/student-view/quiz and assignment/StudentQuiz";
 import Review from "@/components/student-view/review/Review";
@@ -32,6 +32,7 @@ const CourseProgressPage = () => {
   const { studentCurrentCourseProgress } = useSelector(
     (state) => state.studentCourse
   );
+  console.log(studentCurrentCourseProgress);
 
   //state management
   const [isLockCourse, setIsLockCourse] = useState(false);
@@ -222,7 +223,7 @@ const CourseProgressPage = () => {
           </div>
 
           {/* quiz and assignent bar section  */}
-          <Card className=" mt-5 h-full rounded-none ">
+          <Card className=" mt-5 w-full h-full rounded-none ">
             <CardContent>
               <Tabs defaultValue="quizzes">
                 <TabsList className=" mt-2 grid w-80 grid-cols-3 space-x-4">
@@ -241,6 +242,17 @@ const CourseProgressPage = () => {
                 </TabsContent>
               </Tabs>
             </CardContent>
+            <div>
+              {/*  welcome card */}
+              <Card className="mt-5">
+                <CardHeader>
+                  <CardTitle>Welcome to this course </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {studentCurrentCourseProgress?.courseDetails?.welcomeMessage}
+                </CardContent>
+              </Card>
+            </div>
           </Card>
         </div>
 

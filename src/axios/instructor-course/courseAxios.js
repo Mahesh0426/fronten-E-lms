@@ -28,6 +28,14 @@ export const createCourse = (courseData) => {
   });
 };
 
+//delete a course | DELETE | private Route
+export const deleteCourse = (courseId) => {
+  return axiosApiCall({
+    method: "delete",
+    url: `${USER_API_URL}/delete/${courseId}`,
+  });
+};
+
 //update  course details by id  | PUT | private Route
 export const updateCourseById = (courseId, courseData) => {
   return axiosApiCall({

@@ -18,11 +18,23 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
+  deleteAssignmentAction,
   fetchAllAssignmentListAction,
   updateAssignmentStatusAction,
 } from "@/redux/instructor-quiz and Assignment/AssignmentAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const AssignmentList = ({ onEditAssignment, instructorId }) => {
   const dispatch = useDispatch();
@@ -50,6 +62,15 @@ const AssignmentList = ({ onEditAssignment, instructorId }) => {
     // dispatch assignments action
     dispatch(fetchAllAssignmentListAction(instructorId));
   }, [dispatch, instructorId]);
+
+  //function to delete assignment
+  const deleteAssignment = (assignmentId) => {
+    try {
+      dispatch(deleteAssignmentAction(assignmentId));
+    } catch (error) {
+      toast.error("Failed to delete assignment");
+    }
+  };
 
   return (
     <>
@@ -114,6 +135,7 @@ const AssignmentList = ({ onEditAssignment, instructorId }) => {
                 </TableCell>
                 <TableCell>
                   <div className="flex space-x-2">
+                    {/* view button */}
                     <div className="relative group">
                       <Button
                         onClick={() =>
@@ -133,6 +155,7 @@ const AssignmentList = ({ onEditAssignment, instructorId }) => {
                       </div>
                     </div>
 
+                    {/* edit button */}
                     <div className="relative group">
                       <Button
                         variant="ghost"
@@ -150,13 +173,38 @@ const AssignmentList = ({ onEditAssignment, instructorId }) => {
                       </div>
                     </div>
 
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                    >
-                      <Trash2 />
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          className="p-2 mr-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                        >
+                          <Trash2 className="h-6 w-6" />
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete your assignent
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => {
+                              deleteAssignment(assignment._id);
+                            }}
+                          >
+                            <Trash2 />
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </TableCell>
               </TableRow>

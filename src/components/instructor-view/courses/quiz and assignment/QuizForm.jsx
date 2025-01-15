@@ -204,7 +204,9 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
             <Textarea
               value={question.questionText}
               onChange={(e) => handleQuestionChange(qIndex, e.target.value)}
-              placeholder={` write question here Question ${qIndex + 1}`}
+              placeholder={`Question ${
+                qIndex + 1
+              }: Write directly, no numbering needed`}
               className="mb-2"
             />
             {question.options.map((option, oIndex) => (
@@ -214,7 +216,6 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
                 onChange={(e) =>
                   handleOptionChange(qIndex, oIndex, e.target.value)
                 }
-                // placeholder={`Option ${oIndex + 1}`}
                 placeholder={`option ${String.fromCharCode(65 + oIndex)}`}
                 className="mb-2"
               />
@@ -225,7 +226,7 @@ const QuizForm = ({ onClose, edittedQuizId }) => {
               onChange={(e) =>
                 handleCorrectAnswerChange(qIndex, e.target.value)
               }
-              placeholder="Correct Answer as it is)"
+              placeholder="Enter exact correct answer"
               className="mt-2"
             />
           </div>
