@@ -96,6 +96,7 @@ const StudentCourseDetailspage = () => {
     };
     try {
       const response = await createOrder(paymentPayload);
+      console.log("Order created", response);
 
       // Check and confirm if `approveUrl` is within `response.data`
       if (response?.status === "success" && response?.data?.approveUrl) {
@@ -267,6 +268,9 @@ const StudentCourseDetailspage = () => {
                   ? "Enrolled: Go to Course"
                   : "Enroll Now"}
               </Button>
+              <p className="mt-3">Test Card to Enroll</p>
+              <p>Email:kunwarmahesh28@gmail.com </p>
+              <p>Password:test1234 </p>
             </CardContent>
           </Card>
         </aside>

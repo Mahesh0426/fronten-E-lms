@@ -19,6 +19,7 @@ const FeaturesCoursesPage = ({ search }) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+  console.log(studentCourses);
 
   // Filter courses based on search input
   const searchCourses = Array.isArray(studentCourses)

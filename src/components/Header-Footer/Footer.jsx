@@ -11,6 +11,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { assets } from "@/assets/asset";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -32,24 +33,24 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-blue-400 transition-colors">
+                <Link to="#" className="hover:text-blue-400 transition-colors">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-400 transition-colors">
+                <Link to="#" className="hover:text-blue-400 transition-colors">
                   Courses
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-400 transition-colors">
+                <Link to="#" className="hover:text-blue-400 transition-colors">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-blue-400 transition-colors">
+                <Link to="#" className="hover:text-blue-400 transition-colors">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -57,18 +58,18 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-blue-400 transition-colors">
+              <Link to="#" className="hover:text-blue-400 transition-colors">
                 <Facebook size={20} />
-              </a>
-              <a href="#" className="hover:text-blue-400 transition-colors">
+              </Link>
+              <Link to="#" className="hover:text-blue-400 transition-colors">
                 <Twitter size={20} />
-              </a>
-              <a href="#" className="hover:text-blue-400 transition-colors">
+              </Link>
+              <Link to="#" className="hover:text-blue-400 transition-colors">
                 <Instagram size={20} />
-              </a>
-              <a href="#" className="hover:text-blue-400 transition-colors">
+              </Link>
+              <Link to="#" className="hover:text-blue-400 transition-colors">
                 <Linkedin size={20} />
-              </a>
+              </Link>
             </div>
           </div>
 

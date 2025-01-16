@@ -35,7 +35,7 @@ export const fetchAllQuizesList = (instructorId) => {
   });
 };
 
-//get a Quiz by quizID and CourseId  | GET | public Route
+//get a Quiz by CourseId  | GET | public Route
 export const fetchQuizById = (courseId) => {
   return axiosApiCall({
     method: "get",

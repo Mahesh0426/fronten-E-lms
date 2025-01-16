@@ -75,6 +75,7 @@ const AssignmentList = ({ onEditAssignment, instructorId }) => {
   return (
     <>
       <div className="mb-6">
+        {/* search and filter section */}
         <div className="flex items-center space-x-4">
           <div className="flex-1">
             <Input
@@ -96,6 +97,7 @@ const AssignmentList = ({ onEditAssignment, instructorId }) => {
           </Select>
         </div>
       </div>
+      {/* asignment list section */}
       <Table>
         <TableHeader>
           <TableRow>

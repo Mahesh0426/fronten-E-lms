@@ -42,6 +42,7 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
 
   const { quizes } = useSelector((state) => state.quiz);
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   //handle status toggle
   const handleStatusToggle = (quizId, currentStatus) => {
@@ -54,10 +55,15 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
     }
   };
 
-  // Filter quiz by courseName
-  const filteredQuizes = quizes.filter((quiz) =>
-    quiz.courseName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter quizzes based on search term and status
+  const filteredQuizes = quizes.filter((quiz) => {
+    const matchesSearch = quiz.courseName
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesStatus =
+      statusFilter === "all" || quiz.status.toLowerCase() === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   useEffect(() => {
     // dispatch quizzes action
@@ -77,6 +83,7 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
     <>
       {/* search and filter section */}
       <div className="flex items-center space-x-4 mb-6">
+        {/* search quiz*/}
         <div className="flex-1">
           <Input
             value={searchTerm}
@@ -85,9 +92,17 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
             className="w-full"
           />
         </div>
-        <Select>
+        {/* filter status */}
+        <Select
+          onValueChange={(value) => setStatusFilter(value)}
+          value={statusFilter}
+        >
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by status" />
+            <SelectValue>
+              {statusFilter === "all"
+                ? "Filter by status"
+                : statusFilter.charAt(0).toUpperCase() + statusFilter.slice(1)}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All</SelectItem>
@@ -96,7 +111,7 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
           </SelectContent>
         </Select>
       </div>
-
+      {/* quiz list */}
       <Table>
         <TableHeader>
           <TableRow>
@@ -197,7 +212,7 @@ const QuizList = ({ onEditQuiz, instructorId }) => {
                               deleteQuiz(quiz._id);
                             }}
                           >
-                            <Trash2 />
+                            delete
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>

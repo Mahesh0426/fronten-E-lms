@@ -179,7 +179,6 @@ const StudentAllCoursepage = () => {
           </div>
 
           {/* Course listing */}
-
           <div className="space-y-4 overflow-y-auto max-h-[500px] ">
             {studentCourses && studentCourses.length > 0 ? (
               studentCourses.map((courseItem) => (

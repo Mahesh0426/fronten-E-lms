@@ -20,7 +20,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  deleteCourseAction,
+  // deleteCourseAction,
   fetchAllCoursesAction,
 } from "@/redux/instructor-course/courseAction";
 import {
@@ -66,15 +66,14 @@ const InstructorAllCoursePage = () => {
     course.title.toLowerCase().includes(searchProduct.toLowerCase())
   );
 
-  //function to delete course
-  const deleteCourse = (courseId) => {
-    // const isPublished = currentStatus === "true" ? "false" : "true";
-    try {
-      dispatch(deleteCourseAction(courseId));
-    } catch (error) {
-      console.error("Error deleting course:", error);
-    }
-  };
+  // //function to delete course
+  // const deleteCourse = (courseId) => {
+  //   try {
+  //     dispatch(deleteCourseAction(courseId));
+  //   } catch (error) {
+  //     console.error("Error deleting course:", error);
+  //   }
+  // };
 
   return (
     <Card className="min-h-[650px]">
@@ -125,6 +124,7 @@ const InstructorAllCoursePage = () => {
                       <TableHead>Course</TableHead>
                       <TableHead>Students</TableHead>
                       <TableHead>Revenue</TableHead>
+                      {/* <TableHead>Status</TableHead> */}
                       <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -147,6 +147,17 @@ const InstructorAllCoursePage = () => {
                         <TableCell>
                           {course?.students?.length * course?.pricing}
                         </TableCell>
+                        {/* <TableCell>
+                          {course?.isPublished === true ? (
+                            <span className="text-green-800 bg-green-100 px-2 py-1 rounded-full cursor-pointer text-xs">
+                              Published
+                            </span>
+                          ) : (
+                            <span className="text-red-800 bg-red-100 px-2 py-1 rounded-full cursor-pointer text-xs">
+                              Unpublished
+                            </span>
+                          )}
+                        </TableCell> */}
                         <TableCell className="flex justify-end mt-3 ">
                           {/* edit button */}
                           <div className="relative group">
@@ -168,7 +179,7 @@ const InstructorAllCoursePage = () => {
                           </div>
 
                           {/* delete button */}
-                          <AlertDialog>
+                          {/* <AlertDialog>
                             <AlertDialogTrigger asChild>
                               <Button
                                 variant="destructive"
@@ -197,7 +208,7 @@ const InstructorAllCoursePage = () => {
                                 </AlertDialogAction>
                               </AlertDialogFooter>
                             </AlertDialogContent>
-                          </AlertDialog>
+                          </AlertDialog> */}
                         </TableCell>
                       </TableRow>
                     ))}
