@@ -202,7 +202,7 @@ const AssignmentList = ({ onEditAssignment, instructorId }) => {
                               deleteAssignment(assignment._id);
                             }}
                           >
-                            <Trash2 />
+                            delete
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>

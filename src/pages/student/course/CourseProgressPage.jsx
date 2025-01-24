@@ -223,10 +223,10 @@ const CourseProgressPage = () => {
           </div>
 
           {/* quiz and assignent bar section  */}
-          <Card className=" mt-5 w-full h-full rounded-none ">
+          <Card className=" mt-5 w-full h-full rounded-none dark:bg-gray-800  ">
             <CardContent>
               <Tabs defaultValue="quizzes">
-                <TabsList className=" mt-2 grid w-80 grid-cols-3 space-x-4">
+                <TabsList className=" mt-2 grid w-80 grid-cols-3 space-x-4 dark:text-white">
                   <TabsTrigger value="quizzes">Quizzes</TabsTrigger>
                   <TabsTrigger value="assignments">Assignments</TabsTrigger>
                   <TabsTrigger value="review">Review</TabsTrigger>
@@ -244,7 +244,7 @@ const CourseProgressPage = () => {
             </CardContent>
             <div>
               {/*  welcome card */}
-              <Card className="mt-5">
+              <Card className="mt-5 dark:bg-gray-800 dark:border-gray-700 ">
                 <CardHeader>
                   <CardTitle>Welcome to this course </CardTitle>
                 </CardHeader>
@@ -258,7 +258,7 @@ const CourseProgressPage = () => {
 
         {/* side bar section  */}
         <div
-          className={`fixed top-[70px] right-0 bottom-0 w-[400px] bg-slate-100 border-l border-gray-700 transition-all duration-300 ${
+          className={`fixed top-[70px] right-0 bottom-0 w-[400px] bg-slate-100 border-l border-gray-700 transition-all duration-300 dark:bg-gray-900   ${
             isSideBarOpen ? "translate-x-0" : "translate-x-full"
           } hidden sm:block`}
         >
@@ -266,20 +266,20 @@ const CourseProgressPage = () => {
             <TabsList className="grid w-full grid-cols-2 p-0 h-14">
               <TabsTrigger
                 value="content"
-                className="  text-black rounded-none h-full"
+                className="  text-black rounded-none h-full dark:text-white"
               >
                 Course Content
               </TabsTrigger>
               <TabsTrigger
                 value="overview"
-                className="  text-black rounded-none h-full"
+                className="  text-black rounded-none h-full dark:text-white"
               >
                 OverView
               </TabsTrigger>
             </TabsList>
             <TabsContent value="content">
               <ScrollArea className="h-full">
-                <div className="p-4 space-y-4">
+                <div className="p-4 space-y-4 ">
                   {studentCurrentCourseProgress?.courseDetails?.curriculum.map(
                     (item) => (
                       <div
@@ -289,11 +289,11 @@ const CourseProgressPage = () => {
                         {studentCurrentCourseProgress?.progress?.find(
                           (progressItem) => progressItem.lectureId === item._id
                         )?.viewed ? (
-                          <Check className="h-4 w-4 text-green-500" />
+                          <Check className="h-4 w-4 text-green-500 dark:text-white" />
                         ) : (
-                          <Play className="h-4 w-4 " />
+                          <Play className="h-4 w-4 dark:text-white" />
                         )}
-                        <span>{item?.title}</span>
+                        <span className="dark:text-white">{item?.title}</span>
                       </div>
                     )
                   )}
@@ -303,10 +303,10 @@ const CourseProgressPage = () => {
             <TabsContent value="overview" className="flex-1 overflow-hidden">
               <ScrollArea className="h-full">
                 <div className="p-4">
-                  <h2 className="text-xl font-bold mb-2 text-black">
+                  <h2 className="text-xl font-bold mb-2 text-black dark:text-white">
                     About this course
                   </h2>
-                  <p className="text-black">
+                  <p className="text-black dark:text-white">
                     {studentCurrentCourseProgress?.courseDetails?.description}
                   </p>
                 </div>

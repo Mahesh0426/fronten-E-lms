@@ -176,7 +176,7 @@ const QuizAttemptPage = () => {
           )} / ${quizGradeDetails.totalMarks.toFixed(2)}`}{" "}
         </p>
         {/* table got grade */}
-        <div className="w-full max-w-2xl mx-auto mt-8">
+        <div className="w-full max-w-2xl mx-auto mt-8 dark:text-white">
           <Table>
             <TableHeader>
               <TableRow>
@@ -221,7 +221,9 @@ const QuizAttemptPage = () => {
 
         {/* quiz details break down  */}
         <div className="mt-6">
-          <h2 className="text-2xl font-semibold mb-4">Detailed Breakdown</h2>
+          <h2 className="text-2xl font-semibold mb-4 dark:text-white">
+            Detailed Breakdown
+          </h2>
           {quizGradeDetails.answers.map((answer, index) => (
             <div
               key={index}
@@ -260,8 +262,11 @@ const QuizAttemptPage = () => {
       </div>
     </div>
   ) : (
-    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-6 space-y-8">
-      <div className="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-3xl mx-auto p-6 space-y-8 dark:bg-gray-900"
+    >
+      <div className="bg-white dark:bg-gray-900 shadow-lg rounded-xl overflow-hidden">
         <div className="px-6 py-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             {quiz.title}

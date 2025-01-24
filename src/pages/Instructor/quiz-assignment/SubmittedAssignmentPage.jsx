@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
+  deleteAssignmentSubmissionAction,
   editSubmittedAssignmentAction,
   fetchAllSubmittedAssignmentsListAction,
 } from "@/redux/instructor-quiz and Assignment/AssignmentAction";
@@ -17,6 +18,7 @@ const ViewSubmittedAssignmentsPage = () => {
   const dispatch = useDispatch();
 
   const { submittedAssignmentsList } = useSelector((state) => state.assignment);
+
   const [currentEditedSubmissionId, setCurrentEditedSubmissionId] =
     useState(null);
 
@@ -41,6 +43,17 @@ const ViewSubmittedAssignmentsPage = () => {
     const studentName = submission.studentId?.userName || "";
     return studentName.toLowerCase().includes(searchTerm.toLowerCase());
   });
+
+  //handle delete submission
+  const handleDeleteSubmission = (submissionId) => {
+    try {
+      if (window.confirm("Are you sure you want to delete this submission?")) {
+        dispatch(deleteAssignmentSubmissionAction(submissionId, assignmentId));
+      }
+    } catch (error) {
+      console.error("error on deletion");
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-8">
@@ -80,6 +93,13 @@ const ViewSubmittedAssignmentsPage = () => {
                     <p className="text-lg font-semibold text-gray-800">
                       {submission.studentId?.userName || "N/A"}
                     </p>
+                    <Button
+                      onClick={() => {
+                        handleDeleteSubmission(submission._id);
+                      }}
+                    >
+                      Delete
+                    </Button>
                     <Badge variant="secondary">
                       Submitted On:{" "}
                       {new Date(submission.submissionDate).toLocaleString()}

@@ -86,18 +86,22 @@ const StudentProfilePage = () => {
 
   return (
     <SidebarProvider>
-      <div className="flex w-full  h-screen overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-100 via-white to-purple-100 ">
-        <Sidebar className=" bg-blue-300 shadow-md ">
-          <SidebarHeader className="border-b px-6 py-4 bg-white sticky top-16 z-10">
-            <div className="flex items-center  space-x-2">
-              <CircleUser className="h-8 w-8 " />
-              <span className="text-lg font-bold">{userName}</span>
+      <div className="flex w-full h-screen overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-100 via-white to-purple-100 dark:bg-gray-900">
+        <Sidebar className="bg-blue-300 shadow-md dark:bg-gray-800">
+          <SidebarHeader className="border-b px-6 py-4 bg-white dark:bg-gray-800 sticky top-16 z-10">
+            <div className="flex items-center space-x-2">
+              <CircleUser className="h-8 w-8 text-gray-800 dark:text-gray-100" />
+              <span className="text-lg font-bold text-gray-800 dark:text-gray-100">
+                {userName}
+              </span>
             </div>
           </SidebarHeader>
-          <SidebarHeader className="border-b px-6 py-4 bg-white sticky top-16 z-10">
+          <SidebarHeader className="border-b px-6 py-4 bg-white dark:bg-gray-800 sticky top-16 z-10">
             <div className="flex items-center flex-col space-x-2">
-              <CircleUser className="h-10 w-10" />
-              <span className="text-lg font-bold">{userName}</span>
+              <CircleUser className="h-10 w-10 text-gray-800 dark:text-gray-100" />
+              <span className="text-lg font-bold text-gray-800 dark:text-gray-100">
+                {userName}
+              </span>
             </div>
           </SidebarHeader>
           <SidebarContent>
@@ -107,7 +111,7 @@ const StudentProfilePage = () => {
                   <SidebarMenuButton
                     isActive={activePage === item.value}
                     onClick={() => setActivePage(item.value)}
-                    className="flex items-center"
+                    className="flex items-center text-gray-900 dark:text-gray-100"
                   >
                     <item.icon className="mr-2 h-4 w-4" />
                     {item.label}
@@ -120,14 +124,14 @@ const StudentProfilePage = () => {
             <Button
               onClick={handleLogout}
               variant="ghost"
-              className="w-full justify-start"
+              className="w-full justify-start text-gray-800 dark:text-gray-100"
             >
               <LogOut className="mr-2 h-4 w-4" />
               Log out
             </Button>
           </SidebarFooter>
         </Sidebar>
-        <main className="flex-[3]  w-full overflow-y-auto bg-secondary/10 p-6">
+        <main className="flex-[3] w-full overflow-y-auto bg-secondary/10 dark:bg-gray-800 p-6">
           <SidebarTrigger className="mb-4 lg:hidden" />
           {/* Render the active component */}
           {menuItems.find((item) => item.value === activePage)?.component}

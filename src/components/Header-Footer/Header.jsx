@@ -1,12 +1,14 @@
 import { assets } from "@/assets/asset";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   LogInIcon,
   LogOut,
   Menu,
+  Moon,
   Search,
+  Sun,
   Tv,
   User,
 } from "lucide-react";
@@ -23,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { setSearch } from "@/redux/student-course/studentCourseSlice";
+import { toggleDarkMode } from "@/redux/dark-mode/darkModeSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -33,10 +36,19 @@ const Header = () => {
     user: { _id, userName, userEmail, role },
   } = useSelector((state) => state.user);
   const isAuthenticated = _id;
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+
+  // Handle dark mode toggle
+  const handleDarkModeToggle = () => {
+    dispatch(toggleDarkMode());
+  };
 
   //state management
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setSearchInput] = useState("");
+  // const [darkmode, setDarkMode] = useState(() => {
+  //   return localStorage.getItem("theme") || "light";
+  // });
 
   // handle on search
   const handleOnSearch = (e) => {
@@ -51,8 +63,22 @@ const Header = () => {
     navigate("/login");
   };
 
+  // // useEffect to update dark mode
+  // useEffect(() => {
+  //   if (darkmode == "dark") document.body.classList.add("dark");
+  //   else document.body.classList.remove("dark");
+
+  //   // Save the current theme to localStorage
+  //   localStorage.setItem("theme", darkmode);
+  // }, [darkmode]);
+
+  // // Handle dark mode toggle
+  // const handleDarkModeToggle = () => {
+  //   setDarkMode((prevMode) => (prevMode === "dark" ? "light" : "dark"));
+  // };
+
   return (
-    <header className="fixed top-0 z-50 bg-white shadow-md w-full ">
+    <header className="fixed top-0 z-50 dark:bg-gray-900 bg-white shadow-md w-full ">
       <div className=" px-4 sm:px-6">
         {/* Main header content */}
         <div className="flex justify-between items-center h-16">
@@ -68,20 +94,20 @@ const Header = () => {
             <nav className="flex items-center space-x-8">
               <Link
                 to="/"
-                className="text-gray-600 hover:text-indigo-600 transition-colors"
+                className="text-gray-600 dark:text-white hover:text-indigo-600 transition-colors"
               >
                 Home
               </Link>
               <Link
                 to="/aboutUs"
-                className="text-gray-600 hover:text-indigo-600 transition-colors"
+                className="text-gray-600  dark:text-white hover:text-indigo-600 transition-colors"
               >
                 About Us
               </Link>
 
               <Link
                 to="/courses"
-                className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
+                className="flex items-center  dark:text-white text-gray-600 hover:text-indigo-600 transition-colors"
               >
                 Explore Courses
               </Link>
@@ -97,16 +123,16 @@ const Header = () => {
                   onChange={(e) => setSearchInput(e.target.value)}
                   type="text"
                   placeholder="Search courses..."
-                  className="w-64 pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                  className="w-64 pl-10 pr-4 py-2 rounded-full   dark:text-white border border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                 />
-                <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <Search className="h-5 w-5 text-gray-400  dark:text-white absolute left-3 top-1/2 transform -translate-y-1/2" />
               </form>
             </div>
 
             {isAuthenticated && role === "user" ? (
               <Link
                 to="/student-courses"
-                className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
+                className="flex items-center  dark:text-white text-white-600 hover:text-indigo-600 transition-colors"
               >
                 <Tv className="h-4 w-4 mr-1" />
                 My Courses
@@ -129,11 +155,17 @@ const Header = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => navigate("/profile")}>
+                  <DropdownMenuItem
+                    className=" dark:bg-gray-900"
+                    onClick={() => navigate("/profile")}
+                  >
                     <User /> My Profile
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout}>
+                  <DropdownMenuItem
+                    className=" dark:bg-gray-900"
+                    onClick={handleLogout}
+                  >
                     <LogOut className="mr-2 h-4 w-4 text-red-500" />
                     <span className="text-red-500">Log out</span>
                   </DropdownMenuItem>
@@ -147,6 +179,22 @@ const Header = () => {
                 <LogInIcon className="h-4 w-4" /> login
               </Button>
             )}
+            {/* Dark Mode Toggle */}
+            <Button
+              onClick={handleDarkModeToggle}
+              className="bg-transparent border-none shadow-none text-current hover:bg-gray-200 dark:hover:bg-gray-700 p-4 rounded-full focus:outline-none focus:ring-0"
+            >
+              {/* {darkmode === "dark" ? (
+                <Sun className="h-12 w-12" />
+              ) : (
+                <Moon className="h-12 w-12" />
+              )} */}
+              {isDarkMode ? (
+                <Sun className="h-5 w-5  dark:text-white" />
+              ) : (
+                <Moon className="h-5 w-5 " />
+              )}
+            </Button>
           </div>
 
           {/* Mobile: Left - Hamburger Menu */}

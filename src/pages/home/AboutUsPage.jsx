@@ -1,18 +1,28 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Brain, Users, Zap } from "lucide-react";
+import {
+  BookOpen,
+  Brain,
+  Target,
+  Users,
+  Zap,
+  Globe,
+  Network,
+  Rocket,
+} from "lucide-react";
 import sujanImage from "../../assets/sujan.png";
+import { Link } from "react-router-dom";
 
 const AboutUsPage = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen  dark:bg-gray-900  dark:text-white">
       <div className="container mx-auto px-4 py-16">
         <h1 className="text-4xl font-bold text-center mb-8">About gyanX</h1>
 
         {/* Introduction */}
         <section className="mb-16">
-          <p className="text-xl text-center text-gray-700 mb-6">
+          <p className="text-xl text-center text-gray-700 dark:text-white mb-6">
             gyanX is a cutting-edge e-learning recommendation system designed to
             revolutionize your educational journey.
           </p>
@@ -23,21 +33,55 @@ const AboutUsPage = () => {
           </div>
         </section>
 
-        {/* Mission Statement */}
-        <Card className="mb-16">
-          <CardHeader>
-            <CardTitle className="text-2xl font-semibold text-center">
-              Our Mission
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-center text-gray-700">
-              At gyanX, we strive to make learning personalized, accessible, and
-              engaging. Our mission is to connect learners with the perfect
-              educational content, tailored to their unique needs and goals.
-            </p>
-          </CardContent>
-        </Card>
+        {/* Mission Statement Section */}
+        <section className="mb-16">
+          <h2 className="text-2xl font-semibold text-center mb-8">
+            Our Mission
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                title: "Personalized Learning",
+                icon: Target,
+                description:
+                  "Deliver tailored educational experiences that adapt to individual learning styles and goals.",
+              },
+              {
+                title: "Accessibility",
+                icon: Globe,
+                description:
+                  "Make high-quality education accessible to learners worldwide, breaking geographical barriers.",
+              },
+              {
+                title: "Community Empowerment",
+                icon: Network,
+                description:
+                  "Foster a collaborative learning environment that connects students, educators, and experts.",
+              },
+              {
+                title: "Continuous Innovation",
+                icon: Rocket,
+                description:
+                  "Continuously evolve our platform using cutting-edge AI and technology to enhance learning.",
+              },
+            ].map((mission, index) => (
+              <Card
+                key={index}
+                className="dark:bg-gray-800 dark:border-gray-700 hover:shadow-lg transition-all duration-300"
+              >
+                <CardHeader>
+                  <mission.icon className="w-10 h-10 text-blue-500 mb-2" />
+                  <CardTitle>{mission.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {mission.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </section>
 
         {/* Key Features */}
         <section className="mb-16">
@@ -71,13 +115,18 @@ const AboutUsPage = () => {
                   "Personalized learning journeys that evolve with your progress",
               },
             ].map((feature, index) => (
-              <Card key={index}>
+              <Card
+                key={index}
+                className="dark:bg-gray-800 dark:border-gray-700 "
+              >
                 <CardHeader>
                   <feature.icon className="w-10 h-10 text-blue-500 mb-2" />
                   <CardTitle>{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">{feature.description}</p>
+                  <p className="text-gray-600 dark:text-white">
+                    {feature.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -132,7 +181,10 @@ const AboutUsPage = () => {
                   "https://media.licdn.com/dms/image/v2/D5603AQFSi_RU8JukFw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718243745328?e=1739404800&v=beta&t=3JSMgrGIXUW2dSjekbTHuk9TiBGE-duxyq_9tPGog18",
               },
             ].map((member, index) => (
-              <Card key={index}>
+              <Card
+                key={index}
+                className="dark:bg-gray-800 dark:border-gray-700 "
+              >
                 <CardContent className="flex flex-col items-center pt-6">
                   <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200 mb-4">
                     <img
@@ -142,7 +194,7 @@ const AboutUsPage = () => {
                     />
                   </div>
                   <h3 className="font-semibold text-lg">{member.name}</h3>
-                  <p className="text-gray-600">{member.role}</p>
+                  <p className="text-gray-600 dark:text-white">{member.role}</p>
                 </CardContent>
               </Card>
             ))}
@@ -154,12 +206,14 @@ const AboutUsPage = () => {
           <h2 className="text-2xl font-semibold mb-4">
             Ready to Transform Your Learning Experience?
           </h2>
-          <Button
-            size="lg"
-            className="bg-blue-500 hover:bg-blue-600 text-white"
-          >
-            Get Started with gyanX
-          </Button>
+          <Link to="/login">
+            <Button
+              size="lg"
+              className="bg-blue-500 hover:bg-blue-600 text-white"
+            >
+              Get Started with gyanX
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

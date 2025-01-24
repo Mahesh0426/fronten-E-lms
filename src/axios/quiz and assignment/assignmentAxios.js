@@ -90,6 +90,14 @@ export const editSubmittedAssignment = (assignmentId, studentId, payload) => {
   });
 };
 
+//delete assignment  | DELETE | for tutor
+export const deleteAssignmentSubmission = (submissionId) => {
+  return axiosApiCall({
+    method: "delete",
+    url: `${USER_API_URL}/delete-submission/${submissionId}`,
+  });
+};
+
 // get   submitted  assignment by id  | GET | public Route | for student
 export const fetchSubmittedAssignmentById = (assignmentId, studentId) => {
   return axiosApiCall({

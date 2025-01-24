@@ -26,8 +26,18 @@ import AboutUsPage from "./pages/home/AboutUsPage";
 import StudentProfilePage from "./pages/student/profile/StudentProfile";
 import SearchPage from "./pages/home/SearchPage";
 import AdminLayout from "./components/admin-view/AdminLayout";
+import { useDispatch } from "react-redux";
+import { setDarkMode } from "./redux/dark-mode/darkModeSlice";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    dispatch(setDarkMode(savedTheme === "dark"));
+  }, [dispatch]);
+
   return (
     <>
       <Routes>

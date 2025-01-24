@@ -62,7 +62,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen  bg-white dark:bg-gray-900">
       {/* hero section */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Background Image with Overlay */}
@@ -144,12 +144,12 @@ const HomePage = () => {
       </section>
 
       {/* why this platform section */}
-      <section id="benefits" className=" mt-5  mx-auto px-4">
-        <h2 className="text-center text-2xl font-bold mb-8">
+      <section id="benefits" className=" mt-5  mx-auto px-4 ">
+        <h2 className="  dark:text-white text-center text-2xl font-bold mb-8">
           Why Choose Personalized Learning?
         </h2>
-        <div className="flex flex-wrap justify-around">
-          <Card className="w-[300px] m-5 overflow-hidden">
+        <div className="flex flex-wrap justify-around ">
+          <Card className="w-[300px] m-5 overflow-hidden dark:bg-gray-800 dark:border-gray-700 ">
             <img
               src={assets.adaptiveCurriculum}
               alt="Adaptive Learning"
@@ -166,7 +166,7 @@ const HomePage = () => {
               </p>
             </CardContent>
           </Card>
-          <Card className="w-[300px] m-5 overflow-hidden">
+          <Card className="w-[300px] m-5 overflow-hidden dark:bg-gray-800 dark:border-gray-700">
             <img
               src={assets.trackProgress}
               alt="Track Progress"
@@ -181,7 +181,7 @@ const HomePage = () => {
               <p>Visualize your learning journey with detailed analytics</p>
             </CardContent>
           </Card>
-          <Card className="w-[300px] m-5 overflow-hidden">
+          <Card className="w-[300px] m-5 overflow-hidden dark:bg-gray-800 dark:border-gray-700">
             <img
               src={assets.increasedEngaged}
               alt="Increased Engagement"
@@ -202,7 +202,7 @@ const HomePage = () => {
       {/* ready to transform  section  */}
       <section
         id="signup"
-        className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-16"
+        className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white  py-16"
       >
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">

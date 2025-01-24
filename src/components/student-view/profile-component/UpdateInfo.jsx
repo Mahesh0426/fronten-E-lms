@@ -30,7 +30,7 @@ const UpdateInfo = () => {
 
   return (
     <div className=" flex  justify-center  ">
-      <Card className="w-full max-w-md p-6 shadow-md bg-white dark:bg-gray-800">
+      <Card className="w-full max-w-md p-6 shadow-md bg-white dark:bg-gray-800 dark:text-white">
         <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
           Update Profile
         </h1>

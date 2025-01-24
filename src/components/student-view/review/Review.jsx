@@ -56,15 +56,18 @@ const Review = ({ currentCourse }) => {
   }, [courseId, user?._id]);
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Reviews</h2>
+    <div className="container mx-auto p-4  dark:bg-gray-800 ">
+      <h2 className="text-2xl font-bold mb-4 dark:text-white">Reviews</h2>
 
       {/* Existing Reviews */}
-      <div className="space-y-4 mb-8">
+      <div className="space-y-4 mb-8 dark:bg-gray-900 ">
         {reviews.map((review) => (
-          <div key={review._id} className="bg-white p-4 rounded-lg shadow">
+          <div
+            key={review._id}
+            className="bg-white  p-4 rounded-lg shadow dark:rounded-lg dark:bg-gray-900"
+          >
             <div className="mb-2">
-              <span className="font-semibold block mb-1">
+              <span className="font-semibold block mb-1 dark:text-white">
                 {review?.studentId?.userName}
               </span>
               <div className="flex mb-1">
@@ -77,15 +80,22 @@ const Review = ({ currentCourse }) => {
                   />
                 ))}
               </div>
-              <p className="text-sm text-gray-600">{review.comment}</p>
+              <p className="text-sm text-gray-600 dark:text-white">
+                {review.comment}
+              </p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Review Form */}
-      <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg shadow">
-        <h3 className="text-xl font-semibold mb-4">Leave a Review</h3>
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-4 rounded-lg shadow dark:bg-gray-900"
+      >
+        <h3 className="text-xl font-semibold mb-4 dark:text-white">
+          Leave a Review
+        </h3>
         <div className="flex mb-4">
           {[...Array(5)].map((_, index) => (
             <Star
@@ -102,11 +112,11 @@ const Review = ({ currentCourse }) => {
           placeholder="Your review"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          className="mb-4"
+          className="mb-4 dark:text-white"
         />
         <Button
           type="submit"
-          className="flex p-6 justify-center rounded-md bg-indigo-600"
+          className="flex p-6 justify-center rounded-md bg-indigo-600 text-white "
           disabled={hasReviewed}
         >
           {hasReviewed ? "Already Reviewed" : "Submit Review"}

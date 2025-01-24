@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { assets } from "@/assets/asset";
 import { Link } from "react-router-dom";
+import FeedbackSection from "./FeebbackSection";
 
 const Footer = () => {
   return (
@@ -33,17 +34,26 @@ const Footer = () => {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="#" className="hover:text-blue-400 transition-colors">
+                <Link
+                  to="/home"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   Home
                 </Link>
               </li>
               <li>
-                <Link to="#" className="hover:text-blue-400 transition-colors">
+                <Link
+                  to="/courses"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   Courses
                 </Link>
               </li>
               <li>
-                <Link to="#" className="hover:text-blue-400 transition-colors">
+                <Link
+                  to="/aboutUs"
+                  className="hover:text-blue-400 transition-colors"
+                >
                   About Us
                 </Link>
               </li>
@@ -58,18 +68,39 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
-              <Link to="#" className="hover:text-blue-400 transition-colors">
+              <a
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition-colors"
+              >
                 <Facebook size={20} />
-              </Link>
-              <Link to="#" className="hover:text-blue-400 transition-colors">
+              </a>
+
+              <a
+                href="https://x.com/home"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition-colors"
+              >
                 <Twitter size={20} />
-              </Link>
-              <Link to="#" className="hover:text-blue-400 transition-colors">
+              </a>
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition-colors"
+              >
                 <Instagram size={20} />
-              </Link>
-              <Link to="#" className="hover:text-blue-400 transition-colors">
+              </a>
+              <a
+                href="https://www.linkedin.com/public-profile/settings?trk=d_flagship3_profile_self_view_public_profile"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition-colors"
+              >
                 <Linkedin size={20} />
-              </Link>
+              </a>
             </div>
           </div>
 
@@ -94,24 +125,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Subscribe Section */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">
-              Subscribe to Our Newsletter
-            </h4>
-            <div className="flex flex-col space-y-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
-              />
-              <Button
-                type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-              >
-                <Mail className="mr-2 h-4 w-4" /> Subscribe
-              </Button>
-            </div>
+            <FeedbackSection />
           </div>
         </div>
 

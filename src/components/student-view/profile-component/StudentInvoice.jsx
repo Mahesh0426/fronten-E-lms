@@ -142,7 +142,7 @@ const StudentInvoice = () => {
         </h1>
       </div>
       <div className="overflow-x-auto">
-        <Table className="table-auto w-full border-collapse border border-gray-200">
+        <Table className="table-auto w-full border-collapse border border-gray-200 dark:text-white">
           <TableHeader>
             <TableRow className="bg-gray-100">
               <TableHead>SN</TableHead>

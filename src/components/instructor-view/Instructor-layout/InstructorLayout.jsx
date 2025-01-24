@@ -32,9 +32,9 @@ import { Tabs, TabsContent } from "@/components/ui/tabs";
 import QuizAndAssignmentPage from "../../../pages/Instructor/quiz-assignment/Quize&AssignmentPage";
 import GradebookTable from "@/pages/Instructor/student-management/studentgradebook";
 import { useNavigate } from "react-router-dom";
-import Analytics from "@/pages/Instructor/analytics/instructorAnalytics";
 import ActivityLogPage from "@/pages/Instructor/Activity-Log/ActivityLog.jsx.jsx";
 import InstructorProfilePage from "@/pages/Instructor/setting/InstructorSetting";
+import Analytics from "@/pages/Instructor/analytics/InstructorAnalytics";
 
 const InstructorLayout = () => {
   const [activeTab, setActiveTab] = useState("Courses");
@@ -142,7 +142,7 @@ const InstructorLayout = () => {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-56 ">
+            <DropdownMenuContent align="top" sideOffset={30} className="w-56 ">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>

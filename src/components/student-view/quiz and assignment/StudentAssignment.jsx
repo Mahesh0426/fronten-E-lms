@@ -24,9 +24,9 @@ const StudentAssignment = () => {
   };
 
   return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div className="bg-white shadow overflow-hidden sm:rounded-lg  dark:bg-gray-800  ">
       <div className="px-4 py-5 sm:px-6">
-        <h3 className="text-lg leading-6 font-medium text-gray-900">
+        <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
           Assignment List
         </h3>
       </div>
@@ -37,10 +37,10 @@ const StudentAssignment = () => {
               <li key={item._id} className="px-4 py-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="text-lg font-medium text-gray-900">
+                    <h4 className="text-lg font-medium text-gray-900 dark:text-white">
                       {item.title}
                     </h4>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500  dark:text-white">
                       {item.maxScore} Total Marks •{" "}
                       {new Date(item.dueDate).toLocaleDateString()} Due Date
                     </p>

@@ -5,6 +5,7 @@ import studentCourseReducer from "./redux/student-course/studentCourseSlice";
 import quizReducer from "./redux/instructor-quiz and Assignment/quizSlice";
 import assignmentReducer from "./redux/instructor-quiz and Assignment/AssignmentSlice";
 import gradeReducer from "./redux/grade/gradeSlice";
+import DarkMode from "./redux/dark-mode/darkModeSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     quiz: quizReducer,
     assignment: assignmentReducer,
     grade: gradeReducer,
+    theme: DarkMode,
   },
 });
 

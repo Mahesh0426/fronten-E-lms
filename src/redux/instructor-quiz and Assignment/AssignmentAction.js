@@ -3,6 +3,7 @@ import {
   createAssignment,
   createAssignmentSubmission,
   deleteAssignment,
+  deleteAssignmentSubmission,
   editAssignment,
   editSubmittedAssignment,
   fetchAllAssignmentsList,
@@ -119,6 +120,20 @@ export const editSubmittedAssignmentAction =
     dispatch(fetchSubmittedAssignmentById(assignmentId, studentId));
   };
 
+//delete assignment submission grade by id | for tutor
+export const deleteAssignmentSubmissionAction =
+  (submissionId, assignmentId) => async (dispatch) => {
+    const response = await deleteAssignmentSubmission(submissionId);
+
+    if (response?.status === "error") {
+      return toast.error(response.message);
+    }
+
+    toast.success(response.message);
+    dispatch(fetchAllSubmittedAssignmentsListAction(assignmentId));
+  };
+
+// SUBMITTED ASSIGNMENT ACTION / USER
 //get a submitted assignment by  student id and assignment id
 export const fetchSubmittedAssignmentByIdAction =
   (assignmentId, studentId) => async (dispatch) => {

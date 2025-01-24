@@ -153,7 +153,7 @@ const VideoPlayer = ({
             step={0.1}
             onValueChange={(value) => handleSeekChange([value[0] / 100])}
             onValueCommit={handleSeekMouseUp}
-            className="w-full mb-4"
+            className="w-full mb-4 dark:text-white"
           />
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -211,7 +211,7 @@ const VideoPlayer = ({
                 max={100}
                 step={1}
                 onValueChange={(value) => handleVolumeChange([value[0] / 100])}
-                className="w-24 "
+                className="w-24 dark:text-white dark:bg-white "
               />
             </div>
 

@@ -71,7 +71,7 @@ const MyCoursePage = () => {
   }, [user?._id]);
 
   return (
-    <div className="p-4 ">
+    <div className="p-4 dark:bg-gray-900 ">
       <h1 className="text-3xl font-bold mb-8">My Courses</h1>
       {isLoading ? (
         <PageLoadingSpinner />
@@ -80,15 +80,20 @@ const MyCoursePage = () => {
           {studentEnrolledCoursesList &&
           studentEnrolledCoursesList.length > 0 ? (
             studentEnrolledCoursesList.map((course) => (
-              <Card key={course._id} className="flex flex-col ">
+              <Card
+                key={course._id}
+                className="flex flex-col dark:bg-gray-800 dark:border-gray-700  "
+              >
                 <CardContent className="p-4 flex-grow">
                   <img
                     src={course?.courseImage}
                     alt={course?.title}
                     className="h-45 w-full object-cover rounded-md mb-4"
                   />
-                  <h3 className="font-bold mb-1">{course?.title}</h3>
-                  <p className="text-sm text-gray-700 mb-2">
+                  <h3 className="font-bold mb-1 dark:text-white">
+                    {course?.title}
+                  </h3>
+                  <p className="text-sm text-gray-700 mb-2 dark:text-white">
                     Created by - {course?.instructorName}
                   </p>
                 </CardContent>
@@ -106,7 +111,7 @@ const MyCoursePage = () => {
               </Card>
             ))
           ) : (
-            <Card className="col-span-full p-8 text-center">
+            <Card className="col-span-full p-8 text-center dark:bg-gray-800 dark:border-gray-700 ">
               <div className="flex flex-col items-center space-y-6">
                 <div className="relative">
                   <div className="absolute -left-8 top-0">
@@ -146,31 +151,36 @@ const MyCoursePage = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {recommendations && recommendations.length > 0 ? (
           recommendations.map((course) => (
-            <Card key={course._id} className="flex flex-col">
+            <Card
+              key={course._id}
+              className="flex flex-col dark:bg-gray-800 dark:border-gray-700 "
+            >
               <CardContent className="p-4 flex-grow">
                 <img
                   src={course?.image}
                   alt={course?.title}
                   className="h-45 w-full object-cover rounded-md mb-4"
                 />
-                <h3 className="font-bold mb-1">{course?.title}</h3>
-                <p className="text-sm text-gray-700 mb-2">
+                <h3 className="font-bold mb-1 dark:text-white">
+                  {course?.title}
+                </h3>
+                <p className="text-sm text-gray-700 mb-2 dark:text-white">
                   Created by - {course?.instructorName}
                 </p>
-                {course.averageRating > 0 && (
-                  <div className="flex mb-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        size={16}
-                        fill={i < course.averageRating ? "gold" : "none"}
-                        stroke={
-                          i < course.averageRating ? "gold" : "currentColor"
-                        }
-                      />
-                    ))}
-                  </div>
-                )}
+
+                <div className="flex mb-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={16}
+                      fill={i < course.averageRating ? "gold" : "none"}
+                      stroke={
+                        i < course.averageRating ? "gold" : "currentColor"
+                      }
+                    />
+                  ))}
+                </div>
+
                 <p className="font-bold text-[16px]">${course?.pricing}</p>
               </CardContent>
               <CardFooter>

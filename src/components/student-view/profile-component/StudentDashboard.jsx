@@ -40,7 +40,7 @@ const StudentDashboard = () => {
         <h1 className="text-3xl sm:text-3xl font-bold text-indigo-600 ">
           Welcome back, {user?.userName} !
         </h1>
-        <p className=" text-sm text-gray-500">
+        <p className=" text-sm text-gray-500 dark:text-white">
           Here's an overview of your learning progress
         </p>
       </div>
@@ -60,20 +60,24 @@ const StudentDashboard = () => {
           >
             {/* Course Name */}
             <div className="w-full md:w-1/4">
-              <h2 className="text-xl font-semibold">{course.course}</h2>
-              <h3 className="font-medium">Course Progress</h3>
+              <h2 className="text-xl font-semibold dark:text-white">
+                {course.course}
+              </h2>
+              <h3 className="font-medium dark:text-white">Course Progress</h3>
               <div className="w-full bg-gray-200 rounded-full h-4">
                 <div
-                  className="bg-green-500 h-4 rounded-full"
+                  className="bg-green-500 h-4 rounded-full "
                   style={{ width: `${progressPercentage}%` }}
                 ></div>
               </div>
-              <p className="mt-2 text-sm">{progressPercentage}% completed</p>
+              <p className="mt-2 text-sm dark:text-white">
+                {progressPercentage}% completed
+              </p>
             </div>
 
             {/* Quiz Grade */}
             <div className="w-full md:w-1/3 text-center">
-              <h3 className="font-medium mb-2">Quiz Grade</h3>
+              <h3 className="font-medium mb-2 dark:text-white">Quiz Grade</h3>
               <div className="text-3xl font-bold text-green-500">
                 {course.quizScore}/{course.quizTotalMarks || "N/A"}
               </div>
@@ -81,7 +85,9 @@ const StudentDashboard = () => {
 
             {/* Assignment Score */}
             <div className="w-full md:w-1/3 text-center">
-              <h3 className="font-medium mb-2">Assignment Score</h3>
+              <h3 className="font-medium mb-2 dark:text-white">
+                Assignment Score
+              </h3>
               <div className="text-3xl font-bold text-blue-500">
                 {course.assignmentScore}/{course.assignmentMaxScore || "N/A"}
               </div>

@@ -107,12 +107,12 @@ const StudentAllCoursepage = () => {
   }, [selectedFilters, sort]);
 
   return (
-    <div className=" container mx-auto p-4">
+    <div className="  mx-auto p-4 dark:bg-gray-900 ">
       <h1 className="text-3xl font-bold mb-4"> All courses</h1>
 
       <div className="flex flex-col md:flex-row gap-4">
         {/*  aside section with Filters sidebar */}
-        <aside className="w-full space-y-4 md:w-64">
+        <aside className="w-full space-y-4 md:w-64 dark:text-white">
           <div className="h-[540px]  overflow-y-auto ">
             {Object.keys(filterOptions).map((keyItem) => (
               <div key={keyItem} className="p-4 space-y-4">
@@ -141,21 +141,24 @@ const StudentAllCoursepage = () => {
         </aside>
 
         {/* main conent */}
-        <main className="flex-1">
+        <main className="flex-1 dark:bg-gray-900">
           {/* Course sorting */}
-          <div className="flex justify-end items-center mb-4 gap-5 mr-10">
+          <div className="flex justify-end items-center mb-4 gap-5 mr-10 dark:bg-gray-900 dark:text-white">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="outline"
                   size="sm"
-                  className="flex items-center gap-2 p-5"
+                  className="flex items-center gap-2 p-5 dark:border-gray-700 dark:text-gray-200"
                 >
                   <ArrowUpDownIcon className="h-4 w-4" />
                   <span className="font-medium text-[16px]">Sort By</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[180px]">
+              <DropdownMenuContent
+                align="end"
+                className="w-[180px] bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
+              >
                 <DropdownMenuRadioGroup
                   value={sort}
                   onValueChange={(value) => {
@@ -166,6 +169,7 @@ const StudentAllCoursepage = () => {
                     <DropdownMenuRadioItem
                       value={sortItem.id}
                       key={sortItem.id}
+                      className="dark:hover:bg-gray-700 dark:text-gray-200"
                     >
                       {sortItem.label}
                     </DropdownMenuRadioItem>
@@ -173,18 +177,18 @@ const StudentAllCoursepage = () => {
                 </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
-            <span className="text-sm font-bold text-black">
+            <span className="text-sm font-bold text-black dark:text-white">
               {studentCourses.length} Results
             </span>
           </div>
 
           {/* Course listing */}
-          <div className="space-y-4 overflow-y-auto max-h-[500px] ">
+          <div className="space-y-4 overflow-y-auto max-h-[500px]">
             {studentCourses && studentCourses.length > 0 ? (
               studentCourses.map((courseItem) => (
                 <Card
                   key={courseItem?._id}
-                  className="cursor-pointer transition-all duration-300 ease-in hover:shadow-lg hover:scale-101"
+                  className="cursor-pointer transition-all duration-300 ease-in hover:shadow-lg hover:scale-101 dark:bg-gray-800 dark:border-gray-700"
                   onClick={() => navigate(`/course/details/${courseItem?._id}`)}
                 >
                   <CardContent className="flex gap-4 p-4">
@@ -196,24 +200,24 @@ const StudentAllCoursepage = () => {
                       />
                     </div>
                     <div className="flex-1">
-                      <CardTitle className="text-xl mb-2">
+                      <CardTitle className="text-xl mb-2 dark:text-gray-200">
                         {courseItem?.title}
                       </CardTitle>
-                      <p className="text-sm text-gray-600 mb-1 font-bold">
+                      <p className="text-sm text-gray-600 mb-1 font-bold dark:text-gray-400">
                         Created by{" "}
-                        <span className="font-bold">
+                        <span className="font-bold dark:text-gray-300">
                           {courseItem?.instructorName.charAt(0).toUpperCase() +
                             courseItem?.instructorName.slice(1)}
                         </span>
                       </p>
-                      <p className="text-black mb-2 mt-3 text-[16px]">
+                      <p className="text-black mb-2 mt-3 text-[16px] dark:text-gray-300">
                         {`${courseItem?.curriculum?.length} ${
                           courseItem?.curriculum?.length <= 1
                             ? "Lecture"
                             : "Lectures"
                         } - ${courseItem?.level.toUpperCase()} Level`}
                       </p>
-                      <p className="font-bold text-lg">
+                      <p className="font-bold text-lg dark:text-gray-300">
                         ${courseItem?.pricing}
                       </p>
                     </div>
@@ -221,17 +225,17 @@ const StudentAllCoursepage = () => {
                 </Card>
               ))
             ) : (
-              <Card className="w-full p-12 flex flex-col items-center justify-center">
+              <Card className="w-full p-12 flex flex-col items-center justify-center dark:bg-gray-800">
                 <SearchX
-                  className="w-16 h-16 text-muted-foreground/40 mb-6"
+                  className="w-16 h-16 text-muted-foreground/40 mb-6 dark:text-gray-500"
                   strokeWidth={1.4}
                 />
 
-                <h1 className="font-extrabold text-4xl mb-3 text-center">
+                <h1 className="font-extrabold text-4xl mb-3 text-center dark:text-gray-300">
                   Sorry!! No course available at the moment
                 </h1>
 
-                <p className="text-muted-foreground text-lg mb-8 text-center max-w-md">
+                <p className="text-muted-foreground text-lg mb-8 text-center max-w-md dark:text-gray-400">
                   Try adjusting other categories to find what you're looking for
                 </p>
               </Card>

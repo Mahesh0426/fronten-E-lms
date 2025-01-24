@@ -19,7 +19,6 @@ const FeaturesCoursesPage = ({ search }) => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
-  console.log(studentCourses);
 
   // Filter courses based on search input
   const searchCourses = Array.isArray(studentCourses)
@@ -46,14 +45,15 @@ const FeaturesCoursesPage = ({ search }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-8 ">
+      {/* courser card */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 px-8 dark:bg-gray-900 ">
         {studentCourses && studentCourses.length > 0 ? (
           currentCourses.length > 0 ? (
             currentCourses.map((courseItem) => (
               <div
                 onClick={() => navigate(`/course/details/${courseItem?._id}`)}
                 key={courseItem?._id}
-                className="border rounded-lg overflow-hidden shadow cursor-pointer transition-all duration-300 ease-in hover:shadow-lg hover:scale-105"
+                className="border rounded-lg overflow-hidden shadow cursor-pointer transition-all duration-300 ease-in hover:shadow-lg hover:scale-105 bg-white dark:bg-gray-800 dark:border-gray-700"
               >
                 <img
                   src={courseItem?.image}
@@ -63,31 +63,31 @@ const FeaturesCoursesPage = ({ search }) => {
                   className="w-full h-40 object-cover"
                 />
                 <div className="p-4">
-                  <h3 className="font-bold mb-2">{courseItem?.title}</h3>
-                  <p className="text-sm text-gray-700 mb-2">
+                  <h3 className="font-bold mb-2  dark:text-white">
+                    {courseItem?.title}
+                  </h3>
+                  <p className="text-sm text-gray-700 mb-2 dark:text-white">
                     Created by{" "}
                     <span className="font-bold">
                       {courseItem?.instructorName.charAt(0).toUpperCase() +
                         courseItem?.instructorName.slice(1)}
                     </span>
                   </p>
-                  {courseItem.averageRating > 0 && (
-                    <div className="flex mb-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={16}
-                          fill={i < courseItem.averageRating ? "gold" : "none"}
-                          stroke={
-                            i < courseItem.averageRating
-                              ? "gold"
-                              : "currentColor"
-                          }
-                        />
-                      ))}
-                    </div>
-                  )}
-                  <p className="font-bold text-[16px]">
+
+                  <div className="flex mb-1 dark:text-white">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        fill={i < courseItem.averageRating ? "gold" : "none"}
+                        stroke={
+                          i < courseItem.averageRating ? "gold" : "currentColor"
+                        }
+                      />
+                    ))}
+                  </div>
+
+                  <p className="font-bold text-[16px] dark:text-white">
                     ${courseItem?.pricing}
                   </p>
                 </div>
@@ -105,7 +105,7 @@ const FeaturesCoursesPage = ({ search }) => {
 
       {/* pagination */}
       {searchCourses.length > itemsPerPage && (
-        <Pagination className="mt-6">
+        <Pagination className="mt-6 dark:text-white dark:bg-gray-900">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious

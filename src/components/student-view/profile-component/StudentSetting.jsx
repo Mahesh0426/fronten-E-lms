@@ -32,8 +32,8 @@ const StudentSetting = () => {
   };
 
   return (
-    <div className="  mx-auto p-4">
-      <Card className="w-full  mx-auto">
+    <div className="  mx-auto p-4 ">
+      <Card className="w-full  mx-auto dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="text-3xl">Account Management</CardTitle>
           <CardDescription>Manage your account settings</CardDescription>

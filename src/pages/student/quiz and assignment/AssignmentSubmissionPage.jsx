@@ -94,7 +94,7 @@ function AssignmentSubmissionPage() {
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               Your Submission:
             </h3>
-            <Table>
+            <Table className="dark:text-white">
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-40 font-bold">Detail</TableHead>

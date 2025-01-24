@@ -148,7 +148,7 @@ const StudentCourseDetailspage = () => {
   }, [courseId, user?._id]);
 
   return (
-    <div className=" mx-auto p-4">
+    <div className=" dark:bg-gray-900 mx-auto p-4">
       {/* header */}
       <div className="bg-gray-900 text-white p-8 rounded-t-lg">
         <h1 className="text-3xl font-bold mb-4">
@@ -174,7 +174,8 @@ const StudentCourseDetailspage = () => {
       {/*  main course content */}
       <div className="flex flex-col gap-8 mt-8 md:flex-row">
         <main className="flex-grow">
-          <Card className="mb-8">
+          {/* what you will learn card */}
+          <Card className="mb-8 dark:bg-gray-800 dark:border-gray-700 ">
             <CardHeader>
               <CardTitle>what you'll learn</CardTitle>
             </CardHeader>
@@ -193,7 +194,7 @@ const StudentCourseDetailspage = () => {
           </Card>
 
           {/* course Description card */}
-          <Card className="mb-8">
+          <Card className="mb-8 dark:bg-gray-800 dark:border-gray-700 ">
             <CardHeader>
               <CardTitle>Course Description</CardTitle>
             </CardHeader>
@@ -201,7 +202,7 @@ const StudentCourseDetailspage = () => {
           </Card>
 
           {/* course content card  | Curriculum Section */}
-          <Card className="mb-8">
+          <Card className="mb-8 dark:bg-gray-800 dark:border-gray-700 ">
             <CardHeader>
               <CardTitle>Course Curriculum</CardTitle>
             </CardHeader>
@@ -235,8 +236,8 @@ const StudentCourseDetailspage = () => {
         </main>
 
         {/* Video Player and Pricing Section */}
-        <aside className="w-full md:w-[500px]">
-          <Card className="sticky top-4">
+        <aside className="w-full md:w-[500px]  ">
+          <Card className="sticky top-4 dark:bg-gray-800 dark:border-gray-700 ">
             <CardContent className="p-6">
               <div className="aspect-video mb-4 rounded-lg flex items-center justify-center">
                 <VideoPlayer
@@ -321,16 +322,19 @@ const StudentCourseDetailspage = () => {
       </div>
 
       {/* reviews section  */}
-      <Card className="mb-8 mt-4">
+      <Card className="mb-8 mt-4 dark:bg-gray-800 dark:border-gray-700 ">
         <CardHeader>
           <CardTitle>Course Reviews</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4 mb-8 max-h-64 overflow-y-auto ">
             {reviews.map((review) => (
-              <div key={review._id} className="bg-white p-4 rounded-lg shadow">
+              <div
+                key={review._id}
+                className="bg-white p-4 rounded-lg shadow dark:bg-gray-700 dark:border-gray-700 "
+              >
                 <div className="mb-2">
-                  <span className="font-semibold block mb-1">
+                  <span className="font-semibold block mb-1 ">
                     {review?.studentId?.userName}
                   </span>
                   <div className="flex mb-1">
@@ -343,7 +347,9 @@ const StudentCourseDetailspage = () => {
                       />
                     ))}
                   </div>
-                  <p className="text-sm text-gray-600">{review.comment}</p>
+                  <p className="text-sm text-gray-600 dark:text-white">
+                    {review.comment}
+                  </p>
                 </div>
               </div>
             ))}
