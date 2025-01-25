@@ -63,7 +63,7 @@ const RouteGuard = ({ element }) => {
 
   // If the user is not authenticated, redirect to the login page
   if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/home" state={{ from: location }} replace />;
   }
 
   // Redirect instructors to the  / instructor

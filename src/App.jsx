@@ -84,20 +84,26 @@ function App() {
           <Route path="/aboutUs" element={<AboutUsPage />} />
           <Route path="" element={<HomePage />} />
           <Route path="courses" element={<StudentAllCoursepage />} />
+          <Route path="search" element={<SearchPage />} />
+          <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
+          <Route path="course-progress/:id" element={<CourseProgressPage />} />
+          <Route path="student-quiz/:quizId" element={<QuizAttemptPage />} />
           <Route
             path="course/details/:id"
             element={<StudentCourseDetailspage />}
           />
-          <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
-          <Route path="student-courses" element={<MyCoursePage />} />
-          <Route path="course-progress/:id" element={<CourseProgressPage />} />
-          <Route path="student-quiz/:quizId" element={<QuizAttemptPage />} />
+          <Route
+            path="student-courses"
+            element={<RouteGuard element={<MyCoursePage />} />}
+          />
           <Route
             path="student-assignment/:assignmentId"
             element={<AssignmentSubmissionPage />}
           />
-          <Route path="profile" element={<StudentProfilePage />} />
-          <Route path="search" element={<SearchPage />} />
+          <Route
+            path="profile"
+            element={<RouteGuard element={<StudentProfilePage />} />}
+          />
         </Route>
       </Routes>
 

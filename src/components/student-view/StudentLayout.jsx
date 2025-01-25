@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 const StudentLayout = () => {
   const location = useLocation();
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
-  console.log("isDarkMode", isDarkMode);
 
   return (
     // <div>

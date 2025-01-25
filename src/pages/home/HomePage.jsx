@@ -236,7 +236,9 @@ const HomePage = () => {
 
       {/* list of  Courses */}
       <section className="py-12 px-4 lg:px-8">
-        <h2 className="text-2xll font-bold mb-6">Featured Courses</h2>
+        <h2 className="text-2xll font-bold mb-6 dark:text-white">
+          Featured Courses
+        </h2>
         <FeaturesCoursesPage />
       </section>
     </div>

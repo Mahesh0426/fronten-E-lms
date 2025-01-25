@@ -88,7 +88,7 @@ const StudentProfilePage = () => {
     <SidebarProvider>
       <div className="flex w-full h-screen overflow-hidden bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-indigo-100 via-white to-purple-100 dark:bg-gray-900">
         <Sidebar className="bg-blue-300 shadow-md dark:bg-gray-800">
-          <SidebarHeader className="border-b px-6 py-4 bg-white dark:bg-gray-800 sticky top-16 z-10">
+          <SidebarHeader className="border-b px-6 py-4 bg-white dark:bg-gray-900 sticky top-16 z-10">
             <div className="flex items-center space-x-2">
               <CircleUser className="h-8 w-8 text-gray-800 dark:text-gray-100" />
               <span className="text-lg font-bold text-gray-800 dark:text-gray-100">
@@ -96,7 +96,7 @@ const StudentProfilePage = () => {
               </span>
             </div>
           </SidebarHeader>
-          <SidebarHeader className="border-b px-6 py-4 bg-white dark:bg-gray-800 sticky top-16 z-10">
+          <SidebarHeader className="border-b px-6 py-4 bg-white dark:bg-gray-900 sticky top-16 z-10">
             <div className="flex items-center flex-col space-x-2">
               <CircleUser className="h-10 w-10 text-gray-800 dark:text-gray-100" />
               <span className="text-lg font-bold text-gray-800 dark:text-gray-100">
@@ -104,14 +104,14 @@ const StudentProfilePage = () => {
               </span>
             </div>
           </SidebarHeader>
-          <SidebarContent>
+          <SidebarContent className="dark:bg-gray-900 dark:border-gray-800 ">
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.value}>
                   <SidebarMenuButton
                     isActive={activePage === item.value}
                     onClick={() => setActivePage(item.value)}
-                    className="flex items-center text-gray-900 dark:text-gray-100"
+                    className="flex items-center text-gray-900 dark:text-gray-100  "
                   >
                     <item.icon className="mr-2 h-4 w-4" />
                     {item.label}
@@ -120,11 +120,11 @@ const StudentProfilePage = () => {
               ))}
             </SidebarMenu>
           </SidebarContent>
-          <SidebarFooter>
+          <SidebarFooter className="dark:bg-gray-900">
             <Button
               onClick={handleLogout}
               variant="ghost"
-              className="w-full justify-start text-gray-800 dark:text-gray-100"
+              className="w-full justify-start text-gray-800 dark:text-gray-100  "
             >
               <LogOut className="mr-2 h-4 w-4" />
               Log out

@@ -184,11 +184,6 @@ const Header = () => {
               onClick={handleDarkModeToggle}
               className="bg-transparent border-none shadow-none text-current hover:bg-gray-200 dark:hover:bg-gray-700 p-4 rounded-full focus:outline-none focus:ring-0"
             >
-              {/* {darkmode === "dark" ? (
-                <Sun className="h-12 w-12" />
-              ) : (
-                <Moon className="h-12 w-12" />
-              )} */}
               {isDarkMode ? (
                 <Sun className="h-5 w-5  dark:text-white" />
               ) : (
@@ -252,28 +247,39 @@ const Header = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
             )}
+            {/* Dark Mode Toggle */}
+            <Button
+              onClick={handleDarkModeToggle}
+              className="bg-transparent border-none shadow-none text-current hover:bg-gray-200 dark:hover:bg-gray-700 p-4 rounded-full focus:outline-none focus:ring-0"
+            >
+              {isDarkMode ? (
+                <Sun className="h-5 w-5  dark:text-white" />
+              ) : (
+                <Moon className="h-5 w-5 " />
+              )}
+            </Button>
           </div>
         </div>
 
         {/* Mobile Navigation Menu */}
         {isOpen && (
           <div className="md:hidden border-t border-gray-200">
-            <nav className="flex flex-col space-y-4 py-4">
+            <nav className="flex flex-col space-y-4 py-4 ">
               <Link
                 to="/"
-                className="px-4 text-gray-600 hover:text-indigo-600 transition-colors"
+                className="px-4 text-gray-600 hover:text-indigo-600 transition-colors dark:text-white"
               >
                 Home
               </Link>
               <Link
                 to="/aboutUs"
-                className="px-4 text-gray-600 hover:text-indigo-600 transition-colors"
+                className="px-4 text-gray-600 hover:text-indigo-600 transition-colors dark:text-white"
               >
                 About Us
               </Link>
               <Link
                 to="/courses"
-                className="px-4 text-gray-600 hover:text-indigo-600 transition-colors"
+                className="px-4 text-gray-600 hover:text-indigo-600 transition-colors dark:text-white"
               >
                 Explore Courses
               </Link>
@@ -281,7 +287,7 @@ const Header = () => {
               {isAuthenticated && role === "user" ? (
                 <Link
                   to="/student-courses"
-                  className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors"
+                  className="flex items-center text-gray-600 hover:text-indigo-600 transition-colors dark:text-white"
                 >
                   <Tv className="h-4 w-4 mr-1" />
                   My Courses
@@ -293,9 +299,9 @@ const Header = () => {
                   <Input
                     type="text"
                     placeholder="Search courses..."
-                    className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 dark:text-white"
                   />
-                  <Search className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                  <Search className="h-5 w-5 text-gray-400 dark:text-white absolute left-3 top-1/2 transform -translate-y-1/2" />
                 </div>
               </div>
             </nav>

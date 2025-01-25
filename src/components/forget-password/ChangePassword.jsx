@@ -45,7 +45,6 @@ export default function ChangePassword() {
 
       startLoading();
       const result = await changePassword({ formData, token, userEmail });
-      console.log("result", result);
 
       if (result.status === "error") {
         toast.error(result.message);

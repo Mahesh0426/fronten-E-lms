@@ -71,8 +71,8 @@ const MyCoursePage = () => {
   }, [user?._id]);
 
   return (
-    <div className="p-4 dark:bg-gray-900 ">
-      <h1 className="text-3xl font-bold mb-8">My Courses</h1>
+    <div className="  p-4 dark:bg-gray-900 ">
+      <h1 className="text-3xl font-bold mb-8 dark:text-white">My Courses</h1>
       {isLoading ? (
         <PageLoadingSpinner />
       ) : (
@@ -147,7 +147,9 @@ const MyCoursePage = () => {
           )}
         </div>
       )}
-      <h1 className=" mt-10 text-2xl font-bold mb-4 ">Recommended Courses</h1>
+      <h1 className=" mt-10 text-2xl font-bold mb-4  dark:text-white">
+        Recommended Courses
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {recommendations && recommendations.length > 0 ? (
           recommendations.map((course) => (
@@ -194,7 +196,7 @@ const MyCoursePage = () => {
             </Card>
           ))
         ) : (
-          <p>no recommendation available </p>
+          <p className="dark:text-white">no recommendation available </p>
         )}
       </div>
     </div>

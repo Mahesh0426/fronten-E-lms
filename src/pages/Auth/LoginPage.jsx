@@ -1,10 +1,18 @@
 import { Badge } from "@/components/ui/badge";
 import { assets } from "@/assets/asset";
 import LoginForm from "@/components/log-in/LoginForm";
+import { Link } from "react-router-dom";
+import { MoveLeftIcon } from "lucide-react";
 
 const LoginPage = () => {
   return (
     <div className="container mx-auto min-h-screen mt-5 flex flex-col md:flex-row">
+      <Link to="/home">
+        {" "}
+        <div className="flex items-center justify-center gap-4 text-blue-600">
+          <MoveLeftIcon /> Back to Home
+        </div>
+      </Link>
       {/* left side */}
       <div className="flex flex-1 items-center justify-center mb-8 md:mb-0">
         <div className="flex flex-col items-center justify-center">

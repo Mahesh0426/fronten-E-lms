@@ -150,7 +150,7 @@ const StudentCourseDetailspage = () => {
   return (
     <div className=" dark:bg-gray-900 mx-auto p-4">
       {/* header */}
-      <div className="bg-gray-900 text-white p-8 rounded-t-lg">
+      <div className="bg-gray-800 text-white p-8 rounded-t-lg">
         <h1 className="text-3xl font-bold mb-4">
           {studentCourseDetails?.title}
         </h1>
@@ -269,7 +269,7 @@ const StudentCourseDetailspage = () => {
                   ? "Enrolled: Go to Course"
                   : "Enroll Now"}
               </Button>
-              <p className="mt-3">Test Card to Enroll</p>
+              <p className="mt-3">Use this Id to Enroll</p>
               <p>Email:kunwarmahesh28@gmail.com </p>
               <p>Password:test1234 </p>
             </CardContent>
