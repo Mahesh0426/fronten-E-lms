@@ -1,6 +1,9 @@
 # 🎓 Personalized E-Learning Management System
 This project is a feature-rich platform for personalized learning recommendations, developed using the MERN stack, designed to enhance the e-learning experience by tailoring course suggestions to individual user preferences.
 
+## backend repo 
+https://github.com/Mahesh0426/backend-E-lms
+
 ## 🌐 Live Demo
 [View Live Application](https://www.gyanx.xyz/)
 
