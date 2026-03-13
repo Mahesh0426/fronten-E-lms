@@ -35,7 +35,6 @@ const FeedbackSection = () => {
     } catch (error) {
       console.error("Submission error:", error);
       setResult("");
-      s;
     }
   };
 

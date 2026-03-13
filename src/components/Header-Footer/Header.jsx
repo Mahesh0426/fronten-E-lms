@@ -91,7 +91,7 @@ const Header = () => {
                 className="h-19 w-23 hover:cursor-pointer"
               />
             </Link>
-            <nav className="flex items-center space-x-8">
+            <nav className="flex items-center space-x-8footer">
               <Link
                 to="/"
                 className="text-gray-600 dark:text-white hover:text-indigo-600 transition-colors"
