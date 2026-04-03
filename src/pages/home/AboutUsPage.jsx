@@ -12,6 +12,7 @@ import {
   Rocket,
 } from "lucide-react";
 import sujanImage from "../../assets/sujan.png";
+import MaheshImage from "../../assets/mahesh.png";
 import { Link } from "react-router-dom";
 
 const AboutUsPage = () => {
@@ -143,13 +144,14 @@ const AboutUsPage = () => {
               {
                 name: "janamurty HK",
                 role: "Founder ",
-                image: "",
+                image:
+                  "https://images.unsplash.com/photo-1705645930353-0e335311ef20?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
               },
               {
                 name: "Bindu Ghimire",
                 role: "CEO",
                 image:
-                  "https://strapi-wasabi-bucket.apyhi.com/7_Features_Ai_powered_design_3_c153e8079b.webp",
+                  "https://media.istockphoto.com/id/2156062809/photo/headshot-closeup-portrait-middle-eastern-israel-businesswoman-business-lady-standing-isolated.jpg?s=1024x1024&w=is&k=20&c=FMZoDL-kjLTUfdDCCP21BaeUCft3MObtnLFfcAn268Y=",
               },
               {
                 name: "Sujit Maharjan",
@@ -177,8 +179,7 @@ const AboutUsPage = () => {
               {
                 name: "Mahesh Kunwar",
                 role: "Chief Technical Officer",
-                image:
-                  "https://media.licdn.com/dms/image/v2/D5603AQFSi_RU8JukFw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718243745328?e=1739404800&v=beta&t=3JSMgrGIXUW2dSjekbTHuk9TiBGE-duxyq_9tPGog18",
+                image: MaheshImage,
               },
             ].map((member, index) => (
               <Card

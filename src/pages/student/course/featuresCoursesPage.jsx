@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import PageLoadingSpinner from "@/components/helper/PageLoadingSpinner";
 import { fetchAllStudentCoursesAction } from "@/redux/student-course/studentCourseAction";
 import {
   Pagination,
@@ -23,7 +22,7 @@ const FeaturesCoursesPage = ({ search }) => {
   // Filter courses based on search input
   const searchCourses = Array.isArray(studentCourses)
     ? studentCourses.filter((course) =>
-        course.title?.toLowerCase().includes(search?.toLowerCase() || "")
+        course.title?.toLowerCase().includes(search?.toLowerCase() || ""),
       )
     : [];
 
@@ -32,7 +31,7 @@ const FeaturesCoursesPage = ({ search }) => {
   const indexOfFirstCourse = indexOfLastCourse - itemsPerPage;
   const currentCourses = searchCourses.slice(
     indexOfFirstCourse,
-    indexOfLastCourse
+    indexOfLastCourse,
   );
   const totalPages = Math.ceil(searchCourses.length / itemsPerPage);
 
@@ -99,7 +98,9 @@ const FeaturesCoursesPage = ({ search }) => {
             </p>
           )
         ) : (
-          <PageLoadingSpinner />
+          <div>
+            <p>No courses found</p>
+          </div>
         )}
       </div>
 

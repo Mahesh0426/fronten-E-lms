@@ -1,8 +1,7 @@
 import { assets } from "@/assets/asset";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  LayoutDashboard,
   LogInIcon,
   LogOut,
   Menu,
@@ -20,11 +19,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { setSearch } from "@/redux/student-course/studentCourseSlice";
 import { toggleDarkMode } from "@/redux/dark-mode/darkModeSlice";
 
 const Header = () => {
@@ -83,15 +80,15 @@ const Header = () => {
         {/* Main header content */}
         <div className="flex justify-between items-center h-16">
           {/* Desktop: Left - Logo and Nav Links */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/home">
+          <div className="hidden md:flex items-center space-x-8 ">
+            <Link to="/home" className="m-5">
               <img
                 src={assets.logo}
                 alt="logo"
                 className="h-19 w-23 hover:cursor-pointer"
               />
             </Link>
-            <nav className="flex items-center space-x-8footer">
+            <nav className="flex items-center space-x-8 ">
               <Link
                 to="/"
                 className="text-gray-600 dark:text-white hover:text-indigo-600 transition-colors"
@@ -109,7 +106,7 @@ const Header = () => {
                 to="/courses"
                 className="flex items-center  dark:text-white text-gray-600 hover:text-indigo-600 transition-colors"
               >
-                Explore Courses
+                Courses
               </Link>
             </nav>
           </div>

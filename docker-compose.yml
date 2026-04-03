@@ -1,0 +1,13 @@
+services:
+  # ── Frontend (React + Nginx) ──
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_APP_API_BASE_URL: ${VITE_APP_API_BASE_URL}
+        VITE_WEB3FORM_ACCESS_KEY: ${VITE_WEB3FORM_ACCESS_KEY}
+    container_name: gyanx-client
+    restart: unless-stopped
+    ports:
+      - "5174:80"

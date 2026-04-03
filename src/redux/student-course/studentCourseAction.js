@@ -12,7 +12,8 @@ import { toast } from "react-toastify";
 export const fetchAllStudentCoursesAction = (query) => async (dispatch) => {
   //call API
   const response = await fetchAllStudentCourses(query);
-  // console.log("response", response);
+
+  console.log("fetch all student courses", response);
 
   if (response?.status === "error") {
     return toast.error(response.message);
