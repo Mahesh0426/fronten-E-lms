@@ -1,0 +1,62 @@
+name: Deploy React client to Hostinger VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Deploy FE to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        env:
+          VITE_APP_API_BASE_URL: ${{ secrets.VITE_APP_API_BASE_URL }}
+          VITE_WEB3FORM_ACCESS_KEY: ${{ secrets.VITE_WEB3FORM_ACCESS_KEY }}
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          envs: VITE_APP_API_BASE_URL,VITE_WEB3FORM_ACCESS_KEY
+          script: |
+            set -e          # ← Stop immediately if any command fails
+
+            # Fix git safe directory issue
+            git config --global --add safe.directory /home/ubuntu/gyanx/fronten-E-lms
+
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "🚀 Deploying Server..."
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+            # ── Pull latest code ──
+            cd /home/ubuntu/gyanx/fronten-E-lms
+            git fetch origin main
+            git reset --hard origin/main
+            echo "✅ Code updated"
+
+            # ── Go to umbrella folder ──
+            cd /home/ubuntu/gyanx
+
+            # ── Overwrite .env.server fresh every deploy ──
+            cat > .env.client << EOF
+            VITE_APP_API_BASE_URL=${VITE_APP_API_BASE_URL}
+            VITE_WEB3FORM_ACCESS_KEY=${VITE_WEB3FORM_ACCESS_KEY}
+            EOF
+            echo "✅ .env.client created"
+
+            # ── Rebuild ONLY client ──
+            sudo docker compose build client    # client service name not a context name
+            sudo docker compose up -d --no-deps client
+            echo "✅ client container restarted"
+
+            sudo docker image prune -f
+            echo "✅ Cleanup done"
+
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "🎉 Deployment successful!"
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

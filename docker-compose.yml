@@ -3,11 +3,12 @@ services:
   client:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile #optional unless Dockerfile named Dockerfile and in same folder
       args:
         VITE_APP_API_BASE_URL: ${VITE_APP_API_BASE_URL}
         VITE_WEB3FORM_ACCESS_KEY: ${VITE_WEB3FORM_ACCESS_KEY}
     container_name: gyanx-client
+    image: gyanx-client
     restart: unless-stopped
     ports:
       - "5174:80"
